@@ -117,10 +117,10 @@ const Serumlar = () => {
   return (
     <>
     <Helmet>
-    <title>SERUMLAR | ETERNAL Sağlık Hizmetleri</title>
+    <title>Serumlar | Eternal Sağlık Hizmetleri</title>
     <meta
       name="description"
-      content="ETERNAL Sağlık Hizmetleri, çeşitli hastalıklar hakkında bilgi sağlar ve tedavi seçenekleri sunar."
+      content="Eternal Sağlık Hizmetleri, çeşitli hastalıklar hakkında bilgi sağlar ve tedavi seçenekleri sunar."
     />
     <meta
       name="keywords"

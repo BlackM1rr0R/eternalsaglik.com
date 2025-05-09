@@ -12,26 +12,26 @@ import { Helmet } from "react-helmet-async";
 const Home = () => {
   return (
     <>
-             <Helmet>
-            <title>Sakarya Sağlık Hizmetleri</title>
-            <meta
-              name="description"
-              content="ETERNAL Sağlık Hizmetleri ile kolayca randevunuzu ayarlayın ve en iyi sağlık hizmetlerini deneyimleyin."
-            />
-            <meta
-              name="keywords"
-              content="Randevu, Sağlık Hizmetleri, ETERNAL, Online Randevu, Klinik"
-            />
-           
-          </Helmet>
-        <Hero />
+      <Helmet>
+        <title>Eternal Sağlık Hizmetleri</title>
+        <meta
+          name="description"
+          content="ETERNAL Sağlık Hizmetleri ile kolayca randevunuzu ayarlayın ve en iyi sağlık hizmetlerini deneyimleyin."
+        />
+        <meta
+          name="keywords"
+          content="Randevu, Sağlık Hizmetleri, ETERNAL, Online Randevu, Klinik"
+        />
+
+      </Helmet>
+      <Hero />
       <Wrapper>
         <Main />
         <YusifAbout />
         <Logo />
         {/* <Hospital />
         <ChatApp /> */}
-  <LatestArticles/>
+        <LatestArticles />
 
       </Wrapper>
     </>

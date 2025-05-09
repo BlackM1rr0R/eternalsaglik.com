@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./index.module.css";
 import Wrapper from "../../UI/wrapper/index";
-import Logo from "../../../assets/images/logoeternal.png";
+import Logo from "../../../assets/images/logoeternal1.png";
 import { Sling as Hamburger } from "hamburger-react";
 import {
   
@@ -30,8 +30,8 @@ const Header = () => {
             <h2>Sağlık Hizmetleri</h2>
           </Link>
           <div className={styles.services}>
-            <Link to={"/idiopatik"}>Randevu</Link>
-            <Link to={"/kifoz"}>Hizmetlerimiz</Link>
+            <Link to={"/randevu"}>Randevu</Link>
+            <Link to={"/hizmetlerimiz"}>Hizmetlerimiz</Link>
             <Link to={"/about"}>Hakkımda</Link>
             <Link to={"/serumlar"}>Serumlar</Link>
             <Link to={"/gallery"}>Blog</Link>
