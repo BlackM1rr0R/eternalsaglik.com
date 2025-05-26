@@ -46,12 +46,18 @@
   align-items: center;
   gap: 5px;
 }
+.background .control .phoneHeader h3 {
+  color: red;
+  font-weight: 600;
+}
 .background .control .phoneHeader h1 {
   font-size: 24px;
   font-weight: 600;
 }
 .background .control .phoneHeader h2 {
   font-size: 18px;
+  color: red;
+  font-weight: 600;
 }
 .background .control .hamburger {
   display: flex;

@@ -23,9 +23,11 @@ const Footer = () => {
           <div className={styles.line2}>
             <h2>Sayfalar</h2>
             <ul>
+              <Link to={"https://www.hemsirenburada.com/"} target="_blank">İstanbul Sağlık Sitemiz</Link>
+              <Link to={"https://kantahlilim.com/"}>Kan Tahlili Sitemiz</Link>
               <Link to={"/"}>Ana Sayfa</Link>
-              <Link to={"/idiopatik"}>Randevu</Link>
-              <Link to={"/kifoz"}>Hizmetlerimiz</Link>
+              <Link to={"/randevu"}>Randevu</Link>
+              <Link to={"/hizmetlerimiz"}>Hizmetlerimiz</Link>
               <Link to={"/about"}>Hakkımızda</Link>
               <Link to={"/gallery"}>Blog</Link>
               <Link to={"/contact"}>İletişim</Link>

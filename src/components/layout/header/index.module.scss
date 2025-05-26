@@ -5,142 +5,170 @@
 }
 
 
-  .background {
-    background-color: #f9f9f8;
-    position: sticky;
-    top: 0;
-    z-index: 1000; 
-    .control {
+.background {
+  background-color: #f9f9f8;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 
+  .control {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    .images {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      text-decoration: none;
+      gap: 5px;
       align-items: center;
-      padding-top: 20px;
-      padding-bottom: 20px;
-      .images {
-        display: flex;
-        flex-direction: column;
-        text-decoration: none;
-       gap: 5px;
-        align-items: center;
-        h2{
-          display: none;
-          color: black;
-          text-decoration: none;
-          font-weight: 600;
-        }
-     
-        img {
-          width: 70px;
-        }
-      }
-      .services {
+
+      h2 {
         display: none;
-        a{
-          text-decoration: none;
-          color: black;
-        }
-        
+        color: black;
+        text-decoration: none;
+        font-weight: 600;
       }
-      .phoneHeader{
-       display: flex;
-       flex-direction: column;
-       align-items: center;
-       gap: 5px;
-       h1{
+
+      img {
+        width: 70px;
+      }
+    }
+
+    .services {
+      display: none;
+
+      a {
+        text-decoration: none;
+        color: black;
+      }
+
+    }
+
+    .phoneHeader {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+
+      h3 {
+        color: red;
+        font-weight: 600;
+      }
+
+      h1 {
         font-size: 24px;
         font-weight: 600;
 
-       }
-       h2{
+      }
+
+      h2 {
         font-size: 18px;
-       }
+        color: red;
+        font-weight: 600;
       }
-      .hamburger{
-        display: flex;
-        flex-direction: column;
-      }
-      .icons {
-        display: none;
-       
-      }
+
     }
-    .overlay{
+
+    .hamburger {
       display: flex;
       flex-direction: column;
-      .services{
-        display: flex;
-        gap: 10px;
-        flex-direction: column;
+    }
 
-        a{
-          text-decoration: none;
-          color: black;
-          padding-bottom: 15px;
-          padding-top: 15px;
-          font-size: 20px;
-          font-weight: 500;
-          border-bottom: 1px solid gray;
-        }
-      }
-      .icons{
-        display: flex;
-        gap: 20px;
+    .icons {
+      display: none;
+
+    }
+  }
+
+  .overlay {
+    display: flex;
+    flex-direction: column;
+
+    .services {
+      display: flex;
+      gap: 10px;
+      flex-direction: column;
+
+      a {
+        text-decoration: none;
+        color: black;
         padding-bottom: 15px;
         padding-top: 15px;
+        font-size: 20px;
+        font-weight: 500;
         border-bottom: 1px solid gray;
-        svg{
-          width: 20px;
-          height: 20px;
-        }
+      }
+    }
+
+    .icons {
+      display: flex;
+      gap: 20px;
+      padding-bottom: 15px;
+      padding-top: 15px;
+      border-bottom: 1px solid gray;
+
+      svg {
+        width: 20px;
+        height: 20px;
       }
     }
   }
-  @media(min-width:768px){
-      
-    .background{
-      .control{
-            
+}
+
+@media(min-width:768px) {
+
+  .background {
+    .control {
+
 
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding-top: 20px;
       padding-bottom: 20px;
+
       .images {
         gap: 2px;
+
         img {
-          width:50px;
+          width: 50px;
         }
-        h2{
+
+        h2 {
           display: block;
           font-size: 16px;
         }
       }
+
       .services {
         display: flex;
         align-items: center;
         gap: 30px;
       }
-      .phoneHeader{
+
+      .phoneHeader {
         display: none;
       }
-      .hamburger{
-   
-      }
+
+      .hamburger {}
+
       .icons {
         display: flex;
         align-items: center;
         gap: 22px;
+
         svg {
           cursor: pointer;
         }
       }
-    
-        .hamburger{
-          display: none;
-        }
+
+      .hamburger {
+        display: none;
       }
     }
   }
-
+}

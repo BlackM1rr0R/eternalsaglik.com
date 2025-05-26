@@ -397,28 +397,29 @@ const Details = () => {
                 aboutBeshil: "Sağlıklı yaşam tarzını benimsemek, disiplin ve kararlılık gerektirir. Yoğun iş temposu, stres ve diğer faktörler, sağlıklı yaşam alışkanlıklarını sürdürmeyi zorlaştırabilir.",
                 textBeshil: "Sağlıklı yaşam, bireylerin uzun vadede daha sağlıklı ve mutlu bir yaşam sürmelerine yardımcı olur."
             },
-            {
-                id: 19,
-                image: `${FAQPhoto}`,
-                text: "Sıkça Sorulan Sorular (SSS)",
-                textTwo: "Sağlık hizmetlerimiz ve tedavi yöntemlerimiz hakkında sıkça sorulan soruların yanıtlarını burada bulabilirsiniz.",
-                headerText: "Sıkça Sorulan Sorular (SSS)",
-                aboutHeaderText: "Sağlık hizmetlerimiz ve tedavi yöntemlerimiz hakkında sıkça sorulan soruların yanıtlarını burada bulabilirsiniz.",
-                typeHeaderText: "SSS:",
-                oneTypeHeader: "IV Terapiler Hakkında SSS:",
-                aboutOneTypeHeader: "IV terapiler nedir? IV terapiler nasıl uygulanır? IV terapilerin yan etkileri nelerdir?",
-                twoTypeHeader: "Laboratuvar Paketleri Hakkında SSS:",
-                aboutTwoTyperHeader: "Laboratuvar paketleri nedir? Laboratuvar paketleri nasıl kullanılır? Laboratuvar paketlerinin avantajları nelerdir?",
-                threeTypeHeader: "Sağlıklı Yaşam Hakkında SSS:",
-                aboutThreeTypeHeader: "Sağlıklı yaşam nedir? Sağlıklı yaşamın temel unsurları nelerdir? Sağlıklı yaşamın faydaları nelerdir?",
-                forKind: "Diğer SSS",
-                aboutKind: "Diğer sağlık hizmetlerimiz ve tedavi yöntemlerimiz hakkında sıkça sorulan soruların yanıtlarını burada bulabilirsiniz.",
-                whyIshal: "SSS'nin Avantajları",
-                aboutIshal: "SSS, hastalarımızın sağlık hizmetlerimiz ve tedavi yöntemlerimiz hakkında bilgi sahibi olmalarını sağlar. Bu sayede, hastalarımız daha bilinçli kararlar verebilir ve tedavi sürecini daha iyi anlayabilir.",
-                beshil: "SSS'nin Riskleri ve Yan Etkileri",
-                aboutBeshil: "SSS'nin herhangi bir riski veya yan etkisi bulunmamaktadır. Ancak, hastalarımızın doğru bilgiye ulaşabilmesi için SSS'nin güncel ve doğru bilgiler içermesi önemlidir.",
-                textBeshil: "SSS, hastalarımızın sağlık hizmetlerimiz ve tedavi yöntemlerimiz hakkında bilgi sahibi olmalarını sağlar ve tedavi sürecini daha iyi anlamalarına yardımcı olur."
-            }
+          {
+  id: 19,
+  image: `${FAQPhoto}`,
+  text: "Sıkça Sorulan Sorular (SSS)",
+  textTwo: "Sağlık hizmetlerimiz ve tedavi yöntemlerimiz hakkında sıkça sorulan soruların yanıtlarını burada bulabilirsiniz.",
+  headerText: "Sıkça Sorulan Sorular (SSS)",
+  aboutHeaderText: "Sağlık hizmetlerimiz ve tedavi yöntemlerimiz hakkında sıkça sorulan soruların yanıtlarını burada bulabilirsiniz.",
+  typeHeaderText: "SSS:",
+  oneTypeHeader: "IV Terapiler Hakkında SSS:",
+  aboutOneTypeHeader: "IV terapiler, vitamin ve minerallerin doğrudan damardan verilmesiyle uygulanan tedavilerdir. Uygulama uzman sağlık personeli tarafından steril ortamda gerçekleştirilir. Genellikle güvenlidir, ancak nadiren baş dönmesi, mide bulantısı veya enjeksiyon yerinde ağrı gibi yan etkiler görülebilir.",
+  twoTypeHeader: "Laboratuvar Paketleri Hakkında SSS:",
+  aboutTwoTyperHeader: "Laboratuvar paketleri, belirli sağlık taramaları için oluşturulan test gruplarıdır. Uygulama sırasında kan veya diğer örnekler alınarak analiz yapılır. Bu paketler, daha ekonomik ve kapsamlı sağlık değerlendirmesi sağlar.",
+  threeTypeHeader: "Sağlıklı Yaşam Hakkında SSS:",
+  aboutThreeTypeHeader: "Sağlıklı yaşam; dengeli beslenme, düzenli egzersiz, yeterli uyku ve stres yönetimini kapsar. Bu unsurlar vücudun genel dengesini sağlar. Sağlıklı yaşam, kronik hastalıkları önler, enerjiyi artırır ve yaşam kalitesini yükseltir.",
+  forKind: "Diğer SSS",
+  aboutKind: "Diğer sağlık hizmetlerimiz ve tedavi yöntemlerimiz hakkında sıkça sorulan soruların yanıtlarını burada bulabilirsiniz.",
+  whyIshal: "SSS'nin Avantajları",
+  aboutIshal: "SSS, hastalarımızın sağlık hizmetlerimiz ve tedavi yöntemlerimiz hakkında bilgi sahibi olmalarını sağlar. Bu sayede, hastalarımız daha bilinçli kararlar verebilir ve tedavi sürecini daha iyi anlayabilir.",
+  beshil: "SSS'nin Riskleri ve Yan Etkileri",
+  aboutBeshil: "SSS'nin herhangi bir riski veya yan etkisi bulunmamaktadır. Ancak, hastalarımızın doğru bilgiye ulaşabilmesi için SSS'nin güncel ve doğru bilgiler içermesi önemlidir.",
+  textBeshil: "SSS, hastalarımızın sağlık hizmetlerimiz ve tedavi yöntemlerimiz hakkında bilgi sahibi olmalarını sağlar ve tedavi sürecini daha iyi anlamalarına yardımcı olur."
+}
+
 
 
 
