@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./index.module.css";
 import Wrapper from "../../UI/wrapper/index";
-import Logo from "../../../assets/images/logoeternal.png";
+import Logo from "../../../assets/images/logoeternal1.png";
 import {  InstagramIcon  } from "../../../icons";
 import { Link } from "react-router-dom";
 const Footer = () => {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./index.module.css";
 import Wrapper from "../../UI/wrapper/index";
-import Logo from "../../../assets/images/logoeternal1.png";
+import Logo from "../../../assets/images/logoresmi.png";
 import { Sling as Hamburger } from "hamburger-react";
 import {
 
@@ -25,7 +25,7 @@ const Header = () => {
       <Wrapper>
         <div className={styles.control}>
           <Link to={"/"} className={styles.images}>
-            <img src={Logo} alt="" />
+            <img src={Logo} alt="Logo" />
             <h2>ETERNAL</h2>
             <h2>Sağlık Hizmetleri</h2>
           </Link>
