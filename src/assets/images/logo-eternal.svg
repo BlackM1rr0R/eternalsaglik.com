@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="92" fill="white" stroke="#0d9488" stroke-width="3"/>
+
+  <!-- Inner teal circle -->
+  <circle cx="100" cy="100" r="78" fill="#f0fdfa"/>
+
+  <!-- Cross/Plus (medical) -->
+  <rect x="82" y="52" width="36" height="96" rx="8" fill="#0d9488"/>
+  <rect x="52" y="82" width="96" height="36" rx="8" fill="#0d9488"/>
+
+  <!-- Heart in center -->
+  <path d="M90 88 C90 82 95 78 100 82 C105 78 110 82 110 88 C110 96 100 104 100 104 C100 104 90 96 90 88Z" fill="white"/>
+
+  <!-- Pulse line -->
+  <path d="M68 100 L82 100 L88 90 L94 110 L100 95 L106 105 L112 100 L132 100" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+</svg>

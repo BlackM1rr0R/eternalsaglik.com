@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./index.module.css";
 import Wrapper from "../../UI/wrapper/index";
-import Logo from "../../../assets/images/logoresmi.png";
+import Logo from "../../../assets/images/logo-eternal.svg";
 import { Sling as Hamburger } from "hamburger-react";
 import { FaInstagram, FaPhoneAlt } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
