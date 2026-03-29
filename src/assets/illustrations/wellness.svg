@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#f0fdf4"/>
+  <circle cx="200" cy="75" r="28" fill="#fbbf24" opacity="0.15"/>
+  <circle cx="200" cy="75" r="18" fill="#fbbf24" opacity="0.1"/>
+  <line x1="200" y1="40" x2="200" y2="30" stroke="#fbbf24" stroke-width="2" opacity="0.25" stroke-linecap="round"/>
+  <line x1="225" y1="52" x2="232" y2="45" stroke="#fbbf24" stroke-width="2" opacity="0.25" stroke-linecap="round"/>
+  <line x1="175" y1="52" x2="168" y2="45" stroke="#fbbf24" stroke-width="2" opacity="0.25" stroke-linecap="round"/>
+  <path d="M180 140 C180 115 215 105 232 122 C250 140 232 175 210 175 C192 175 180 158 180 140Z" fill="#dcfce7" stroke="#16a34a" stroke-width="2" opacity="0.6"/>
+  <path d="M192 165 C198 150 212 138 230 128" stroke="#16a34a" stroke-width="1.5" fill="none" opacity="0.3"/>
+  <path d="M155 185 C155 172 168 166 176 174 C184 166 197 172 197 185 C197 202 176 215 176 215 C176 215 155 202 155 185Z" fill="#f43f5e" opacity="0.1"/>
+  <text x="200" y="262" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="18" font-weight="700" fill="#166534">Saglikli Yasam</text>
+</svg>

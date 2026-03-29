@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#f0fdfa"/>
+  <circle cx="200" cy="68" r="20" fill="#ccfbf1" stroke="#0d9488" stroke-width="2"/>
+  <line x1="200" y1="88" x2="200" y2="160" stroke="#0d9488" stroke-width="3" stroke-linecap="round"/>
+  <line x1="200" y1="115" x2="155" y2="95" stroke="#0d9488" stroke-width="3" stroke-linecap="round"/>
+  <line x1="200" y1="115" x2="245" y2="95" stroke="#0d9488" stroke-width="3" stroke-linecap="round"/>
+  <line x1="200" y1="160" x2="165" y2="215" stroke="#0d9488" stroke-width="3" stroke-linecap="round"/>
+  <line x1="200" y1="160" x2="235" y2="215" stroke="#0d9488" stroke-width="3" stroke-linecap="round"/>
+  <rect x="135" y="82" width="22" height="9" rx="3" fill="#14b8a6" opacity="0.35"/>
+  <circle cx="135" cy="87" r="7" fill="#14b8a6" opacity="0.25"/>
+  <circle cx="157" cy="87" r="7" fill="#14b8a6" opacity="0.25"/>
+  <path d="M258 105 C265 100 272 105" stroke="#0d9488" stroke-width="1.5" fill="none" opacity="0.25"/>
+  <path d="M262 113 C269 108 276 113" stroke="#0d9488" stroke-width="1.5" fill="none" opacity="0.2"/>
+  <text x="200" y="262" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="18" font-weight="700" fill="#115e59">Fizik Tedavi</text>
+</svg>

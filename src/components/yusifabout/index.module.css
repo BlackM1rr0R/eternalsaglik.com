@@ -1,351 +1,144 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.section {
+  padding: var(--section-py-mobile) 0;
 }
 
-.background {
-  padding-top: 50px;
+.header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
 }
-.background .control .headerText {
+
+.badge {
+  display: inline-block;
+  background: var(--teal-50);
+  color: var(--primary);
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--teal-200);
+}
+
+.header h2 {
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+
+.header p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  max-width: 500px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: all 0.4s var(--ease);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-xl);
+  border-color: var(--teal-200);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.iconWrap {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.background .control .headerText h2 {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 72px;
-  font-weight: 600;
-}
-.background .control .headerText h2 h1 {
-  font-size: 72px;
-  color: #6E4EEF;
-  font-weight: 600;
-}
-.background .control .boxOne {
-  display: flex;
-  justify-content: space-between;
-}
-.background .control .boxOne .leftBox {
-  width: 40%;
-}
-.background .control .boxOne .leftBox h1 {
-  font-size: 32px;
-  font-weight: 600;
-}
-.background .control .boxOne .leftBox .controlLeftBox {
-  margin-top: 30px;
-  background-color: #DFEED7;
-  padding: 30px;
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-}
-.background .control .boxOne .leftBox .controlLeftBox .leftBoxText {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 100px;
-}
-.background .control .boxOne .leftBox .controlLeftBox .leftBoxText .leftBoxHeader h2 {
-  color: #439A75;
-}
-.background .control .boxOne .leftBox .controlLeftBox .leftBoxText .leftBoxBottom {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.background .control .boxOne .leftBox .controlLeftBox .leftBoxText .leftBoxBottom h2 {
-  font-size: 28px;
-  font-weight: 600;
-}
-.background .control .boxOne .leftBox .controlLeftBox .leftBoxText .leftBoxBottom p {
-  width: 400px;
-}
-.background .control .boxOne .controlMiddleBox {
-  background-color: #F9E8D6;
-  width: 28%;
-  padding: 30px;
-  border-radius: 10px;
-}
-.background .control .boxOne .controlMiddleBox .middleBoxText {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 108px;
-}
-.background .control .boxOne .controlMiddleBox .middleBoxText .middleBoxHeader h2 {
-  color: #ED8E61;
-}
-.background .control .boxOne .controlMiddleBox .middleBoxText .middleBoxBottom {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-.background .control .boxOne .controlMiddleBox .middleBoxText .middleBoxBottom h2 {
-  font-size: 28px;
-  font-weight: 600;
-}
-.background .control .boxOne .controlMiddleBox .middleBoxText .middleBoxBottom p {
-  max-width: 400px;
-  line-height: 22px;
-}
-.background .control .boxOne .controlRightBox {
-  background-color: #E6DEEB;
-  width: 28%;
-  padding: 30px;
-  border-radius: 10px;
-}
-.background .control .boxOne .controlRightBox .rightBoxText {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 108px;
-}
-.background .control .boxOne .controlRightBox .rightBoxText .rightBoxHeader h2 {
-  color: #A68CD0;
-}
-.background .control .boxOne .controlRightBox .rightBoxText .rightBoxBottom {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-.background .control .boxOne .controlRightBox .rightBoxText .rightBoxBottom h2 {
-  font-size: 28px;
-  font-weight: 600;
-}
-.background .control .boxOne .controlRightBox .rightBoxText .rightBoxBottom p {
-  max-width: 400px;
-  line-height: 22px;
-}
-.background .control .boxTwo {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 17px;
-  gap: 17px;
-}
-.background .control .boxTwo .controlFiveBox {
-  width: 100%;
-  background-color: #DFEED7;
-  padding: 30px;
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-}
-.background .control .boxTwo .controlFiveBox .fiveBoxText {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 100px;
-}
-.background .control .boxTwo .controlFiveBox .fiveBoxText .fiveBoxHeader h2 {
-  color: #439A75;
-}
-.background .control .boxTwo .controlFiveBox .fiveBoxText .fiveBoxBottom {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.background .control .boxTwo .controlFiveBox .fiveBoxText .fiveBoxBottom h2 {
-  font-size: 28px;
-  font-weight: 600;
-}
-.background .control .boxTwo .controlFiveBox .fiveBoxText .fiveBoxBottom p {
-  width: 400px;
-}
-.background .control .boxTwo .controlForBox {
-  background-color: #E6DEEB;
-  width: 24%;
-  padding: 30px;
-  border-radius: 10px;
-}
-.background .control .boxTwo .controlForBox .forBox {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.background .control .boxTwo .controlForBox .forBox .forBoxHeader h2 {
-  color: #A68CD0;
-}
-.background .control .boxTwo .controlForBox .forBox .forBoxBottom {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-.background .control .boxTwo .controlForBox .forBox .forBoxBottom h2 {
-  font-size: 28px;
-  font-weight: 600;
-}
-.background .control .boxTwo .controlForBox .forBox .forBoxBottom p {
-  max-width: 400px;
-  line-height: 22px;
-}
-.background .control .boxThree {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 17px;
-  gap: 17px;
-}
-.background .control .boxThree .controlFiveBox {
-  width: 100%;
-  background-color: #F8F0D2;
-  padding: 30px;
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-}
-.background .control .boxThree .controlFiveBox .fiveBoxText {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 100px;
-}
-.background .control .boxThree .controlFiveBox .fiveBoxText .fiveBoxHeader h2 {
-  color: #439A75;
-}
-.background .control .boxThree .controlFiveBox .fiveBoxText .fiveBoxBottom {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.background .control .boxThree .controlFiveBox .fiveBoxText .fiveBoxBottom h2 {
-  font-size: 28px;
-  font-weight: 600;
-}
-.background .control .boxThree .controlFiveBox .fiveBoxText .fiveBoxBottom p {
-  width: 400px;
-}
-.background .control .boxThree .controlForBox {
-  background-color: #E6DEEB;
-  width: 24%;
-  padding: 30px;
-  border-radius: 10px;
-}
-.background .control .boxThree .controlForBox .forBox {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.background .control .boxThree .controlForBox .forBox .forBoxHeader h2 {
-  color: #A68CD0;
-}
-.background .control .boxThree .controlForBox .forBox .forBoxBottom {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-.background .control .boxThree .controlForBox .forBox .forBoxBottom h2 {
-  font-size: 28px;
-  font-weight: 600;
-}
-.background .control .boxThree .controlForBox .forBox .forBoxBottom p {
-  max-width: 400px;
-  line-height: 22px;
+  font-size: 22px;
+  transition: transform 0.3s ease;
 }
 
-@media (max-width: 498px) {
-  .background .control .headerText h2 {
-    font-size: 24px;
+.card:hover .iconWrap {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.num {
+  font-size: 32px;
+  font-weight: 800;
+  opacity: 0.15;
+}
+
+.card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.card p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.cardLine {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  transition: width 0.5s var(--ease);
+}
+
+.card:hover .cardLine {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  .background .control .headerText h2 h1 {
-    font-size: 24px;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: var(--section-py) 0;
   }
-  .background .control .boxOne {
-    display: flex;
-    flex-direction: column;
+
+  .header h2 {
+    font-size: 36px;
+  }
+
+  .header {
+    margin-bottom: 50px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
   }
-  .background .control .boxOne .leftBox {
-    width: 100%;
+
+  .card {
+    padding: 32px;
   }
-  .background .control .boxOne .leftBox h1 {
-    font-size: 20px;
-  }
-  .background .control .boxOne .leftBox .controlLeftBox .leftBoxText .leftBoxBottom h2 {
-    font-size: 18px;
-  }
-  .background .control .boxOne .leftBox .controlLeftBox .leftBoxText .leftBoxBottom p {
-    width: 100%;
-    font-size: 16px;
-  }
-  .background .control .boxOne .controlMiddleBox {
-    width: 100%;
-  }
-  .background .control .boxOne .controlMiddleBox .middleBoxText .middleBoxBottom h2 {
-    font-size: 18px;
-  }
-  .background .control .boxOne .controlMiddleBox .middleBoxText .middleBoxBottom p {
-    width: 100%;
-    font-size: 16px;
-  }
-  .background .control .boxOne .controlRightBox {
-    width: 100%;
-  }
-  .background .control .boxOne .controlRightBox .rightBoxText .rightBoxBottom h2 {
-    font-size: 18px;
-  }
-  .background .control .boxOne .controlRightBox .rightBoxText .rightBoxBottom p {
-    width: 100%;
-    font-size: 16px;
-  }
-  .background .control .boxTwo {
-    display: flex;
-    flex-direction: column;
-  }
-  .background .control .boxTwo .controlForBox {
-    width: 100%;
-  }
-  .background .control .boxTwo .controlForBox .forBox {
-    display: flex;
-    flex-direction: column;
-    gap: 100px;
-  }
-  .background .control .boxTwo .controlForBox .forBox .forBoxBottom h2 {
-    font-size: 18px;
-  }
-  .background .control .boxTwo .controlForBox .forBox .forBoxBottom p {
-    width: 100%;
-    font-size: 16px;
-  }
-  .background .control .boxTwo .controlFiveBox {
-    width: 100%;
-  }
-  .background .control .boxTwo .controlFiveBox .fiveBoxText .fiveBoxBottom h2 {
-    font-size: 18px;
-  }
-  .background .control .boxTwo .controlFiveBox .fiveBoxText .fiveBoxBottom p {
-    width: 100%;
-    font-size: 16px;
-  }
-  .background .control .boxThree {
-    display: flex;
-    flex-direction: column;
-  }
-  .background .control .boxThree .controlForBox {
-    width: 100%;
-  }
-  .background .control .boxThree .controlForBox .forBox {
-    display: flex;
-    flex-direction: column;
-    gap: 100px;
-  }
-  .background .control .boxThree .controlForBox .forBox .forBoxBottom h2 {
-    font-size: 18px;
-  }
-  .background .control .boxThree .controlForBox .forBox .forBoxBottom p {
-    width: 100%;
-    font-size: 16px;
-  }
-  .background .control .boxThree .controlFiveBox {
-    width: 100%;
-  }
-  .background .control .boxThree .controlFiveBox .fiveBoxText .fiveBoxBottom h2 {
-    font-size: 18px;
-  }
-  .background .control .boxThree .controlFiveBox .fiveBoxText .fiveBoxBottom p {
-    width: 100%;
-    font-size: 16px;
-  }
-}/*# sourceMappingURL=index.module.css.map */
+}

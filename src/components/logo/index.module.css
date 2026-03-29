@@ -1,5 +1,64 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}/*# sourceMappingURL=index.module.css.map */
+.section {
+  padding: var(--section-py-mobile) 0;
+}
+
+.header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.badge {
+  display: inline-block;
+  background: var(--amber-50);
+  color: var(--accent-dark);
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--amber-100);
+}
+
+.header h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+
+.header p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  max-width: 450px;
+}
+
+.widgetWrap {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.widget {
+  width: 100%;
+  min-height: 200px;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: var(--section-py) 0;
+  }
+
+  .header h2 {
+    font-size: 36px;
+  }
+
+  .widgetWrap {
+    padding: 32px;
+  }
+}

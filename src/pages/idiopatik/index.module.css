@@ -1,226 +1,327 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.page {
+  padding-bottom: 60px;
 }
 
-.background .fixedCall {
-  display: none;
-}
-.background .positionOverlay {
+/* CTA Hero */
+.ctaHero {
+  background: linear-gradient(135deg, #115e59 0%, #0d9488 50%, #14b8a6 100%);
+  padding: 60px 0;
   position: relative;
-  width: 100%;
+  overflow: hidden;
 }
-.background .positionOverlay .overlay {
-  background-color: white;
-  border: 1px solid #DFDEE0;
-  border-radius: 20px;
-  padding: 25px 17px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+.ctaHero::before {
+  content: '';
   position: absolute;
-  top: -8%;
-  right: -1%;
-  transform: translate(1%, 8%);
+  top: -50%;
+  right: -20%;
+  width: 400px;
+  height: 400px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%;
 }
-.background .positionOverlay .overlay .controlOverlay {
+
+.ctaContent {
+  text-align: center;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.ctaIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  display: flex;
+  align-items: center;
   justify-content: center;
+  font-size: 28px;
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
+.ctaContent h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: white;
+}
+
+.ctaContent p {
+  color: rgba(255,255,255,0.85);
+  font-size: 16px;
+  max-width: 400px;
+}
+
+.ctaButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+  width: 100%;
+  max-width: 350px;
+}
+
+.callBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: white;
+  color: #115e59;
+  padding: 16px 32px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  transition: all 0.3s var(--ease);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.callBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.callBtnAlt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: transparent;
+  color: white;
+  padding: 14px 32px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  border: 2px solid rgba(255,255,255,0.4);
+  transition: all 0.3s var(--ease);
+}
+
+.callBtnAlt:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.7);
+}
+
+/* Doctor Section */
+.doctorSection {
+  padding: 40px 0;
+}
+
+.doctorCard {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 20px;
-}
-.background .positionOverlay .overlay .controlOverlay svg {
-  border: 2px solid #FEDDDF;
-  border-radius: 50%;
-  padding: 8px;
-  width: 40px;
-  height: 40px;
-}
-.background .positionOverlay .overlay .controlOverlay h2 {
   text-align: center;
-  font-weight: 600;
-}
-.background .positionOverlay .overlay .controlOverlay p {
-  text-align: center;
-  color: #8E8D91;
-  width: 400px;
-}
-.background .positionOverlay .overlay .controlOverlay a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  text-decoration: none;
-  background-color: #F0EDFD;
-  border-radius: 10px;
-  border: none;
-  color: #6E4EEF;
-  padding: 17px 0;
-  width: 100%;
-  font-weight: 600;
-  font-size: 16px;
-}
-.background .positionOverlay .overlay .controlOverlay a svg {
-  border: none;
-  border-radius: 0;
-  padding: 0;
-  width: 15px;
-  height: 15px;
-}
-.background .control {
-  background-color: rgba(154, 131, 244, 0.2117647059);
-}
-.background .control .doctorBack {
-  max-width: 1440px;
-  margin: auto;
-  display: flex;
-  padding: 24px 20px;
-  gap: 24px;
-}
-.background .control .doctorBack .imagesControl img {
-  width: 170px;
-  height: 150px;
-  border-radius: 50%;
-}
-.background .control .doctorBack .textControl {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.background .control .doctorBack .textControl h2 {
-  color: #372778;
-  font-size: 32px;
-  font-weight: 600;
-}
-.background .control .doctorBack .textControl h3 {
-  color: #8E8D91;
-}
-.background .aboutDoctor {
-  margin-top: 25px;
-  border: 1px solid #DFDEE0;
-  padding: 25px;
-  width: 70%;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-.background .aboutDoctor .aboutMe {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.background .aboutDoctor .aboutMe .aboutIcon {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.background .aboutDoctor .aboutMe .aboutIcon h2 {
-  color: #9983F4;
-  font-weight: 600;
-}
-.background .aboutDoctor .aboutMe p {
-  line-height: 25px;
-}
-.background .aboutDoctor .skillsDoctor {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.background .aboutDoctor .skillsDoctor .skillsIcon {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.background .aboutDoctor .skillsDoctor .skillsIcon h2 {
-  color: #9983F4;
-  font-weight: 600;
-}
-.background .aboutDoctor .skillsDoctor .listSkills {
-  padding-left: 25px;
-  list-style-type: disc;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.background .aboutDoctor .skillsDoctor li::marker {
-  color: #CECED0;
-}
-.background .aboutDoctor .documentDoctor {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.background .aboutDoctor .documentDoctor .documentIcon {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.background .aboutDoctor .documentDoctor .documentIcon h2 {
-  color: #9983F4;
-  font-weight: 600;
-}
-.background .aboutDoctor .documentDoctor .listDocument {
-  padding-left: 25px;
-  list-style-type: disc;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.background .aboutDoctor .documentDoctor li::marker {
-  color: #CECED0;
-}
-.background .aboutDoctor .klinikDoctor {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.background .aboutDoctor .klinikDoctor .klinikIcon {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.background .aboutDoctor .klinikDoctor .klinikIcon h2 {
-  color: #9983F4;
-  font-weight: 600;
 }
 
-@media (max-width: 498px) {
-  .background .overlay {
-    display: none;
-  }
-  .background .fixedCall {
+.doctorImg {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--teal-100);
+  box-shadow: var(--shadow-lg);
+}
+
+.doctorInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.doctorInfo h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.doctorBadge {
+  display: inline-block;
+  background: var(--teal-50);
+  color: var(--primary);
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--teal-200);
+}
+
+.doctorInfo p {
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+/* Skills */
+.skillsSection {
+  margin-top: 20px;
+}
+
+.sectionHeader {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.badge {
+  display: inline-block;
+  background: var(--teal-50);
+  color: var(--primary);
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--teal-200);
+}
+
+.sectionHeader h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.skillsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.skillTag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  transition: all 0.25s ease;
+  cursor: default;
+}
+
+.skillTag svg {
+  color: var(--primary);
+  font-size: 12px;
+}
+
+.skillTag:hover {
+  border-color: var(--teal-200);
+  background: var(--teal-50);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Clinic Box */
+.clinicBox {
+  margin-top: 48px;
+  background: linear-gradient(135deg, var(--teal-50), var(--teal-100));
+  border-radius: var(--radius-xl);
+  padding: 40px 28px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--teal-200);
+}
+
+.clinicIcon {
+  font-size: 36px;
+  color: var(--primary);
+}
+
+.clinicBox h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--teal-800);
+}
+
+.clinicBox p {
+  color: var(--text-secondary);
+  font-size: 15px;
+  font-style: italic;
+}
+
+/* Fixed Call (mobile only) */
+.fixedCall {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .fixedCall {
     display: block;
     position: fixed;
-    top: 96%;
-    left: 50%;
-    transform: translate(-50%, -96%);
-    width: 90%;
-    margin: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    padding: 12px 16px;
+    background: white;
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
   }
-  .background .fixedCall a {
+
+  .fixedCall a {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    text-decoration: none;
-    background-color: #F0EDFD;
-    border-radius: 10px;
-    border: none;
-    color: #6E4EEF;
-    padding: 17px 0;
-    width: 100%;
+    background: var(--primary);
+    color: white;
+    padding: 14px;
+    border-radius: var(--radius-lg);
     font-weight: 600;
-    font-size: 16px;
+    font-size: 15px;
+    text-decoration: none;
+    box-shadow: var(--shadow-primary);
   }
-  .background .fixedCall a svg {
-    border: none;
-    border-radius: 0;
-    padding: 0;
-    width: 15px;
-    height: 15px;
+}
+
+@media (min-width: 768px) {
+  .ctaHero {
+    padding: 80px 0;
   }
-  .background .aboutDoctor {
-    width: 100%;
+
+  .ctaContent h1 {
+    font-size: 42px;
   }
-}/*# sourceMappingURL=index.module.css.map */
+
+  .ctaButtons {
+    flex-direction: row;
+    max-width: none;
+    width: auto;
+  }
+
+  .doctorCard {
+    flex-direction: row;
+    text-align: left;
+    gap: 30px;
+  }
+
+  .doctorImg {
+    width: 160px;
+    height: 160px;
+  }
+
+  .sectionHeader h2 {
+    font-size: 34px;
+  }
+
+  .clinicBox {
+    padding: 60px 40px;
+  }
+
+  .clinicBox h2 {
+    font-size: 28px;
+  }
+}

@@ -1,130 +1,247 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.page {
+  padding: 30px 0 80px;
 }
 
-.background .images {
-  position: relative;
-  text-align: center;
-}
-.background .images .imageWrapper {
-  position: relative;
-  display: inline-block;
-}
-.background .images .imageWrapper img {
-  display: block;
-  width: 1440px;
-  height: 70vh;
-}
-.background .images .imageWrapper::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
-  z-index: 1;
-}
-.background .images h2 {
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-  z-index: 2;
-  font-size: 50px;
-  width: 100%;
-}
-.background .textTwoBack {
-  display: flex;
-  justify-content: center;
+.backLink {
+  display: inline-flex;
   align-items: center;
-  background-color: #F1F1F2;
-  padding-top: 60px;
-  padding-bottom: 60px;
-}
-.background .textTwoBack p {
-  width: 700px;
-  line-height: 30px;
-}
-.background .headerText {
-  width: 50%;
-  margin: auto;
-  padding-top: 88px;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  gap: 27px;
-}
-.background .headerText h1 {
-  color: #6E4EEF;
-  font-size: 32px;
-}
-.background .headerText p {
-  line-height: 28px;
-}
-.background .headerText h3 {
-  color: #6E4EEF;
-}
-.background .headerText h3 h2 {
-  color: black;
-  line-height: 28px;
-}
-.background .garantie {
-  margin-top: 88px;
-  background-color: #E8F7F8;
-  padding-top: 100px;
-  padding-bottom: 100px;
-}
-.background .garantie .controlGarantie {
-  width: 50%;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-.background .garantie .controlGarantie button {
-  width: 200px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  background-color: #BBE8E9;
-  color: #147C7F;
-  border: #8ED8DA;
-  padding: 8px 24px;
-  border-radius: 30px;
-}
-.background .garantie .controlGarantie h1 {
-  color: #0F595B;
-  font-size: 32px;
+  gap: 8px;
+  color: var(--primary);
+  font-size: 14px;
   font-weight: 600;
-}
-.background .garantie .controlGarantie h2 {
-  line-height: 30px;
+  margin-bottom: 24px;
+  transition: gap 0.3s ease;
 }
 
-@media (max-width: 498px) {
-  .background .images .imageWrapper img {
-    width: 100%;
-    height: 30vh;
+.backLink:hover {
+  gap: 12px;
+}
+
+/* Hero */
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-bottom: 48px;
+}
+
+.heroImage {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  font-size: 0;
+  line-height: 0;
+}
+
+.heroImage img {
+  width: 100%;
+  display: block;
+}
+
+.heroInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.heroInfo h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.heroInfo p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* Section */
+.section {
+  margin-bottom: 36px;
+}
+
+.section h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.section p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* Types grid */
+.typesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.typeCard {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.3s var(--ease);
+}
+
+.typeCard:hover {
+  border-color: var(--teal-200);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+.typeNum {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--teal-200);
+}
+
+.typeCard h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.typeCard p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Info card */
+.infoCard {
+  background: var(--teal-50);
+  border: 1px solid var(--teal-200);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  margin-bottom: 24px;
+}
+
+.infoCard h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin-bottom: 10px;
+}
+
+.infoCard p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* Why card */
+.whyCard {
+  background: var(--blue-50);
+  border: 1px solid var(--blue-200);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  margin-bottom: 24px;
+}
+
+.whyCard h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--secondary-dark);
+  margin-bottom: 10px;
+}
+
+.whyCard p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* Content card */
+.contentCard {
+  background: var(--amber-50);
+  border: 1px solid var(--amber-100);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  margin-bottom: 36px;
+}
+
+.contentCard h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent-dark);
+  margin-bottom: 10px;
+}
+
+.contentCard p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* Trust box */
+.trustBox {
+  background: linear-gradient(135deg, #115e59, #0d9488);
+  border-radius: var(--radius-xl);
+  padding: 36px 28px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.trustIcon {
+  color: rgba(255,255,255,0.6);
+  font-size: 32px;
+}
+
+.trustBox h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+}
+
+.trustBox p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.7;
+  max-width: 550px;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: 40px 0 100px;
   }
-  .background .images h2 {
-    font-size: 32px;
+
+  .hero {
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
   }
-  .background .textTwoBack {
-    padding: 30px 40px;
+
+  .heroImage {
+    flex: 0 0 380px;
   }
-  .background .headerText {
-    width: 100%;
-    padding-top: 40px;
+
+  .heroInfo h1 {
+    font-size: 36px;
   }
-  .background .garantie {
-    margin-top: 40px;
-    padding: 40px 30px;
+
+  .typesGrid {
+    grid-template-columns: repeat(3, 1fr);
   }
-  .background .garantie .controlGarantie {
-    width: 100%;
+
+  .trustBox {
+    padding: 48px 40px;
   }
-}/*# sourceMappingURL=index.module.css.map */
+
+  .trustBox h2 {
+    font-size: 26px;
+  }
+}

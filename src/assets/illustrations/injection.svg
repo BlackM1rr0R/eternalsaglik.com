@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#eff6ff"/>
+  <rect x="165" y="50" width="70" height="165" rx="10" fill="white" stroke="#3b82f6" stroke-width="2.5"/>
+  <rect x="180" y="80" width="40" height="8" rx="2" fill="#dbeafe"/>
+  <rect x="180" y="98" width="40" height="8" rx="2" fill="#dbeafe"/>
+  <rect x="180" y="116" width="40" height="8" rx="2" fill="#dbeafe"/>
+  <rect x="180" y="134" width="40" height="8" rx="2" fill="#dbeafe"/>
+  <rect x="190" y="215" width="20" height="25" rx="3" fill="#3b82f6" opacity="0.35"/>
+  <line x1="200" y1="240" x2="200" y2="252" stroke="#3b82f6" stroke-width="2" opacity="0.4"/>
+  <rect x="188" y="38" width="24" height="16" rx="4" fill="#3b82f6" opacity="0.25"/>
+  <text x="200" y="280" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="18" font-weight="700" fill="#1e40af">Enjeksiyon</text>
+</svg>

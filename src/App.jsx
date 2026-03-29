@@ -3,58 +3,79 @@ import "./App.css";
 import { routeArr } from "./routes";
 import Header from "./components/layout/header";
 import Footer from "./components/layout/footer";
+import WhatsAppButton from "./components/whatsapp";
+import ScrollToTopButton from "./components/scrolltopbutton";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import ScrollToTop from "./components/scrolltop";
 import { AnimatePresence, motion } from "framer-motion";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+import { HelmetProvider } from "react-helmet-async";
+
+const pageVariants = {
+  initial: {
+    opacity: 0,
+    y: 24,
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -16,
+    transition: {
+      duration: 0.3,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  },
+};
 
 function App() {
   return (
     <HelmetProvider>
-
-    <BrowserRouter>
-      <ScrollToTop>
-        <AnimatedRoutes />
-      </ScrollToTop>
-    </BrowserRouter>
+      <BrowserRouter>
+        <ScrollToTop>
+          <AnimatedRoutes />
+        </ScrollToTop>
+      </BrowserRouter>
     </HelmetProvider>
   );
 }
 
-// Yeni component: Sayfa geçişlerini AnimatePresence ile sarmalıyoruz
 function AnimatedRoutes() {
-  const location = useLocation(); // Mevcut konumu takip et
+  const location = useLocation();
 
   return (
     <>
-
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        {routeArr.map((item) => (
-          <Route
-            exact
-            path={item.path}
-            key={item.id}
-            element={
-              <>
-                <Header />
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5 }}
+      <Header />
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          {routeArr.map((item) => (
+            <Route
+              exact
+              path={item.path}
+              key={item.id}
+              element={
+                <motion.main
+                  variants={pageVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
                 >
                   <item.component />
-                </motion.div>
-                <Footer />
-              </>
-            }
-          />
-        ))}
-      </Routes>
-    </AnimatePresence>
+                </motion.main>
+              }
+            />
+          ))}
+        </Routes>
+      </AnimatePresence>
+      <Footer />
+      <WhatsAppButton />
+      <ScrollToTopButton />
     </>
-
   );
 }
 

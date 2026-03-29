@@ -1,372 +1,169 @@
 import React, { useReducer } from "react";
 import styles from "./index.module.css";
 import Wrapper from "../../components/UI/wrapper";
-import DoctorSvg from "../../assets/images/doktor.png";
-import AmbulanceSvg from "../../assets/images/ambulance.png";
-import Patient from "../../assets/images/hasta.png";
-import {
-  GrayArrow,
-  GrayArrowTrue,
-
-} from "../../icons";
 import { Helmet } from "react-helmet-async";
-const initialState = {
-  green: true,
-  orange: false,
-  red: false,
-  violet: false,
-};
+import ScrollReveal from "../../components/scrollreveal";
+import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
+import {
+  FaUserMd, FaStethoscope, FaLeaf, FaVials,
+  FaAmbulance, FaHandHoldingHeart, FaClipboardCheck,
+  FaChevronDown, FaChevronUp, FaSyringe, FaBandAid,
+  FaHeartbeat, FaPhoneAlt, FaArrowRight,
+  FaShieldAlt, FaClock, FaHome,
+} from "react-icons/fa";
+
+const services = [
+  { num: "01", icon: <FaUserMd />, title: "Evde Doktor Hizmeti", desc: "Uzman doktorlarımız evinize gelerek muayene, teşhis ve tedavi hizmeti sunmaktadır. Hastane stresinden uzak, konforunuzda profesyonel sağlık hizmeti alın.", color: "#0d9488", bg: "#f0fdfa" },
+  { num: "02", icon: <FaStethoscope />, title: "Evde Hemşire Hizmeti", desc: "Yaşlı, yatalak veya kronik rahatsızlıkları olan bireyler için profesyonel hemşire bakımı. İlaçların düzenli uygulanması, yara bakımı ve hasta takibi.", color: "#0d9488", bg: "#f0fdfa" },
+  { num: "03", icon: <FaLeaf />, title: "Evde Geleneksel Tıp", desc: "Hacamat, solucan tedavisi, kuppa ve diğer geleneksel yöntemlerle doğal iyileşme. Binlerce yıllık bilgi birikimiyle modern tıbbı destekliyoruz.", color: "#2563eb", bg: "#eff6ff" },
+  { num: "04", icon: <FaVials />, title: "Evde Tahlil Hizmeti", desc: "Kan tahlili, idrar testi ve diğer laboratuvar testlerini evinizin konforunda yapıyoruz. Sonuçları hızlıca doktorunuza iletiyoruz.", color: "#2563eb", bg: "#eff6ff" },
+  { num: "05", icon: <FaAmbulance />, title: "Özel Ambulans Hizmeti", desc: "7/24 hasta nakil hizmeti. Yüksek standartlardaki medikal ekipmanlar ve deneyimli sağlık personeli ile güvenli transfer.", color: "#d97706", bg: "#fffbeb" },
+  { num: "06", icon: <FaHandHoldingHeart />, title: "Evde Hasta Bakıcı", desc: "Hasta bakımı, beslenme desteği, hijyen bakımı ve günlük yaşam aktivitelerinde profesyonel yardım.", color: "#d97706", bg: "#fffbeb" },
+  { num: "07", icon: <FaClipboardCheck />, title: "Evde Check Up", desc: "Kapsamlı sağlık taraması paketleri. Kan testleri, EKG, tansiyon ölçümü ve daha fazlası evinizde.", color: "#0d9488", bg: "#f0fdfa" },
+  { num: "08", icon: <FaSyringe />, title: "IV Serum Tedavisi", desc: "Vitamin, mineral ve amino asit desteği için özel IV serum formülleri. Enerji, bağışıklık ve güzellik serumları.", color: "#2563eb", bg: "#eff6ff" },
+  { num: "09", icon: <FaBandAid />, title: "Yara Bakımı & Pansuman", desc: "Kronik ve akut yaraların profesyonel bakımı. Bası yarası, cerrahi yara ve diyabetik ayak bakımı.", color: "#d97706", bg: "#fffbeb" },
+];
+
+const whyUs = [
+  { icon: <FaShieldAlt />, title: "Güvenilirlik", desc: "%98 hasta memnuniyet oranı" },
+  { icon: <FaClock />, title: "7/24 Hizmet", desc: "Gece-gündüz ulaşılabilirlik" },
+  { icon: <FaHome />, title: "Ev Konforu", desc: "Hastane stresinden uzak tedavi" },
+  { icon: <FaHeartbeat />, title: "15 Yıl Deneyim", desc: "Binlerce başarılı tedavi" },
+];
+
+const faqData = [
+  {
+    question: "Neden Evde Sağlık Hizmetleri?",
+    answer: "Evde sağlık hizmetleri, hastaların hastane ortamına gitme gereksinimini azaltarak evde aileleriyle birlikte daha hızlı iyileşmelerini sağlar.",
+    details: [
+      { title: "Konfor ve Güvenlik", text: "Tanıdık ortamda daha hızlı iyileşme, hastane enfeksiyonu riski yok." },
+      { title: "Kişiselleştirilmiş Bakım", text: "Hastanın özel ihtiyaçlarına göre uyarlanmış tedavi planları." },
+      { title: "Ekonomik Avantajlar", text: "Hastane yatış maliyetlerinden önemli tasarruf." },
+      { title: "Psikolojik Destek", text: "Aile yanında olmanın verdiği moral ile daha hızlı iyileşme." },
+    ],
+  },
+  { question: "Hangi bölgelere hizmet veriyorsunuz?", answer: "Sakarya, Düzce, Kocaeli ve İstanbul bölgesinde aktif olarak evde sağlık hizmeti sunmaktayız. Özel ambulans hizmetimiz ile daha geniş bölgelere de ulaşım sağlanmaktadır." },
+  { question: "Ücretlendirme nasıl yapılır?", answer: "Hizmet türününe ve süre uzunluğuna göre fiyatlandırma yapılmaktadır. Detaylı bilgi için bizi aramanız yeterlidir. İlk danışmanlık görüşmemiz ücretsizdir." },
+  { question: "Doktorlarınız hangi uzmanlık alanlarında?", answer: "Ekibimizde dahiliye, acil tıp, fizik tedavi ve geleneksel tıp alanlarında uzman doktorlar bulunmaktadır. Her hasta için en uygun uzman yönlendirilir." },
+  { question: "Acil durumlarda ne kadar sürede gelirsiniz?", answer: "Acil çağrılarda ortalama 30-45 dakika içinde hasta adresine ulaşmaktayız. 7/24 çağrı merkezimiz her an hazırdır." },
+];
+
+const initialState = { open: 0 };
 function reducer(state, action) {
-  switch (action.type) {
-    case "green":
-      return { green: true, orange: false, red: false, violet: false };
-    case "orange":
-      return { green: false, orange: true, red: false, violet: false };
-    case "red":
-      return { green: false, orange: false, red: true, violet: false };
-    case "violet":
-      return { green: false, orange: false, red: false, violet: true };
-  }
+  return { open: state.open === action ? null : action };
 }
+
 const Kifoz = () => {
-  const [state, setState] = useReducer(reducer, initialState);
-  return (<>
-        <Helmet>
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <>
+      <Helmet>
         <title>Hizmetlerimiz | ETERNAL Sağlık Hizmetleri</title>
-        <meta
-          name="description"
-          content="ETERNAL Sağlık Hizmetleri, kaliteli sağlık hizmetleriyle hastalarına en iyi çözümleri sunmaktadır."
-        />
-        <meta
-          name="keywords"
-          content="Hizmetler, Sağlık Hizmetleri, ETERNAL, Klinik, Sağlık Çözümleri"
-        />
-        <link rel="canonical" href="https://www.eternal.com/hizmetlerimiz" />
+        <meta name="description" content="ETERNAL Sağlık Hizmetleri - Evde doktor, hemşire, IV terapi ve daha fazlası." />
       </Helmet>
-  
-    <div className={styles.background}>
-      <Wrapper>
-        <div className={styles.control}>
-          <div className={styles.headerText}>
-            <h2>
-              <h1>Sağlığı</h1> Eve Getiriyoruz
-            </h2>
-          </div>
-          <div className={styles.boxOne}>
-            <div className={styles.leftBox}>
-              <h1>Hizmetlerimiz</h1>
-              <div className={styles.controlLeftBox}>
-                <div className={styles.leftBoxText}>
-                  <div className={styles.leftBoxHeader}>
-                    <h2>01.</h2>
-                  </div>
-                  <div className={styles.leftBoxBottom}>
-                    <h2>Evde Doktor Hizmeti</h2>
-                    <p>
-                      Evde doktor hizmeti, hastaların kendi evlerinde kaliteli
-                      sağlık hizmeti alabilmeleri için kaliteli bir hizmet
-                      sunar.
-                    </p>
-                  </div>
-                </div>
-                <div className={styles.leftBoxSvg}>
-                  <img src={DoctorSvg} alt="" />
-                </div>
-              </div>
-            </div>
-            <div className={styles.controlMiddleBox}>
-              <div className={styles.middleBoxText}>
-                <div className={styles.middleBoxHeader}>
-                  <h2>02.</h2>
-                </div>
-                <div className={styles.middleBoxBottom}>
-                  <h2>Evde Hemşire Hizmeti</h2>
-                  <p>
-                    Evde hemşire hizmeti, özellikle yaşlı, yatalak veya kronik
-                    rahatsızlıkları olan bireyler için büyük bir kolaylık
-                    sağlar.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className={styles.controlRightBox}>
-              <div className={styles.rightBoxText}>
-                <div className={styles.rightBoxHeader}>
-                  <h2>03.</h2>
-                </div>
-                <div className={styles.rightBoxBottom}>
-                  <h2>Evde Geleneksel Tıp</h2>
-                  <p>
-                    Evde Geleneksel Tıp, binlerce yıllık doğal tedavi
-                    yöntemlerini modern yaşamınıza entegre eden bir hizmettir.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className={styles.boxTwo}>
-            <div className={styles.controlForBox}>
-              <div className={styles.forBox}>
-                <div className={styles.forBoxHeader}>
-                  <h2>04.</h2>
-                </div>
-                <div className={styles.forBoxBottom}>
-                  <h2>Evde Tahlil Hizmeti</h2>
-                  <p>
-                    Uzman doktorlarımızla sağlık sorununuzun tespiti ve tedavisi
-                    için evinizin konforunda muayenenizi yapıyoruz.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className={styles.controlFiveBox}>
-              <div className={styles.fiveBoxText}>
-                <div className={styles.fiveBoxHeader}>
-                  <h2>05.</h2>
-                </div>
-                <div className={styles.fiveBoxBottom}>
-                  <h2>Özel Ambulans Hizmeti</h2>
-                  <p>
-                    Hasta Nakil Ambulansı hizmeti, yüksek standartlardaki
-                    medikal ekipmanları ve deneyimli sağlık personeli ile
-                    hastanızın konforu ve güvenliği en üst düzeyde tutulur.
-                  </p>
-                </div>
-              </div>
-              <div className={styles.fiveBoxSvg}>
-                <img src={AmbulanceSvg} alt="" />
-              </div>
-            </div>
-          </div>
-          <div className={styles.boxThree}>
-            <div className={styles.controlFiveBox}>
-              <div className={styles.fiveBoxText}>
-                <div className={styles.fiveBoxHeader}>
-                  <h2>06.</h2>
-                </div>
-                <div className={styles.fiveBoxBottom}>
-                  <h2>Evde Hasta Bakıcı Hizmeti</h2>
-                  <p>
-                    Evde hasta bakıcı hizmeti, hastane ortamının stresinden
-                    uzakta, ancak tıbbi gereksinimlerinin profesyonel bir
-                    şekilde karşılandığı bir hizmettir.
-                  </p>
-                </div>
-              </div>
-              <div className={styles.fiveBoxSvg}>
-                <img src={Patient} alt="" />
-              </div>
-            </div>
-            <div className={styles.controlForBox}>
-              <div className={styles.forBox}>
-                <div className={styles.forBoxHeader}>
-                  <h2>07.</h2>
-                </div>
-                <div className={styles.forBoxBottom}>
-                  <h2>Evde Check Up Hizmeti</h2>
-                  <p>
-                    Yaşınıza ve sağlık durumunuza, kişiye özgü check-up
-                    paketlerimizi evinizde gerçekleştiriyoruz.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className={styles.rightside}>
-          <div
-            onClick={() => setState({ type: "green" })}
-            className={styles.greenborder}
-          >
-            {state.green ? (
-              <>
-                <div className={styles.greentext}>
-                  <h2>Neden Evde Sağlık Hizmetleri?</h2>
-                  <GrayArrow />
-                </div>
-                <div className={styles.orangeabout}>
-                  <p>
-                    Evde sağlık hizmetlerinin temel amacı, hastaların hastane
-                    ortamına gitme gereksinimini azaltarak, evde, aileleriyle
-                    birlikte daha hızlı ve konforlu bir şekilde iyileşmelerini
-                    sağlamaktır. Bu hizmetler, hastaların kendi evlerinde
-                    alacakları birebir sağlık hizmeti ile hastalıkların daha
-                    hızlı iyileşmesine, kronik durumların daha iyi yönetilmesine
-                    ve yaşam kalitesinin artırılmasına yardımcı olur.Evde sağlık
-                    hizmetleri, sağlık hizmetlerine erişimde esneklik ve konfor
-                    sunarak, hastaların ve ailelerinin yaşam kalitesini artırır.
-                    Kişiselleştirilmiş bakım, ekonomik tasarruf, psikolojik
-                    destek ve sürekli izlem gibi avantajlarıyla, evde sağlık
-                    hizmetleri modern sağlık sistemlerinde önemli bir yer
-                    tutmaktadır. Bu hizmetler, hastaların kendilerini daha iyi
-                    hissetmelerine ve daha hızlı iyileşmelerine yardımcı
-                    olurken, ailelere de önemli bir destek sağlar. Evde sağlık
-                    hizmetleri ile erişebileceğiniz avantajlar;
-                  </p>
-                  <div className={styles.textAbout}>
-                    <h2>1. Konfor ve Güvenlik</h2>
-                    <p>
-                      Evde sağlık hizmetleri, hastaların kendi evlerinin
-                      rahatlığında tedavi görmelerini sağlar. Hastalar, tanıdık
-                      bir ortamda bulunmanın verdiği rahatlıkla daha hızlı
-                      iyileşebilirler. Ayrıca, evde tedavi görmek, hastane
-                      enfeksiyonlarına maruz kalma riskini de azaltır.
-                    </p>
-                  </div>
-                  <div className={styles.textAbout}>
-                    <h2>2. Kişiselleştirilmiş Bakım</h2>
-                    <p>
-                      Evde sağlık hizmetleri, hastanın özel ihtiyaçlarına göre
-                      uyarlanmış kişiselleştirilmiş bakım sunar. Bu, tedavi
-                      planlarının ve bakımın hastanın bireysel ihtiyaçlarına
-                      göre optimize edilmesini sağlar. Hastalar ve aileleri,
-                      bakım planlarına daha fazla katılma fırsatı bulurlar
-                    </p>
-                  </div>
-                  <div className={styles.textAbout}>
-                    <h2>3. Ekonomik Avantajlar</h2>
-                    <p>
-                      Hastanede yatış ve uzun süreli bakım, maliyet açısından
-                      oldukça yüksek olabilir. Evde sağlık hizmetleri, bu
-                      maliyetleri önemli ölçüde azaltabilir. Ayrıca, hastaneye
-                      ulaşım için harcanan zaman ve para da evde sağlık
-                      hizmetleri ile tasarruf edilebilir.
-                    </p>
-                  </div>
-                  <div className={styles.textAbout}>
-                    <h2>4. Psikolojik Destek</h2>
-                    <p>
-                      Evde sağlık hizmetleri, hastaların psikolojik sağlığına
-                      olumlu etkilerde bulunur. Hastalar, ailelerinin yanında
-                      olmanın ve tanıdık bir çevrede bulunmanın verdiği moral
-                      desteğiyle kendilerini daha iyi hissederler. Bu da genel
-                      iyileşme sürecini hızlandırabilir.
-                    </p>
-                  </div>
-                  <div className={styles.textAbout}>
-                    <h2>5. Esneklik ve Erişilebilirlik</h2>
-                    <p>
-                      Evde sağlık hizmetleri, hastaların ihtiyaçlarına göre
-                      esnek saatlerde sunulabilir. Bu, hastaların tedavi
-                      planlarını kendi programlarına göre ayarlayabilmelerini
-                      sağlar. Ayrıca, ulaşım sorunları yaşayan hastalar için de
-                      büyük bir kolaylık sağlar.
-                    </p>
-                  </div>
-                  <div className={styles.textAbout}>
-                    <h2>6. Uzun Dönemli İzlem ve Destek</h2>
-                    <p>
-                      Kronik hastalıkların yönetiminde sürekli izlem ve destek
-                      çok önemlidir. Evde sağlık hizmetleri, hastaların
-                      durumlarını yakından takip eder ve gerektiğinde hızlı
-                      müdahalede bulunur. Bu, hastaların sağlık durumlarının
-                      stabilize edilmesine ve komplikasyonların önlenmesine
-                      yardımcı olur.
-                    </p>
-                  </div>
-                  <div className={styles.textAbout}>
-                    <h2>7. Aileye Destek</h2>
-                    <p>
-                      Evde sağlık hizmetleri, hastaların aile üyelerine de
-                      önemli bir destek sağlar. Bakım veren aile üyeleri,
-                      profesyonel sağlık personelinden bilgi ve rehberlik
-                      alarak, hastalarına daha iyi bakım sunabilirler. Ayrıca,
-                      aile üyelerinin üzerindeki bakım yükü de hafifler.
-                    </p>
-                  </div>
-                  <div className={styles.textAbout}>
-                    <h2>8. Rehabilitasyon ve Fizik Tedavi</h2>
-                    <p>
-                      Evde sağlık hizmetleri, fiziksel rehabilitasyon ve terapi
-                      ihtiyaçları olan hastalar için de faydalıdır. Uzman
-                      terapistler, hastaların evlerinde egzersiz programları ve
-                      terapi seansları düzenleyerek, hastaların fiziksel
-                      işlevselliğini artırabilirler.
-                    </p>
-                  </div>
-                </div>
-              </>
-            ) : (
-              <div className={styles.greentext}>
-                <h2>Neden Evde Sağlık Hizmetleri?</h2>
 
-                <GrayArrowTrue />
+      <section className={styles.page}>
+        {/* Hero */}
+        <div className={styles.heroSection}>
+          <Wrapper>
+            <ScrollReveal>
+              <div className={styles.heroInner}>
+                <span className={styles.badge}>Profesyonel Sağlık</span>
+                <h1><span>Sağlığı</span> Eve Getiriyoruz</h1>
+                <p>9 farklı hizmet kategorisinde uzman ekibimizle evinizin konforunda sağlık hizmeti sunuyoruz</p>
+                <div className={styles.heroBtns}>
+                  <a href="tel:05525189654" className={styles.heroCallBtn}><FaPhoneAlt /> Hemen Ara</a>
+                  <Link to="/randevu" className={styles.heroOutlineBtn}>Randevu Al <FaArrowRight /></Link>
+                </div>
               </div>
-            )}
-          </div>
-          <div
-            onClick={() => setState({ type: "orange" })}
-            className={styles.orangeborder}
-          >
-            {state.orange ? (
-              <>
-                <div className={styles.orangetext}>
-                  <h2>Hastalıklara karşı ne yapmalıyız? </h2>
-
-                  <GrayArrow />
-                </div>
-                <div className={styles.orangeabout}>
-                  <p>
-                  Hastalıklara karşı korunmak, erken teşhis koymak ve tedavi süreçlerini daha etkili bir şekilde yönetmek için doğru adımları atmak hayati önem taşır. Modern tıbbın sunduğu en büyük kolaylıklardan biri, evde sağlık hizmetleridir. Bu hizmetler, bireylerin hastane ortamına gitmeden kendi konfor alanlarında sağlık sorunlarını yönetmelerine yardımcı olur ve hastalıklarla mücadelede önemli bir role sahiptir.Evde sağlık hizmetlerinin temel amacı, hastalıkların önlenmesi, kronik rahatsızlıkların yönetimi, düzenli kontrollerin yapılması ve bireyin yaşam kalitesini artırmaktır. 
-                  </p>
-                </div>
-              </>
-            ) : (
-              <div className={styles.orangetext}>
-                <h2>Hastalıklara karşı ne yapmalıyız? </h2>
-                <GrayArrowTrue />
-              </div>
-            )}
-          </div>
-          <div
-            onClick={() => setState({ type: "red" })}
-            className={styles.redborder}
-          >
-            {state.red ? (
-              <>
-                <div className={styles.redtext}>
-                  <h2>Uzmanların görüşleri nelerdir? </h2>
-                  <GrayArrow />
-                </div>
-                <div className={styles.orangeabout}>
-                  <p>
-                  Hastalıklara karşı mücadelede uzmanların görüşleri, bireylerin bilinçlenmesini sağlamak ve toplum sağlığını koruma altına almak açısından büyük bir rehber niteliği taşır. Sağlık uzmanlarının koruyucu, önleyici ve tedaviye yönelik yaklaşımları, bireylerin sağlıklı bir yaşam sürdürmelerine yardımcı olmanın yanı sıra, hastalıkların yayılmasını engellemek ve sağlık sistemleri üzerindeki yükü azaltmak için de hayati önem taşır.Bu görüşler, hem bireylerin kişisel sağlıklarını korumalarına hem de genel halk sağlığını iyileştirmeye katkıda bulunur. Özellikle kronik hastalıkların artış gösterdiği, bulaşıcı hastalıkların küresel ölçekte tehdit oluşturduğu ve sağlık kaynaklarının daha verimli kullanılması gerektiği günümüzde, uzmanların sunduğu stratejiler bireyler ve toplumlar için bir yol haritası niteliği taşır.
-                  </p>
-                </div>
-              </>
-            ) : (
-              <div className={styles.redtext}>
-                <h2>Uzmanların görüşleri nelerdir? </h2>
-                <GrayArrowTrue />
-              </div>
-            )}
-          </div>
-          <div
-            onClick={() => setState({ type: "violet" })}
-            className={styles.violetborder}
-          >
-            {state.violet ? (
-              <>
-                <div className={styles.violettext}>
-                  <h2>Ne kadar güvene biliriz?</h2>
-                  <GrayArrow />
-                </div>
-                <div className={styles.orangeabout}>
-                  <p>
-                  Hastalıklarla mücadelede uzmanların görüşlerine güven, sağlık sistemlerinin temelini oluşturan en önemli unsurlardan biridir. Sağlık uzmanlarının rehberliği, bilgi birikimi ve deneyimleri sayesinde bireyler doğru adımlar atarak sağlıklarını koruyabilir, hastalıkları önleyebilir ve tedavi süreçlerinde en iyi sonuçları elde edebilir. Ancak bu güvenin dayandığı bilimsel temeller, etik değerler ve sürekli gelişen sağlık teknolojileri hakkında daha derin bir anlayışa sahip olmak, bu güveni daha da güçlendirebilir.
-                  </p>
-                </div>
-              </>
-            ) : (
-              <div className={styles.violettext}>
-                <h2>Ne kadar güvene biliriz?</h2>
-                <GrayArrowTrue />
-              </div>
-            )}
-          </div>
+            </ScrollReveal>
+          </Wrapper>
         </div>
-      </Wrapper>
-    </div>
+
+        <Wrapper>
+          {/* Why Us */}
+          <div className={styles.whyUsSection}>
+            <div className={styles.whyUsGrid}>
+              {whyUs.map((item, i) => (
+                <ScrollReveal key={i} delay={i * 0.1}>
+                  <div className={styles.whyUsCard}>
+                    <div className={styles.whyUsIcon}>{item.icon}</div>
+                    <h3>{item.title}</h3>
+                    <p>{item.desc}</p>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+
+          {/* Services */}
+          <ScrollReveal>
+            <div className={styles.sectionTitle}>
+              <span className={styles.badge}>Hizmetler</span>
+              <h2>Tüm Hizmetlerimiz</h2>
+            </div>
+          </ScrollReveal>
+
+          <div className={styles.servicesSection}>
+            <div className={styles.servicesGrid}>
+              {services.map((s, i) => (
+                <ScrollReveal key={i} delay={i * 0.05}>
+                  <motion.div className={styles.serviceCard} whileHover={{ y: -6 }}>
+                    <div className={styles.serviceCardHeader}>
+                      <div className={styles.serviceCardIcon} style={{ background: s.bg, color: s.color }}>{s.icon}</div>
+                      <span className={styles.serviceCardNum}>{s.num}</span>
+                    </div>
+                    <h3>{s.title}</h3>
+                    <p>{s.desc}</p>
+                    <div className={styles.serviceCardLine} style={{ background: s.color }} />
+                  </motion.div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+
+          {/* FAQ */}
+          <ScrollReveal>
+            <div className={styles.faqSection}>
+              <div className={styles.sectionTitle}>
+                <span className={styles.badge}>SSS</span>
+                <h2>Sıkça Sorulan Sorular</h2>
+              </div>
+              <div className={styles.accordion}>
+                {faqData.map((faq, i) => (
+                  <div key={i} className={styles.accordionItem} onClick={() => dispatch(i)}>
+                    <div className={styles.accordionHeader}>
+                      <span>{faq.question}</span>
+                      {state.open === i ? <FaChevronUp /> : <FaChevronDown />}
+                    </div>
+                    <AnimatePresence>
+                      {state.open === i && (
+                        <motion.div
+                          className={styles.accordionContent}
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <p>{faq.answer}</p>
+                          {faq.details && faq.details.map((d, j) => (
+                            <div key={j} className={styles.textAbout}>
+                              <h3>{j + 1}. {d.title}</h3>
+                              <p>{d.text}</p>
+                            </div>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
+        </Wrapper>
+      </section>
     </>
   );
 };

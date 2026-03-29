@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#fff1f2"/>
+  <path d="M155 110 C155 78 192 60 217 85 C242 60 279 78 279 110 C279 160 217 198 217 198 C217 198 155 160 155 110Z" fill="#f43f5e" opacity="0.12"/>
+  <path d="M170 115 C170 90 198 76 217 95 C236 76 264 90 264 115 C264 155 217 185 217 185 C217 185 170 155 170 115Z" fill="#f43f5e" opacity="0.2"/>
+  <polyline points="120,195 175,195 190,170 205,220 220,185 235,200 360,200" stroke="#f43f5e" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.35"/>
+  <text x="200" y="268" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="18" font-weight="700" fill="#9f1239">Kalp Sagligi</text>
+</svg>

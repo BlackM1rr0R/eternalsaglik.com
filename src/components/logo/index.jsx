@@ -1,29 +1,39 @@
 import React, { useEffect } from "react";
-import styles from './index.module.css'
+import styles from './index.module.css';
+import ScrollReveal from "../scrollreveal";
+
 const FeaturableWidget = () => {
   useEffect(() => {
-    // Script tag'ini dinamik olarak ekle
     const script = document.createElement("script");
     script.src = "https://featurable.com/assets/bundle.js";
     script.defer = true;
     script.charset = "UTF-8";
-
-    // Script yüklendikten sonra çalışır
     document.body.appendChild(script);
-
-    // Cleanup: Script'i kaldır
     return () => {
       document.body.removeChild(script);
     };
   }, []);
 
   return (
-    <div
-      id="featurable-ddd9981e-eda0-4798-a92b-2dca78041fb2"
-      data-featurable-async
-      data-location-code="de"
-      className={styles.div1}
-    ></div>
+    <section className={styles.section}>
+      <ScrollReveal>
+        <div className={styles.header}>
+          <span className={styles.badge}>Hasta Yorumları</span>
+          <h2>Hastalarımız Ne Diyor?</h2>
+          <p>Google üzerindeki gerçek hasta değerlendirmelerimiz</p>
+        </div>
+      </ScrollReveal>
+      <ScrollReveal delay={0.2}>
+        <div className={styles.widgetWrap}>
+          <div
+            id="featurable-ddd9981e-eda0-4798-a92b-2dca78041fb2"
+            data-featurable-async
+            data-location-code="de"
+            className={styles.widget}
+          />
+        </div>
+      </ScrollReveal>
+    </section>
   );
 };
 

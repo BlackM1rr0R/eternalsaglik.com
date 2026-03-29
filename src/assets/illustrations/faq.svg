@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#f0fdfa"/>
+  <circle cx="200" cy="110" r="55" fill="#ccfbf1"/>
+  <text x="182" y="132" font-family="Arial" font-size="60" font-weight="bold" fill="#0d9488" opacity="0.4">?</text>
+  <rect x="105" y="185" width="90" height="35" rx="10" fill="white" stroke="#0d9488" stroke-width="1.5"/>
+  <rect x="115" y="196" width="50" height="5" rx="2" fill="#0d9488" opacity="0.2"/>
+  <rect x="115" y="206" width="35" height="5" rx="2" fill="#0d9488" opacity="0.15"/>
+  <rect x="215" y="195" width="90" height="35" rx="10" fill="white" stroke="#3b82f6" stroke-width="1.5"/>
+  <rect x="225" y="206" width="50" height="5" rx="2" fill="#3b82f6" opacity="0.2"/>
+  <rect x="225" y="216" width="35" height="5" rx="2" fill="#3b82f6" opacity="0.15"/>
+  <text x="200" y="268" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="18" font-weight="700" fill="#115e59">SSS</text>
+</svg>

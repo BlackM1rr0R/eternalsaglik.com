@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#fffbeb"/>
+  <rect x="130" y="65" width="45" height="28" rx="4" fill="white" stroke="#d97706" stroke-width="2"/>
+  <path d="M130 93 L112 175 C110 188 120 198 135 198 L170 198 C185 198 195 188 193 175 L175 93Z" fill="white" stroke="#d97706" stroke-width="2"/>
+  <path d="M117 160 L188 160 L193 175 C195 188 185 198 170 198 L135 198 C120 198 110 188 112 175Z" fill="#fef3c7"/>
+  <rect x="235" y="75" width="45" height="28" rx="4" fill="white" stroke="#0d9488" stroke-width="2"/>
+  <path d="M235 103 L220 172 C218 185 228 195 243 195 L270 195 C285 195 295 185 293 172 L278 103Z" fill="white" stroke="#0d9488" stroke-width="2"/>
+  <path d="M225 158 L288 158 L293 172 C295 185 285 195 270 195 L243 195 C228 195 218 185 220 172Z" fill="#ccfbf1"/>
+  <circle cx="153" cy="178" r="4" fill="#fbbf24" opacity="0.4"/>
+  <circle cx="162" cy="186" r="3" fill="#fbbf24" opacity="0.3"/>
+  <circle cx="258" cy="175" r="4" fill="#14b8a6" opacity="0.4"/>
+  <circle cx="266" cy="183" r="3" fill="#14b8a6" opacity="0.3"/>
+  <text x="200" y="250" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="18" font-weight="700" fill="#92400e">Laboratuvar</text>
+</svg>

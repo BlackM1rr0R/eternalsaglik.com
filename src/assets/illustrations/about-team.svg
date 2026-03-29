@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 500" fill="none">
+  <!-- Background -->
+  <rect x="50" y="50" width="600" height="400" rx="30" fill="#f0fdfa" opacity="0.5"/>
+
+  <!-- Hospital building -->
+  <rect x="230" y="150" width="240" height="250" rx="12" fill="white" stroke="#e2e8f0" stroke-width="2"/>
+  <rect x="320" y="340" width="60" height="60" rx="6" fill="#0d9488" opacity="0.15"/>
+
+  <!-- Windows -->
+  <rect x="260" y="180" width="40" height="40" rx="6" fill="#ccfbf1"/>
+  <rect x="330" y="180" width="40" height="40" rx="6" fill="#dbeafe"/>
+  <rect x="400" y="180" width="40" height="40" rx="6" fill="#ccfbf1"/>
+  <rect x="260" y="250" width="40" height="40" rx="6" fill="#dbeafe"/>
+  <rect x="330" y="250" width="40" height="40" rx="6" fill="#ccfbf1"/>
+  <rect x="400" y="250" width="40" height="40" rx="6" fill="#fef3c7"/>
+
+  <!-- Cross on building -->
+  <rect x="335" y="120" width="30" height="10" rx="3" fill="#0d9488"/>
+  <rect x="345" y="110" width="10" height="30" rx="3" fill="#0d9488"/>
+
+  <!-- Person 1 -->
+  <circle cx="150" cy="280" r="25" fill="#0d9488" opacity="0.2"/>
+  <circle cx="150" cy="265" r="12" fill="#0d9488" opacity="0.3"/>
+  <rect x="135" y="295" width="30" height="50" rx="8" fill="#0d9488" opacity="0.15"/>
+
+  <!-- Person 2 -->
+  <circle cx="550" cy="290" r="25" fill="#3b82f6" opacity="0.2"/>
+  <circle cx="550" cy="275" r="12" fill="#3b82f6" opacity="0.3"/>
+  <rect x="535" y="305" width="30" height="50" rx="8" fill="#3b82f6" opacity="0.15"/>
+
+  <!-- Stethoscope icon -->
+  <circle cx="150" cy="310" r="4" fill="#0d9488" opacity="0.5"/>
+
+  <!-- Heartbeat line -->
+  <polyline points="100,420 180,420 200,400 220,440 240,410 260,425 600,425" stroke="#0d9488" stroke-width="2" fill="none" opacity="0.2" stroke-linecap="round"/>
+
+  <!-- Decorative circles -->
+  <circle cx="600" cy="120" r="40" fill="#99f6e4" opacity="0.2"/>
+  <circle cx="100" cy="150" r="30" fill="#dbeafe" opacity="0.2"/>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#fdf4ff"/>
+  <ellipse cx="200" cy="120" rx="60" ry="75" fill="white" stroke="#a855f7" stroke-width="2" opacity="0.8"/>
+  <path d="M130 88 L135 78 L140 88 L135 98Z" fill="#a855f7" opacity="0.3"/>
+  <path d="M268 100 L273 90 L278 100 L273 110Z" fill="#a855f7" opacity="0.3"/>
+  <path d="M170 52 L173 45 L176 52 L173 59Z" fill="#f59e0b" opacity="0.3"/>
+  <rect x="160" y="215" width="80" height="35" rx="7" fill="white" stroke="#a855f7" stroke-width="2"/>
+  <rect x="170" y="207" width="60" height="12" rx="4" fill="#a855f7" opacity="0.15"/>
+  <text x="200" y="272" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="18" font-weight="700" fill="#7e22ce">Cilt Bakimi</text>
+</svg>

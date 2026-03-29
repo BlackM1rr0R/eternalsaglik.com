@@ -1,160 +1,227 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Top Bar */
+.footer {
+  margin-top: 80px;
 }
 
-.background {
-  margin-top: 50px;
-  padding-bottom: 20px;
-  background-color: #f9f9f8;
+.topBar {
+  background: var(--teal-900);
+  padding: 20px 0;
 }
-.background .hr hr {
-  border: 0.5px solid rgba(199, 199, 199, 0.37);
+
+.topContent {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
 }
-.background .control {
+
+.topCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.topCard:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.15);
+  transform: translateY(-2px);
+}
+
+.topCardIcon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: white;
+  flex-shrink: 0;
+}
+
+.topCardText {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding-top: 40px;
-  gap: 40px;
+  gap: 2px;
+  min-width: 0;
 }
-.background .control .line1 img {
-  width: 70px;
-}
-.background .control .line1 h2 {
-  padding-top: 20px;
+
+.topCardText span {
+  font-size: 11px;
+  color: var(--teal-300);
   font-weight: 600;
-  font-size: 18px;
-  width: 80%;
-}
-.background .control .line1 p {
-  padding-top: 20px;
-  width: 80%;
-  font-size: 15px;
-}
-.background .control .line2 {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.background .control .line2 h2 {
-  color: #9d9da9;
-  font-size: 18px;
-}
-.background .control .line2 ul {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.background .control .line2 ul a {
-  text-decoration: none;
-  color: black;
-  font-size: 14px;
-}
-.background .control .line3 {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.background .control .line3 h2 {
-  color: #9d9da9;
-  font-size: 14px;
-}
-.background .control .line3 ul {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.background .control .line3 ul a {
-  text-decoration: none;
-  color: black;
-  font-size: 14px;
-}
-.background .control .line3 .icons {
-  display: flex;
-  padding-top: 0;
-  gap: 20px;
-}
-.background .control .line3 .icons .linkedin {
-  display: flex;
-  width: 10%;
-  border: 1px solid #9B9FAC;
-  padding: 6px;
-  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
+.topCardText strong {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Main */
+.main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+  padding: 48px 0;
+}
+
+/* Brand */
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logoLink img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.logoLink h3 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.logoLink p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.brandDesc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 320px;
+}
+
+.socials {
+  display: flex;
+  gap: 10px;
+}
+
+.socialBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--teal-50);
+  color: var(--primary);
+  font-size: 18px;
+  transition: all 0.3s var(--ease);
+  text-decoration: none;
+}
+
+.socialBtn:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-primary);
+}
+
+/* Links */
+.linksGroup h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.linksGroup ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.linksGroup ul li a {
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.linksGroup ul li a:hover {
+  color: var(--primary);
+  transform: translateX(4px);
+}
+
+/* Bottom */
+.bottom {
+  border-top: 1px solid var(--border);
+  padding: 20px 0;
+}
+
+.bottomContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  text-align: center;
+}
+
+.bottomContent p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.madeWith {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.madeWith svg {
+  color: #ef4444;
+  font-size: 12px;
+}
+
+/* Responsive */
 @media (min-width: 768px) {
-  .background {
-    margin-top: 80px;
-    padding-bottom: 80px;
-    background-color: #f9f9f8;
+  .footer {
+    margin-top: 100px;
   }
-  .background .control {
-    display: flex;
+
+  .topContent {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .main {
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding: 60px 0;
+  }
+
+  .bottomContent {
     flex-direction: row;
-    gap: 0;
     justify-content: space-between;
-    padding-top: 65px;
   }
-  .background .control .line1 h2 {
-    padding-top: 20px;
-    font-weight: 600;
-    font-size: 28px;
-    width: 400px;
-  }
-  .background .control .line1 p {
-    padding-top: 20px;
-    width: 350px;
-    font-size: 15px;
-  }
-  .background .control .line2 {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .background .control .line2 h2 {
-    color: #9d9da9;
-    font-size: 14px;
-  }
-  .background .control .line2 ul {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  .background .control .line2 ul li {
-    font-size: 17px;
-  }
-  .background .control .line3 {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .background .control .line3 h2 {
-    color: #9d9da9;
-    font-size: 14px;
-  }
-  .background .control .line3 ul {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  .background .control .line3 ul li {
-    text-decoration: none;
-    color: black;
-    font-size: 14px;
-  }
-  .background .control .line3 .icons {
-    padding-top: 0;
-  }
-  .background .control .line3 .icons .linkedin {
-    border: 1px solid #9B9FAC;
-    width: auto;
-    padding: 10px;
-    border-radius: 50%;
-  }
-  .background .control .line3 .icons .linkedin svg {
-    width: 30px;
-    height: 30px;
-  }
-}/*# sourceMappingURL=index.module.css.map */
+}

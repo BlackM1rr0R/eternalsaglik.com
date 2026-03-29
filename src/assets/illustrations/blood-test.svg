@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#fff1f2"/>
+  <rect x="170" y="45" width="60" height="170" rx="30" fill="white" stroke="#f43f5e" stroke-width="2.5"/>
+  <rect x="170" y="130" width="60" height="85" rx="30" fill="#fecdd3" opacity="0.4"/>
+  <rect x="170" y="160" width="60" height="55" rx="30" fill="#f43f5e" opacity="0.12"/>
+  <rect x="177" y="35" width="46" height="18" rx="5" fill="#f43f5e" opacity="0.25"/>
+  <circle cx="190" cy="180" r="7" fill="#f43f5e" opacity="0.15"/>
+  <circle cx="205" cy="172" r="5" fill="#f43f5e" opacity="0.12"/>
+  <circle cx="198" cy="192" r="4" fill="#f43f5e" opacity="0.12"/>
+  <text x="200" y="262" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="18" font-weight="700" fill="#9f1239">Kan Alma</text>
+</svg>

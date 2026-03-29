@@ -1,17 +1,12 @@
 .background {
   width: 90%;
-  margin: auto;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 @media (min-width: 768px) {
   .background {
-    width: 1440px;
-    margin: auto;
+    width: 90%;
+    max-width: 1280px;
   }
 }
-@media (max-width: 498px) {
-  .background {
-    width: 90%;
-    margin: auto;
-  }
-}/*# sourceMappingURL=index.module.css.map */

@@ -1,112 +1,119 @@
-import React, { useState, useReducer, useMemo } from "react";
+import React from "react";
 import styles from "./index.module.css";
 import Wrapper from "../../components/UI/wrapper";
-import DoctorProfile from '../../assets/images/doctor12.jpg'
-import { AboutIcon, DoctorIcon, DokumentIcon, KlinikIcon, PhoneCallIcon, SkillsIcon } from "../../icons";
+import DoctorProfile from '../../assets/images/doctor12.jpg';
 import { Helmet } from "react-helmet-async";
+import ScrollReveal from "../../components/scrollreveal";
+import { motion } from "framer-motion";
+import {
+  FaPhoneAlt, FaUserMd, FaStethoscope, FaSyringe, FaBandAid,
+  FaHeartbeat, FaLungs, FaVials, FaEye, FaCut, FaThermometerHalf,
+  FaHandHoldingMedical, FaBriefcaseMedical, FaCalendarCheck,
+} from "react-icons/fa";
 
+const skills = [
+  "Evde Doktor Hizmeti", "I.V. Terapi", "Glutatyon Terapisi",
+  "Yüksek Doz C Vitamin Terapisi", "Serum Tedavisi", "Evde Hemşirelik Hizmeti",
+  "Sağlık Danışmanlık Hizmeti", "Hasta Bakım Refakat Hizmeti",
+  "Yaşlı Bakım Destek Hizmeti", "Serum Takma", "Enjeksiyon",
+  "Sonda Takma ve Değişimi", "Pansuman & Yara Bakımı",
+  "Bası Yarası Pansumanı (Dekubit)", "Tansiyon Ölçümleri",
+  "Glukoz (Şeker) Ölçümü & Takibi", "Oksijen & Buhar Uygulaması",
+  "Evde & Hastanede Hemşire", "Göz & Kulak Lavajı (Yıkama)",
+  "Cerrahi Müdahale", "Dikiş Atma ve Alma", "Buzlu Ağrı Kompresi & Masaj",
+];
 
 const Idiopatik = () => {
-
   return (
     <>
-         <Helmet>
-        <title>Randevu Ayarlayın | ETERNAL Sağlık Hizmetleri</title>
-        <meta
-          name="description"
-          content="ETERNAL Sağlık Hizmetleri ile kolayca randevunuzu ayarlayın ve en iyi sağlık hizmetlerini deneyimleyin."
-        />
-        <meta
-          name="keywords"
-          content="Randevu, Sağlık Hizmetleri, ETERNAL, Online Randevu, Klinik"
-        />
-       
+      <Helmet>
+        <title>Randevu Al | ETERNAL Sağlık Hizmetleri</title>
+        <meta name="description" content="ETERNAL Sağlık Hizmetleri ile randevunuzu ayın." />
       </Helmet>
-   
-    <div className={styles.background}>
-      <Wrapper>
-        <div className={styles.positionOverlay}>
 
-          <div className={styles.overlay}>
-            <div className={styles.controlOverlay}>
-              <DoctorIcon />
-              <h2>Doktorumuz sizlere hizmet vermektedir</h2>
-              <p>Siz sadece ara düymesine tıklayarak randevu ala bilirsiniz.</p>
-              <a href="tel:+901234567890"><PhoneCallIcon />Bizi Arayın</a>
-
-            </div>
-          </div>
+      <section className={styles.page}>
+        {/* CTA Hero */}
+        <div className={styles.ctaHero}>
+          <Wrapper>
+            <ScrollReveal>
+              <div className={styles.ctaContent}>
+                <div className={styles.ctaIcon}>
+                  <FaCalendarCheck />
+                </div>
+                <h1>Randevu Alın</h1>
+                <p>Doktorumuz sizlere hizmet vermektedir. Sadece arayın!</p>
+                <div className={styles.ctaButtons}>
+                  <a href="tel:05525189654" className={styles.callBtn}>
+                    <FaPhoneAlt />
+                    <span>0552 518 96 54</span>
+                  </a>
+                  <a href="tel:05434063544" className={styles.callBtnAlt}>
+                    <FaPhoneAlt />
+                    <span>0543 406 35 44</span>
+                  </a>
+                </div>
+              </div>
+            </ScrollReveal>
+          </Wrapper>
         </div>
+
+        {/* Doctor Profile */}
+        <div className={styles.doctorSection}>
+          <Wrapper>
+            <ScrollReveal>
+              <div className={styles.doctorCard}>
+                <img src={DoctorProfile} alt="Dr. Atakan Bayrak" className={styles.doctorImg} />
+                <div className={styles.doctorInfo}>
+                  <h2>Uzm. Dr. Atakan Bayrak</h2>
+                  <span className={styles.doctorBadge}>ETERNAL Sağlık Hizmetleri</span>
+                  <p>Uzman sağlık ekibimizle rahat bir nefes alın.</p>
+                </div>
+              </div>
+            </ScrollReveal>
+          </Wrapper>
+        </div>
+
+        {/* Skills */}
+        <Wrapper>
+          <ScrollReveal>
+            <div className={styles.skillsSection}>
+              <div className={styles.sectionHeader}>
+                <span className={styles.badge}>Uzmanlık Alanları</span>
+                <h2>Hizmet Yelpazesi</h2>
+              </div>
+              <div className={styles.skillsGrid}>
+                {skills.map((skill, i) => (
+                  <motion.div
+                    key={i}
+                    className={styles.skillTag}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <FaBriefcaseMedical />
+                    {skill}
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <div className={styles.clinicBox}>
+              <FaHeartbeat className={styles.clinicIcon} />
+              <h2>ETERNAL Sağlık Hizmeti</h2>
+              <p>Bu kurumda hastalar değil hastalıklar susturulur.</p>
+            </div>
+          </ScrollReveal>
+        </Wrapper>
+
+        {/* Fixed Mobile Call Button */}
         <div className={styles.fixedCall}>
-          <a href="tel:0552 518 96 54"><PhoneCallIcon />Bizi Arayın</a>
+          <a href="tel:05525189654">
+            <FaPhoneAlt />
+            <span>Hemen Arayın</span>
+          </a>
         </div>
-      </Wrapper>
-      <div className={styles.control}>
-        <div className={styles.doctorBack}>
-          <div className={styles.imagesControl}>
-            <img src={DoctorProfile} alt="" />
-
-          </div>
-          <div className={styles.textControl}>
-            <h2>Uzm. Dr. Atakan Bayrak </h2>
-            <h3>ETERNAL Sağlık Hizmetleri</h3>
-          </div>
-        </div>
-      </div>
-      <Wrapper>
-
-        <div className={styles.aboutDoctor}>
-          <div className={styles.aboutMe}>
-            <div className={styles.aboutIcon}>
-              <AboutIcon />
-              <h2>Hakkında</h2>
-            </div>
-            <p>Uzman sağlık ekibimizle rahat bir nefes alın.</p>
-          </div>
-          <div className={styles.skillsDoctor}>
-            <div className={styles.skillsIcon}>
-              <SkillsIcon />
-              <h2>Uzmanlık Alanları</h2>
-            </div>
-            <ul className={styles.listSkills}>
-              <li>Evde Doktor Hizmeti</li>
-              <li>İ.V. Terapi</li>
-              <li>Glutatyon Terapisi</li>
-              <li>Yüksek Doz C Vitamin Terapisi</li>
-              <li>Serum Tedavisi</li>
-              <li>Evde Hemşirelik Hizmeti</li>
-              <li>Sağlık Danışmanlık Hizmeti</li>
-              <li>Hasta Bakım Refakat Hizmeti</li>
-              <li>Yaşlı Bakım Destek Hizmeti</li>
-              <li>Serum Takma</li>
-              <li>Enjeksiyon (💉)</li>
-              <li>Sonda Takma ve Değişimi</li>
-              <li>Pansuman & Yara Bakımı</li>
-              <li>Bası Yarası Pansumanı (Dekübit)</li>
-              <li>Vital Analiz CEA Tedavisinde Destek</li>
-              <li>Tansiyon Ölçümleri</li>
-              <li>Glukoz (Şeker) Ölçümü & Takibi</li>
-              <li>Oksijen & Buhar Uygulaması</li>
-              <li>Evde & Hastane'de Hemşire</li>
-              <li>Göz & Kulak Lavajı (Yıkama)</li>
-              <li>Cerrahi Müdahale</li>
-              <li>Dikiş Atma ve Alma</li>
-              <li>Buzlu Ağrı Kompresi & Masaj</li>
-            </ul>
-          </div>
- 
-          <div className={styles.klinikDoctor}>
-            <div className={styles.klinikIcon}>
-              <KlinikIcon />
-              <h2>Klinik</h2>
-            </div>
-            <h1>ETERNAL Sağlık Hizmeti</h1>
-            <h1>Bu kurumda Hastalar değil hastalıklar susturulur.</h1>
-          </div>
-        </div>
-      </Wrapper>
-
-    </div>
+      </section>
     </>
   );
 };

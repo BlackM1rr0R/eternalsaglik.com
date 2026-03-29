@@ -1,216 +1,113 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.section {
+  padding: var(--section-py-mobile) 0;
 }
 
-.background .header {
-  display: flex;
-  justify-content: center;
-  padding-top: 40px;
-}
-.background .header h2 {
-  font-weight: 600;
-  font-size: 32px;
-}
-.background .control {
-  padding-top: 50px;
-  padding-bottom: 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 17px;
-}
-.background .control .border1 {
-  width: 100%;
-  background-color: #dfeed7;
-  border-radius: 10px;
-}
-.background .control .border1 .bordertext1 {
-  padding: 44px 97px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 15px;
-  text-align: center;
-  align-items: center;
-  color: #439a75;
-  font-weight: 600;
-}
-.background .control .border1 .bordertext1 h2 {
-  font-size: 32px;
-}
-.background .control .border1 .bordertext1 p {
-  font-size: 20px;
-}
-.background .control .border2 {
-  background-color: #e6deeb;
-  width: 100%;
-  border-radius: 10px;
-}
-.background .control .border2 .bordertext2 {
-  padding: 44px 97px;
-  display: flex;
-  gap: 15px;
-  text-align: center;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: #9b8dd4;
-  font-weight: 600;
-}
-.background .control .border2 .bordertext2 h2 {
-  font-size: 32px;
-}
-.background .control .border2 .bordertext2 p {
-  font-size: 20px;
-}
-.background .control .border3 {
-  background-color: #f9e8d6;
-  width: 100%;
-  border-radius: 10px;
-}
-.background .control .border3 .bordertext3 {
-  padding: 44px 97px;
-  display: flex;
-  gap: 15px;
-  text-align: center;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: #ed8e61;
-  font-weight: 600;
-}
-.background .control .border3 .bordertext3 h2 {
-  font-size: 32px;
-}
-.background .control .border3 .bordertext3 p {
-  font-size: 20px;
-}
-.background .control .border4 {
-  background-color: #dfeed7;
-  width: 100%;
-  border-radius: 10px;
-}
-.background .control .border4 .bordertext4 {
-  padding: 44px 97px;
+.header {
   text-align: center;
   display: flex;
-  gap: 15px;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  color: #439a75;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.badge {
+  display: inline-block;
+  background: var(--teal-50);
+  color: var(--primary);
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
   font-weight: 600;
+  border: 1px solid var(--teal-200);
 }
-.background .control .border4 .bordertext4 h2 {
+
+.header h2 {
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+
+.header p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  max-width: 450px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.card {
+  padding: 28px 20px;
+  border-radius: var(--radius-xl);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.4s var(--ease);
+  border: 1px solid transparent;
+  cursor: default;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--teal-200);
+}
+
+.cardIcon {
+  font-size: 28px;
+  margin-bottom: 4px;
+}
+
+.cardNumber {
   font-size: 32px;
+  font-weight: 800;
+  line-height: 1;
 }
-.background .control .border4 .bordertext4 p {
-  font-size: 20px;
+
+.cardLabel {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
 @media (min-width: 768px) {
-  .background .header {
-    display: flex;
-    justify-content: center;
-    padding-top: 70px;
+  .section {
+    padding: var(--section-py) 0;
   }
-  .background .header h2 {
-    font-weight: 600;
+
+  .header h2 {
+    font-size: 36px;
+  }
+
+  .header {
+    margin-bottom: 50px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .card {
+    padding: 40px 24px;
+  }
+
+  .cardIcon {
     font-size: 32px;
   }
-  .background .control {
-    padding-top: 50px;
-    padding-bottom: 50px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-    gap: 17px;
+
+  .cardNumber {
+    font-size: 40px;
   }
-  .background .control .border1 {
-    width: 33%;
-    background-color: #dfeed7;
-    border-radius: 10px;
+
+  .cardLabel {
+    font-size: 14px;
   }
-  .background .control .border1 .bordertext1 {
-    padding: 88px 137px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 15px;
-    align-items: center;
-    color: #439a75;
-    font-weight: 600;
-  }
-  .background .control .border1 .bordertext1 h2 {
-    font-size: 32px;
-  }
-  .background .control .border1 .bordertext1 p {
-    font-size: 20px;
-  }
-  .background .control .border2 {
-    background-color: #e6deeb;
-    width: 33%;
-    border-radius: 10px;
-  }
-  .background .control .border2 .bordertext2 {
-    padding: 88px 137px;
-    display: flex;
-    gap: 15px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #9b8dd4;
-    font-weight: 600;
-  }
-  .background .control .border2 .bordertext2 h2 {
-    font-size: 32px;
-  }
-  .background .control .border2 .bordertext2 p {
-    font-size: 20px;
-  }
-  .background .control .border3 {
-    background-color: #f9e8d6;
-    width: 33%;
-    border-radius: 10px;
-  }
-  .background .control .border3 .bordertext3 {
-    padding: 88px 137px;
-    display: flex;
-    gap: 15px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #ed8e61;
-    font-weight: 600;
-  }
-  .background .control .border3 .bordertext3 h2 {
-    font-size: 32px;
-  }
-  .background .control .border3 .bordertext3 p {
-    font-size: 20px;
-  }
-  .background .control .border4 {
-    background-color: #dfeed7;
-    width: 33%;
-    border-radius: 10px;
-  }
-  .background .control .border4 .bordertext4 {
-    padding: 88px 137px;
-    display: flex;
-    gap: 15px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #439a75;
-    font-weight: 600;
-  }
-  .background .control .border4 .bordertext4 h2 {
-    font-size: 32px;
-  }
-  .background .control .border4 .bordertext4 p {
-    font-size: 20px;
-  }
-}/*# sourceMappingURL=index.module.css.map */
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#eff6ff"/>
+  <path d="M145 95 C118 95 100 125 100 152 C100 180 118 205 145 205 C158 205 168 196 168 178 C168 162 158 153 158 153 C158 153 168 143 168 125 C168 108 158 95 145 95Z" fill="white" stroke="#3b82f6" stroke-width="2.5"/>
+  <path d="M255 95 C282 95 300 125 300 152 C300 180 282 205 255 205 C242 205 232 196 232 178 C232 162 242 153 242 153 C242 153 232 143 232 125 C232 108 242 95 255 95Z" fill="white" stroke="#3b82f6" stroke-width="2.5"/>
+  <path d="M168 162 L200 180 L232 162" stroke="#3b82f6" stroke-width="2" fill="none" opacity="0.35"/>
+  <line x1="200" y1="180" x2="200" y2="222" stroke="#3b82f6" stroke-width="2" opacity="0.35"/>
+  <ellipse cx="200" cy="228" rx="20" ry="14" fill="white" stroke="#3b82f6" stroke-width="2" opacity="0.5"/>
+  <text x="200" y="274" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="18" font-weight="700" fill="#1e40af">Idrar Yolu</text>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <!-- Background shapes -->
+  <circle cx="400" cy="300" r="250" fill="#f0fdfa" opacity="0.5"/>
+  <circle cx="550" cy="200" r="120" fill="#ccfbf1" opacity="0.4"/>
+  <circle cx="250" cy="420" r="80" fill="#99f6e4" opacity="0.3"/>
+
+  <!-- Stethoscope -->
+  <path d="M350 180 C350 180 280 250 280 340 C280 390 310 420 360 420 C410 420 440 390 440 340 L440 280" stroke="#0d9488" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <circle cx="350" cy="170" r="20" fill="#0d9488"/>
+  <circle cx="350" cy="170" r="10" fill="#f0fdfa"/>
+  <circle cx="440" cy="270" r="15" fill="#14b8a6"/>
+
+  <!-- Heart -->
+  <path d="M500 250 C500 220 530 200 560 220 C590 200 620 220 620 250 C620 300 560 340 560 340 C560 340 500 300 500 250Z" fill="#f43f5e" opacity="0.15"/>
+  <path d="M510 255 C510 230 535 215 555 230 C575 215 600 230 600 255 C600 295 555 325 555 325 C555 325 510 295 510 255Z" fill="#f43f5e" opacity="0.3"/>
+
+  <!-- Pulse line -->
+  <polyline points="200,350 260,350 280,310 300,390 320,330 340,360 400,360 420,320 440,380 460,350 600,350" stroke="#0d9488" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/>
+
+  <!-- Cross/Plus -->
+  <rect x="160" y="180" width="60" height="20" rx="5" fill="#14b8a6" opacity="0.3"/>
+  <rect x="180" y="160" width="20" height="60" rx="5" fill="#14b8a6" opacity="0.3"/>
+
+  <!-- Pills -->
+  <rect x="580" y="380" width="50" height="22" rx="11" fill="#3b82f6" opacity="0.25" transform="rotate(-30 605 391)"/>
+  <rect x="620" y="400" width="50" height="22" rx="11" fill="#0d9488" opacity="0.25" transform="rotate(15 645 411)"/>
+
+  <!-- Shield -->
+  <path d="M680 120 L680 170 C680 200 660 220 640 230 C620 220 600 200 600 170 L600 120 L640 105 Z" fill="#0d9488" opacity="0.15" stroke="#0d9488" stroke-width="2" opacity="0.3"/>
+  <path d="M625 160 L635 170 L660 145" stroke="#0d9488" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+</svg>
