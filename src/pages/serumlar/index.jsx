@@ -44,7 +44,7 @@ const Serumlar = () => {
                 <span className={styles.heroBadge}>
                   <FaSyringe /> IV Terapi & Serum
                 </span>
-                <h1>ETERNAL IV TERAPI Tedavileri</h1>
+                <h1>Evde IV Terapi <span>&amp; Serum</span></h1>
                 <p>
                   24 farklı serum ve IV terapi seçeneğiyle vücut dengenizi yeniden kurun.
                   Uzman ekibimiz ile evinizde profesyonel IV tedavi uygulaması.

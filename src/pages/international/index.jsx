@@ -95,7 +95,7 @@ const International = ({ lang = "en" }) => {
         <Wrapper>
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}>
             <span className={ui.badge}>{t.badge}</span>
-            <h1>{t.h1} <span>{t.h1b}</span></h1>
+            <h1>{t.h1} <span className="accent">{t.h1b}</span></h1>
             <p>{t.lead}</p>
             <div className={ui.btnRow}>
               <a href={whatsappUrl(t.waText)} target="_blank" rel="noopener noreferrer" className={`${ui.btn} ${ui.btnWa}`}><FaWhatsapp /> {t.wa}</a>

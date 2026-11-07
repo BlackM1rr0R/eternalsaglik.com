@@ -3,7 +3,9 @@
 .more svg { transition: transform var(--duration); }
 .cardLink:hover .more svg { transform: translateX(4px); }
 
-.audGrid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.audGrid { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 960px) { .audGrid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .audGrid { grid-template-columns: 1fr; } }
 .aud { display: flex; align-items: center; gap: 16px; padding: 18px 20px; text-decoration: none; height: 100%; }
 .aud strong { display: block; color: var(--text); font-size: 1.02rem; }
 .aud span { color: var(--text-secondary); font-size: 0.9rem; }
@@ -31,3 +33,8 @@
 .map { border-radius: var(--radius-2xl); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-xl); height: 420px; }
 .map iframe { width: 100%; height: 100%; border: 0; display: block; }
 @media (max-width: 640px) { .map { height: 320px; } }
+
+/* 9 services → clean 3 × 3 grid */
+.servicesGrid { grid-template-columns: repeat(3, 1fr) !important; }
+@media (max-width: 960px) { .servicesGrid { grid-template-columns: repeat(2, 1fr) !important; } }
+@media (max-width: 600px) { .servicesGrid { grid-template-columns: 1fr !important; } }

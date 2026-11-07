@@ -18,10 +18,11 @@ import Assistant from "./components/widgets/assistant";
 import PageLoader from "./components/widgets/pageloader";
 import { trackPageView } from "./utils/analytics";
 
+// Soft page transition: content rises and un-blurs in, fades and blurs out.
 const pageVariants = {
-  initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } },
-  exit: { opacity: 0, y: -16, transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] } },
+  initial: { opacity: 0, y: 18, filter: "blur(6px)" },
+  animate: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }, transitionEnd: { filter: "none" } },
+  exit: { opacity: 0, y: -10, filter: "blur(4px)", transition: { duration: 0.25, ease: [0.4, 0, 1, 1] } },
 };
 
 function App() {

@@ -1,144 +1,175 @@
+/* ─────────────────────────────────────────────────────────────
+   ETERNAL design tokens — "Soft Clinical"
+   Soft mint-teal primary, lavender / peach / sky accents,
+   warm off-white canvas, deep ink text. Variable names are kept
+   from the previous palette so every existing component inherits it.
+   ───────────────────────────────────────────────────────────── */
 :root {
-    /* ── Teal (Primary - Clinical/Trust) ── */
-    --teal-50: #f0fdfa;
-    --teal-100: #ccfbf1;
-    --teal-200: #99f6e4;
-    --teal-300: #5eead4;
-    --teal-400: #2dd4bf;
-    --teal-500: #14b8a6;
-    --teal-600: #0d9488;
-    --teal-700: #0f766e;
-    --teal-800: #115e59;
-    --teal-900: #134e4a;
+  /* Mint-teal (primary) */
+  --teal-50: #f1faf8;
+  --teal-100: #dcf3ee;
+  --teal-200: #bce7de;
+  --teal-300: #8fd5c7;
+  --teal-400: #5dbfae;
+  --teal-500: #33a593;
+  --teal-600: #1f8a7b;
+  --teal-700: #1a7066;
+  --teal-800: #195a53;
+  --teal-900: #164641;
 
-    /* ── Blue (Secondary - Professionalism) ── */
-    --blue-50: #eff6ff;
-    --blue-100: #dbeafe;
-    --blue-200: #bfdbfe;
-    --blue-400: #60a5fa;
-    --blue-500: #3b82f6;
-    --blue-600: #2563eb;
-    --blue-700: #1d4ed8;
+  /* Sky / periwinkle (secondary) */
+  --blue-50: #f1f6ff;
+  --blue-100: #e1ebff;
+  --blue-200: #c7d8fd;
+  --blue-400: #8aa9f5;
+  --blue-500: #6a8cec;
+  --blue-600: #5371d6;
+  --blue-700: #4459b3;
 
-    /* ── Amber (Accent - Warmth) ── */
-    --amber-50: #fffbeb;
-    --amber-100: #fef3c7;
-    --amber-400: #fbbf24;
-    --amber-500: #f59e0b;
-    --amber-600: #d97706;
+  /* Peach (warm accent) */
+  --amber-50: #fff6ef;
+  --amber-100: #ffe8d6;
+  --amber-400: #ffbe8f;
+  --amber-500: #f7a06b;
+  --amber-600: #e0814b;
 
-    /* ── Rose (Alert/Urgent) ── */
-    --rose-50: #fff1f2;
-    --rose-100: #ffe4e6;
-    --rose-500: #f43f5e;
+  /* Rose (alerts, heart) */
+  --rose-50: #fff3f5;
+  --rose-100: #ffe1e7;
+  --rose-500: #ee6a85;
 
-    /* ── Neutrals ── */
-    --slate-50: #f8fafc;
-    --slate-100: #f1f5f9;
-    --slate-200: #e2e8f0;
-    --slate-300: #cbd5e1;
-    --slate-400: #94a3b8;
-    --slate-500: #64748b;
-    --slate-600: #475569;
-    --slate-700: #334155;
-    --slate-800: #1e293b;
-    --slate-900: #0f172a;
+  /* Lavender (calm accent) */
+  --lavender-50: #f6f3ff;
+  --lavender-100: #ebe5ff;
+  --lavender-300: #c3b5fb;
+  --lavender-500: #9381ee;
 
-    /* ── Semantic Tokens ── */
-    --primary: #0d9488;
-    --primary-dark: #0f766e;
-    --primary-light: #14b8a6;
-    --secondary: #3b82f6;
-    --secondary-dark: #2563eb;
-    --accent: #f59e0b;
-    --accent-dark: #d97706;
+  /* Ink neutrals (blue-green tinted, never pure grey) */
+  --slate-50: #f7faf9;
+  --slate-100: #eff4f3;
+  --slate-200: #e2eae8;
+  --slate-300: #c9d6d3;
+  --slate-400: #98aaa7;
+  --slate-500: #6f8481;
+  --slate-600: #4f6461;
+  --slate-700: #3a4d4b;
+  --slate-800: #223634;
+  --slate-900: #12272b;
 
-    --bg: #ffffff;
-    --bg-soft: #f8fafc;
-    --bg-muted: #f1f5f9;
-    --bg-warm: #fefce8;
-    --text: #0f172a;
-    --text-secondary: #475569;
-    --text-muted: #94a3b8;
-    --border: #e2e8f0;
-    --border-light: #f1f5f9;
+  /* Semantic */
+  --primary: #1f8a7b;
+  --primary-dark: #1a7066;
+  --primary-light: #33a593;
+  --secondary: #6a8cec;
+  --secondary-dark: #5371d6;
+  --accent: #f7a06b;
+  --accent-dark: #e0814b;
 
-    /* ── Typography ── */
-    --font-sans: 'Exo 2', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-
-    /* ── Spacing ── */
-    --section-py: 100px;
-    --section-py-mobile: 60px;
-
-    /* ── Motion ── */
-    --ease: cubic-bezier(0.4, 0, 0.2, 1);
-    --ease-out: cubic-bezier(0, 0, 0.2, 1);
-    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
-    --duration: 300ms;
-    --duration-slow: 500ms;
-    --duration-fast: 150ms;
-
-    /* ── Shadows ── */
-    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
-    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
-    --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.03);
-    --shadow-2xl: 0 25px 50px -12px rgba(0,0,0,0.15);
-    --shadow-primary: 0 4px 14px rgba(13,148,136,0.2);
-    --shadow-primary-lg: 0 10px 30px rgba(13,148,136,0.25);
-    --shadow-blue: 0 4px 14px rgba(59,130,246,0.2);
-
-    /* ── Border Radius ── */
-    --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 14px;
-    --radius-xl: 20px;
-    --radius-2xl: 28px;
-    --radius-full: 9999px;
-  }
-
-:root {
+  --bg: #f8fbfa;
+  --bg-soft: #f2f7f6;
+  --bg-muted: #eaf1ef;
+  --bg-warm: #fff8f2;
   --surface: #ffffff;
-  --surface-glass: rgba(255, 255, 255, 0.72);
-  --danger: #e11d48;
+  --surface-glass: rgba(255, 255, 255, 0.68);
+  --text: #12272b;
+  --text-secondary: #4f6461;
+  --text-muted: #8a9c99;
+  --border: #e3ebe9;
+  --border-light: #eff4f3;
+  --danger: #e14d6a;
   --wa: #25d366;
+
+  /* Soft hero / section washes */
+  --wash-hero:
+    radial-gradient(60% 70% at 8% 10%, rgba(143, 213, 199, 0.55), transparent 60%),
+    radial-gradient(50% 60% at 92% 8%, rgba(195, 181, 251, 0.45), transparent 60%),
+    radial-gradient(55% 60% at 70% 100%, rgba(255, 190, 143, 0.35), transparent 60%),
+    linear-gradient(180deg, #f4faf8 0%, #f8fbfa 100%);
+  --wash-ink:
+    radial-gradient(60% 80% at 0% 0%, rgba(51, 165, 147, 0.35), transparent 60%),
+    radial-gradient(50% 70% at 100% 100%, rgba(147, 129, 238, 0.3), transparent 60%),
+    linear-gradient(135deg, #12272b 0%, #173a3a 100%);
+  --grad-primary: linear-gradient(135deg, #1f8a7b 0%, #33a593 55%, #5dbfae 100%);
+  --grad-accent-text: linear-gradient(120deg, #1f8a7b 0%, #6a8cec 55%, #9381ee 100%);
+
+  /* Typography */
+  --font-sans: "Plus Jakarta Sans", "IBM Plex Sans Arabic", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+
+  /* Layout */
+  --nav-space: 96px;
+  --section-py: 100px;
+  --section-py-mobile: 60px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration: 300ms;
+  --duration-slow: 600ms;
+  --duration-fast: 150ms;
+
+  /* Shadows: soft, long, tinted */
+  --shadow-xs: 0 1px 2px rgba(18, 39, 43, 0.04);
+  --shadow-sm: 0 1px 2px rgba(18, 39, 43, 0.04), 0 4px 12px -4px rgba(18, 39, 43, 0.06);
+  --shadow-md: 0 2px 4px rgba(18, 39, 43, 0.04), 0 12px 24px -10px rgba(18, 39, 43, 0.1);
+  --shadow-lg: 0 4px 8px rgba(18, 39, 43, 0.03), 0 24px 48px -18px rgba(18, 39, 43, 0.14);
+  --shadow-xl: 0 6px 12px rgba(18, 39, 43, 0.03), 0 32px 64px -24px rgba(18, 39, 43, 0.18);
+  --shadow-2xl: 0 40px 80px -30px rgba(18, 39, 43, 0.28);
+  --shadow-primary: 0 10px 28px -10px rgba(31, 138, 123, 0.55);
+  --shadow-primary-lg: 0 18px 40px -14px rgba(31, 138, 123, 0.6);
+  --shadow-blue: 0 10px 28px -10px rgba(106, 140, 236, 0.5);
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-full: 9999px;
 }
 
-/* ── Dark theme: remaps the semantic tokens and the slate scale ── */
+/* ── Dark theme ── */
 [data-theme="dark"] {
   color-scheme: dark;
-  --surface: #111c2e;
-  --surface-glass: rgba(17, 28, 46, 0.72);
-  --bg: #0b1422;
-  --bg-soft: #0f1a2b;
-  --bg-muted: #15233a;
-  --bg-warm: #1a1f2b;
-  --text: #e8eef6;
-  --text-secondary: #b4c0d0;
-  --text-muted: #8392a7;
-  --border: #22324a;
-  --border-light: #1a2840;
+  --surface: #13232a;
+  --surface-glass: rgba(19, 35, 42, 0.7);
+  --bg: #0c181d;
+  --bg-soft: #102026;
+  --bg-muted: #16292f;
+  --bg-warm: #1a2226;
+  --text: #e9f2f0;
+  --text-secondary: #b3c5c2;
+  --text-muted: #7f9592;
+  --border: #213840;
+  --border-light: #1a2f36;
 
-  --slate-50: #0f1a2b;
-  --slate-100: #15233a;
-  --slate-200: #22324a;
-  --slate-300: #34465f;
-  --slate-400: #64748b;
-  --slate-500: #94a3b8;
-  --slate-600: #b4c0d0;
-  --slate-700: #cbd5e1;
-  --slate-800: #e2e8f0;
-  --slate-900: #f1f5f9;
+  --slate-50: #102026;
+  --slate-100: #16292f;
+  --slate-200: #213840;
+  --slate-300: #31494f;
+  --slate-400: #5f7774;
+  --slate-500: #8ea29f;
+  --slate-600: #b3c5c2;
+  --slate-700: #cbd9d6;
+  --slate-800: #e1ebe9;
+  --slate-900: #f2f7f6;
 
-  --teal-50: #0f2a2a;
-  --teal-100: #134040;
-  --blue-50: #0f1d36;
-  --amber-50: #2a210f;
-  --rose-50: #2a1218;
+  --teal-50: #11292a;
+  --teal-100: #153836;
+  --blue-50: #141f36;
+  --amber-50: #2a2118;
+  --rose-50: #2a161c;
+  --lavender-50: #1c1a33;
+
+  --wash-hero:
+    radial-gradient(60% 70% at 8% 10%, rgba(51, 165, 147, 0.25), transparent 60%),
+    radial-gradient(50% 60% at 92% 8%, rgba(147, 129, 238, 0.22), transparent 60%),
+    radial-gradient(55% 60% at 70% 100%, rgba(247, 160, 107, 0.12), transparent 60%),
+    linear-gradient(180deg, #0c181d 0%, #0c181d 100%);
 
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.35);
-  --shadow-lg: 0 10px 24px rgba(0, 0, 0, 0.4);
-  --shadow-xl: 0 20px 30px rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 12px 24px -10px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 24px 48px -18px rgba(0, 0, 0, 0.55);
+  --shadow-xl: 0 32px 64px -24px rgba(0, 0, 0, 0.6);
 }

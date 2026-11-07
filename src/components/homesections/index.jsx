@@ -25,7 +25,7 @@ export const ServicesShowcase = () => (
         <p>Bir hizmet seçin; ayrıntıları, kimler için uygun olduğunu ve ilgili yazıları görün.</p>
       </div>
     </ScrollReveal>
-    <motion.div className={ui.grid} variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+    <motion.div className={`${ui.grid} ${styles.servicesGrid}`} variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
       {services.map((s) => {
         const Icon = s.icon;
         return (

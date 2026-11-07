@@ -24,7 +24,7 @@ const ListenButton = ({ text, lang = "tr-TR", label = "Dinle", stopLabel = "Durd
       onClick={toggle}
       aria-pressed={playing}
       style={{
-        display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 16px", marginTop: 12,
+        display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 18px", marginTop: 12, alignSelf: "flex-start", width: "fit-content",
         borderRadius: 999, border: "1.5px solid var(--border)", background: "var(--surface)",
         color: "var(--text)", font: "inherit", fontWeight: 600, cursor: "pointer",
       }}

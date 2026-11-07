@@ -28,7 +28,7 @@ const FeaturableWidget = () => {
           <div
             id="featurable-ddd9981e-eda0-4798-a92b-2dca78041fb2"
             data-featurable-async
-            data-location-code="de"
+            data-location-code="tr"
             className={styles.widget}
           />
         </div>

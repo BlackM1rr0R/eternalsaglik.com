@@ -6,7 +6,6 @@ import Hero from "../../components/hero";
 import Main from "../../components/main";
 import Logo from "../../components/logo";
 import LatestArticles from "../../components/latestarticles";
-import CTASection from "../../components/cta";
 import CallbackForm from "../../components/callbackform";
 import ScrollReveal from "../../components/scrollreveal";
 import { AudienceShortcuts, HowItWorks, ServiceAreas, ServicesShowcase } from "../../components/homesections";
@@ -54,7 +53,6 @@ const Home = () => {
           </div>
         </section>
         <CallbackForm source="Ana sayfa" />
-        <CTASection />
       </Wrapper>
     </>
   );

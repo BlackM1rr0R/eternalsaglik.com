@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import Wrapper from "../UI/wrapper";
 import ui from "../../styles/ui.module.css";
+import AnimatedText from "../animatedtext";
 
 // Page header + <head> tags used by the newer pages.
 const PageHero = ({ badge, title, highlight, text, seoTitle, seoDesc, path, children, jsonLd }) => (
@@ -17,9 +18,7 @@ const PageHero = ({ badge, title, highlight, text, seoTitle, seoDesc, path, chil
       <Wrapper>
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           {badge && <span className={ui.badge}>{badge}</span>}
-          <h1>
-            {title} {highlight && <span>{highlight}</span>}
-          </h1>
+          <AnimatedText lines={highlight ? [title, { text: highlight, accent: true }] : [title]} delay={0.1} />
           {text && <p>{text}</p>}
           {children}
         </motion.div>

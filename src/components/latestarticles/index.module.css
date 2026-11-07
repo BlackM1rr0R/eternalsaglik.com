@@ -160,3 +160,32 @@
     width: 100%;
   }
 }
+
+/* ── Soft Clinical refresh ── */
+.section { padding: 80px 0; }
+.header { align-items: flex-end; margin-bottom: 36px; gap: 20px; flex-wrap: wrap; }
+.badge {
+  background: var(--surface-glass); border: 1px solid var(--border); box-shadow: var(--shadow-xs);
+  font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; padding: 7px 14px;
+}
+.headerLeft h2 { font-size: clamp(1.9rem, 3.6vw, 2.9rem); letter-spacing: -0.03em; }
+.viewAll {
+  background: var(--surface); color: var(--text); box-shadow: 0 0 0 1px var(--border), var(--shadow-xs);
+  padding: 12px 22px; font-weight: 700;
+}
+.viewAll:hover { background: var(--slate-900); color: var(--bg); box-shadow: var(--shadow-md); }
+.card {
+  border-radius: var(--radius-xl); overflow: hidden; border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm); transition: transform 0.5s var(--ease-out), box-shadow 0.5s;
+}
+.card:hover { transform: translateY(-6px); box-shadow: var(--shadow-xl); }
+.cardTag {
+  font-size: 12px; line-height: 1; font-weight: 700; letter-spacing: 0.02em;
+  padding: 7px 12px; border-radius: 999px; top: 14px; left: 14px;
+  background: var(--surface-glass); color: var(--primary);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); box-shadow: var(--shadow-sm);
+}
+.cardBody { padding: 22px 22px 24px; }
+.cardBody h3 { font-size: 17px; font-weight: 700; letter-spacing: -0.015em; }
+.slider :global(.swiper-pagination-bullet) { width: 8px; height: 8px; background: var(--slate-300); opacity: 1; transition: width 0.4s var(--ease-out), background 0.3s; }
+.slider :global(.swiper-pagination-bullet-active) { width: 26px; border-radius: 8px; background: var(--primary); }
