@@ -4,22 +4,79 @@
 <head>
   <meta charset="utf-8" />
   <link rel="icon" href="%PUBLIC_URL%/logo.svg" type="image/svg+xml" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" sizes="any" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0d9488" />
-  <meta name="description" content="ETERNAL Sağlık Hizmetleri - Evde Profesyonel Sağlık Hizmeti" />
-  <script src="https://featurable.com/assets/bundle.js" defer charset="UTF-8"></script>
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.svg" />
+  <meta name="description" content="Sakarya, Düzce, Kocaeli ve İstanbul'da 7/24 evde doktor, evde hemşire, evde serum, tahlil ve yara bakımı. Online randevu." />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ETERNAL Sağlık Hizmetleri" />
+  <meta property="og:title" content="ETERNAL Sağlık Hizmetleri | Evde Sağlık Hizmeti" />
+  <meta property="og:description" content="7/24 evde doktor, hemşire, serum ve tahlil. Sakarya ve çevresi." />
+  <meta property="og:url" content="https://eternalsaglik.com/" />
+  <meta property="og:image" content="https://eternalsaglik.com/logo512.png" />
+  <meta property="og:locale" content="tr_TR" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="alternate" hreflang="tr" href="https://eternalsaglik.com/" />
+  <link rel="alternate" hreflang="en" href="https://eternalsaglik.com/en" />
+  <link rel="alternate" hreflang="ar" href="https://eternalsaglik.com/ar" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
     rel="stylesheet">
+
+  <!-- Apply the saved theme before React loads, so dark mode doesn't flash white -->
+  <script>
+    try {
+      var s = JSON.parse(localStorage.getItem("eternal-settings") || "{}");
+      var t = s.theme || "light";
+      document.documentElement.dataset.theme = t;
+      if (s.fontScale) document.documentElement.style.fontSize = s.fontScale * 100 + "%";
+    } catch (e) {}
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    "name": "ETERNAL Sağlık Hizmetleri",
+    "url": "https://eternalsaglik.com",
+    "logo": "https://eternalsaglik.com/logo512.png",
+    "image": "https://eternalsaglik.com/logo512.png",
+    "telephone": "+905525189654",
+    "email": "info@eternalsaglik.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Semerciler Mah.",
+      "addressLocality": "Adapazarı",
+      "addressRegion": "Sakarya",
+      "addressCountry": "TR"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 40.7751944, "longitude": 30.3928889 },
+    "areaServed": ["Sakarya", "Düzce", "Kocaeli", "İstanbul"],
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      "opens": "00:00",
+      "closes": "23:59"
+    },
+    "availableLanguage": ["Turkish", "English", "Arabic"],
+    "sameAs": ["https://www.instagram.com/sakaryaevdesaglik.esh/"]
+  }
+  </script>
   <title>ETERNAL Sağlık Hizmetleri</title>
 </head>
 
 <body>
-  <noscript>ETERNAL Sağlık Hizmetleri</noscript>
+  <noscript>
+    ETERNAL Sağlık Hizmetleri – 7/24 evde doktor, hemşire, serum ve tahlil hizmeti.
+    Telefon: 0552 518 96 54 · Sakarya, Semerciler Mah.
+  </noscript>
   <div id="root"></div>
 </body>
 

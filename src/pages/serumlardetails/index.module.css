@@ -120,7 +120,7 @@
 }
 
 .typeCard {
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 24px;
@@ -204,7 +204,7 @@
   align-items: flex-start;
   gap: 16px;
   padding: 24px;
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   margin-bottom: 36px;

@@ -6,9 +6,10 @@ import ScrollReveal from "../../components/scrollreveal";
 import { Link } from "react-router-dom";
 import {
   FaEye, FaBullseye, FaUsers, FaHeartbeat, FaShieldAlt,
-  FaClock, FaHome, FaUserMd, FaStethoscope, FaAmbulance,
+  FaHome, FaUserMd, FaStethoscope,
   FaPhoneAlt, FaArrowRight, FaMedal, FaHandshake, FaStar,
 } from "react-icons/fa";
+import { SITE } from "../../config/site";
 
 const values = [
   { icon: <FaShieldAlt />, title: "Güvenilirlik", desc: "Hastalarımızın güvenliği ve mahremiyeti en öncelikli değerimizdir.", color: "#0d9488", bg: "#f0fdfa" },
@@ -191,7 +192,7 @@ const About = () => {
               <FaHome className={styles.ctaIcon} />
               <h2>Sağlık hizmetinizi ayağınıza getirmek için buradayız.</h2>
               <p>ETERNAL MEDLINE GROUP - Evinizde yalnız değilsiniz.</p>
-              <a href="tel:05525189654" className={styles.ctaBtn}>
+              <a href={`tel:${SITE.phones[0].tel}`} className={styles.ctaBtn}>
                 <FaPhoneAlt /> Hemen Arayın
               </a>
             </div>

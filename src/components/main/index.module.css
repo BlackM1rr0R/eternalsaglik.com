@@ -50,7 +50,9 @@
   align-items: center;
   gap: 10px;
   transition: all 0.4s var(--ease);
-  border: 1px solid transparent;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
   cursor: default;
 }
 
@@ -69,6 +71,10 @@
   font-size: 32px;
   font-weight: 800;
   line-height: 1;
+  background: linear-gradient(135deg, var(--teal-600), var(--blue-500));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .cardLabel {

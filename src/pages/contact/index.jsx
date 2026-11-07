@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import styles from "./index.module.css";
 import Wrapper from "../../components/UI/wrapper";
 import { FaClock, FaMapMarkerAlt, FaPhoneAlt, FaPaperPlane, FaCheckCircle, FaEnvelope, FaInstagram, FaWhatsapp, FaHeadset, FaShieldAlt } from "react-icons/fa";
-import { sendMessage } from "../../api";
 import { Helmet } from "react-helmet-async";
 import ScrollReveal from "../../components/scrollreveal";
 import { motion } from "framer-motion";
+import { SITE } from "../../config/site";
+import { whatsappUrl, buildMessage, openWhatsApp, isValidPhone } from "../../utils/whatsapp";
+import { trackEvent } from "../../utils/analytics";
+import { Link } from "react-router-dom";
 
 const Contact = () => {
   const [firstname, setFirstName] = useState("");
@@ -17,30 +20,47 @@ const Contact = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const SUBJECTS = { randevu: "Randevu Talebi", bilgi: "Bilgi Alma", sikayet: "Şikayet / Öneri", diger: "Diğer" };
+  const [kvkk, setKvkk] = useState(false);
+
+  // No mail backend exists on the server, so the form opens a pre-filled WhatsApp message.
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (!firstname || !lastname || !gmail || !message || !phonenumber) {
-      alert("Lütfen tüm alanları doldurun.");
+    if (!firstname || !lastname || !message || !phonenumber) {
+      alert("Lütfen tüm zorunlu alanları doldurun.");
+      return;
+    }
+    if (!isValidPhone(phonenumber)) {
+      alert("Lütfen geçerli bir telefon numarası yazın.");
+      return;
+    }
+    if (!kvkk) {
+      alert("Devam etmek için KVKK aydınlatma metnini onaylayın.");
       return;
     }
     setLoading(true);
-    try {
-      await sendMessage({ firstname, lastname, gmail, message, phonenumber });
-      setSuccessMessage("Mesajınız başarıyla gönderildi!");
-      setFirstName(""); setLastName(""); setGmail("");
-      setMessage(""); setPhone(""); setSubject("");
-    } catch {
-      alert("Mesaj gönderilemedi, bir sorun oluştu.");
-    } finally {
-      setLoading(false);
-    }
+    openWhatsApp(
+      buildMessage("İletişim Formu", {
+        "Ad Soyad": `${firstname} ${lastname}`,
+        Telefon: phonenumber,
+        "E-posta": gmail,
+        Konu: SUBJECTS[subject] || subject,
+        Mesaj: message,
+      })
+    );
+    trackEvent("generate_lead", { form: "contact", subject });
+    setSuccessMessage("WhatsApp açıldı, mesajı göndermeniz yeterli. Teşekkürler!");
+    setFirstName(""); setLastName(""); setGmail("");
+    setMessage(""); setPhone(""); setSubject(""); setKvkk(false);
+    setLoading(false);
   };
 
   return (
     <>
       <Helmet>
         <title>İletişim | ETERNAL Sağlık Hizmetleri</title>
-        <meta name="description" content="ETERNAL Sağlık Hizmetleri ile iletişime geçin." />
+        <meta name="description" content="ETERNAL Sağlık Hizmetleri ile 7/24 iletişime geçin: telefon, WhatsApp, e-posta. Sakarya, Semerciler Mah." />
+        <link rel="canonical" href="https://eternalsaglik.com/contact" />
       </Helmet>
 
       <section className={styles.page}>
@@ -61,15 +81,15 @@ const Contact = () => {
           {/* Info Cards */}
           <div className={styles.infoCards}>
             <ScrollReveal delay={0}>
-              <motion.a href="tel:05525189654" className={styles.infoCard} whileHover={{ y: -4 }}>
+              <motion.a href={`tel:${SITE.phones[0].tel}`} className={styles.infoCard} whileHover={{ y: -4 }}>
                 <div className={`${styles.infoIcon} ${styles.iconTeal}`}><FaPhoneAlt /></div>
                 <h3>Telefon</h3>
-                <p>0552 518 96 54</p>
+                <p>{SITE.phones[0].display}</p>
                 <span>7/24 Ulaşılabilir</span>
               </motion.a>
             </ScrollReveal>
             <ScrollReveal delay={0.1}>
-              <motion.a href="https://wa.me/905525189654" target="_blank" rel="noopener noreferrer" className={styles.infoCard} whileHover={{ y: -4 }}>
+              <motion.a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className={styles.infoCard} whileHover={{ y: -4 }}>
                 <div className={`${styles.infoIcon} ${styles.iconGreen}`}><FaWhatsapp /></div>
                 <h3>WhatsApp</h3>
                 <p>Mesaj Gönderin</p>
@@ -129,21 +149,21 @@ const Contact = () => {
                 </div>
 
                 <div className={styles.contactLinks}>
-                  <a href="tel:05525189654" className={styles.contactLink}>
+                  <a href={`tel:${SITE.phones[0].tel}`} className={styles.contactLink}>
                     <div className={styles.contactLinkIcon} style={{background:"var(--teal-50)",color:"var(--primary)"}}><FaPhoneAlt /></div>
                     <div className={styles.contactLinkText}>
                       <span>Telefon</span>
-                      <strong>0552 518 96 54</strong>
+                      <strong>{SITE.phones[0].display}</strong>
                     </div>
                   </a>
-                  <a href="mailto:info@eternalsaglik.com" className={styles.contactLink}>
+                  <a href={`mailto:${SITE.email}`} className={styles.contactLink}>
                     <div className={styles.contactLinkIcon} style={{background:"var(--blue-50)",color:"var(--secondary)"}}><FaEnvelope /></div>
                     <div className={styles.contactLinkText}>
                       <span>E-posta</span>
                       <strong>info@eternalsaglik.com</strong>
                     </div>
                   </a>
-                  <a href="https://www.instagram.com/sakaryaevdesaglik.esh/" target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
+                  <a href={SITE.instagram} target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
                     <div className={styles.contactLinkIcon} style={{background:"#fdf2f8",color:"#db2777"}}><FaInstagram /></div>
                     <div className={styles.contactLinkText}>
                       <span>Instagram</span>
@@ -166,12 +186,12 @@ const Contact = () => {
                     <input value={lastname} onChange={(e) => setLastName(e.target.value)} placeholder="Soyadınız" type="text" required />
                   </label>
                   <label>
-                    <span>E-posta*</span>
-                    <input value={gmail} onChange={(e) => setGmail(e.target.value)} placeholder="E-posta adresiniz" type="email" required />
+                    <span>E-posta</span>
+                    <input value={gmail} onChange={(e) => setGmail(e.target.value)} placeholder="E-posta adresiniz" type="email" autoComplete="email" />
                   </label>
                   <label>
                     <span>Telefon*</span>
-                    <input value={phonenumber} onChange={(e) => setPhone(e.target.value)} placeholder="05xx xxx xx xx" type="text" required />
+                    <input value={phonenumber} onChange={(e) => setPhone(e.target.value)} placeholder="05xx xxx xx xx" type="tel" inputMode="tel" autoComplete="tel" required />
                   </label>
                 </div>
                 <label>
@@ -188,13 +208,17 @@ const Contact = () => {
                   <span>Mesajınız*</span>
                   <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Mesajınızı yazın..." rows="6" required />
                 </label>
+                <label style={{ display: "flex", gap: 10, alignItems: "flex-start", flexDirection: "row" }}>
+                  <input type="checkbox" checked={kvkk} onChange={(e) => setKvkk(e.target.checked)} style={{ width: 18, height: 18, marginTop: 3 }} />
+                  <span style={{ fontWeight: 400 }}>Bilgilerimin iletişim amacıyla işlenmesini kabul ediyorum. <Link to="/kvkk">KVKK Aydınlatma Metni</Link></span>
+                </label>
                 <div className={styles.formActions}>
                   {successMessage && (
                     <span className={styles.success}><FaCheckCircle /> {successMessage}</span>
                   )}
                   <button type="submit" disabled={loading}>
                     <FaPaperPlane />
-                    {loading ? "Gönderiliyor..." : "Mesajı Gönder"}
+                    {loading ? "Hazırlanıyor..." : "WhatsApp ile Gönder"}
                   </button>
                 </div>
               </form>

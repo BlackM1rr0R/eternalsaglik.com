@@ -4,6 +4,7 @@ import Wrapper from "../../UI/wrapper/index";
 import Logo from "../../../assets/images/logo-eternal.svg";
 import { FaInstagram, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { SITE } from "../../../config/site";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -13,14 +14,14 @@ const Footer = () => {
       <div className={styles.topBar}>
         <Wrapper>
           <div className={styles.topContent}>
-            <a href="tel:05525189654" className={styles.topCard}>
+            <a href={`tel:${SITE.phones[0].tel}`} className={styles.topCard}>
               <div className={styles.topCardIcon} style={{background:"rgba(45,212,191,0.15)"}}><FaPhoneAlt /></div>
               <div className={styles.topCardText}>
                 <span>Bizi Arayın</span>
-                <strong>0552 518 96 54</strong>
+                <strong>{SITE.phones[0].display}</strong>
               </div>
             </a>
-            <a href="mailto:info@eternalsaglik.com" className={styles.topCard}>
+            <a href={`mailto:${SITE.email}`} className={styles.topCard}>
               <div className={styles.topCardIcon} style={{background:"rgba(96,165,250,0.15)"}}><FaEnvelope /></div>
               <div className={styles.topCardText}>
                 <span>E-posta</span>
@@ -54,7 +55,7 @@ const Footer = () => {
             </p>
             <div className={styles.socials}>
               <a
-                href="https://www.instagram.com/sakaryaevdesaglik.esh/"
+                href={SITE.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.socialBtn}
@@ -69,8 +70,11 @@ const Footer = () => {
             <h4>Sayfalar</h4>
             <ul>
               <li><Link to="/">Ana Sayfa</Link></li>
-              <li><Link to="/randevu">Randevu</Link></li>
+              <li><Link to="/randevu">Online Randevu</Link></li>
               <li><Link to="/hizmetlerimiz">Hizmetlerimiz</Link></li>
+              <li><Link to="/paketler">Paketler</Link></li>
+              <li><Link to="/aileniz-icin">Aileniz İçin</Link></li>
+              <li><Link to="/kurumsal">Kurumsal</Link></li>
               <li><Link to="/about">Hakkımızda</Link></li>
               <li><Link to="/gallery">Blog</Link></li>
               <li><Link to="/contact">İletişim</Link></li>
@@ -81,11 +85,12 @@ const Footer = () => {
             <h4>Hizmetler</h4>
             <ul>
               <li><Link to="/serumlar">Serumlar</Link></li>
-              <li><Link to="/details/15">IV Serumlar</Link></li>
-              <li><Link to="/details/16">IV Terapiler</Link></li>
+              <li><Link to="/serum-testi">Serum Testi</Link></li>
+              <li><Link to="/belirti-rehberi">Belirti Rehberi</Link></li>
+              <li><Link to="/bakim-rehberi">Bakım Rehberleri</Link></li>
               <li><Link to="/details/17">Lab Paketleri</Link></li>
-              <li><Link to="/details/18">Sağlıklı Yaşam</Link></li>
-              <li><Link to="/details/19">SSS</Link></li>
+              <li><Link to="/sss">SSS</Link></li>
+              <li><Link to="/en">English</Link> · <Link to="/ar">العربية</Link></li>
             </ul>
           </div>
 
@@ -111,7 +116,7 @@ const Footer = () => {
         <Wrapper>
           <div className={styles.bottomContent}>
             <p>
-              &copy; {currentYear} ETERNAL Sağlık Hizmetleri. Tüm hakları saklıdır.
+              &copy; {currentYear} ETERNAL Sağlık Hizmetleri. Tüm hakları saklıdır. · <Link to="/kvkk">KVKK ve Gizlilik</Link>
             </p>
             <p className={styles.madeWith}>
               <FaHeart /> ile yapıldı

@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
+import { serumList, serumCategories } from "../../data/serums";
 import styles from "./index.module.css";
 import Wrapper from "../../components/UI/wrapper";
 import { useNavigate } from "react-router-dom";
@@ -6,47 +7,23 @@ import { Helmet } from "react-helmet-async";
 import ScrollReveal from "../../components/scrollreveal";
 import SerumSVG from "../../components/serumcard";
 import { motion } from "framer-motion";
-import { FaSearch, FaSyringe, FaArrowRight, FaStar, FaFilter } from "react-icons/fa";
+import { FaSearch, FaSyringe, FaArrowRight, FaStar, FaFilter, FaWhatsapp, FaMagic } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { whatsappUrl } from "../../utils/whatsapp";
+import ui from "../../styles/ui.module.css";
 
-const categories = ["Tümü", "Vitamin", "Detox", "Güzellik", "Enerji", "Bağışıklık", "Özel"];
+const categories = serumCategories;
 
 const Serumlar = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("Tümü");
 
-  const photos = useMemo(
-    () => [
-      { id: 1, info: "Atom Serum", category: "Enerji", popular: true, desc: "Yüksek enerji ve canlılık" },
-      { id: 2, info: "Fat Burning Slim Boost", category: "Detox", desc: "Yağ yakımı ve metabolizma" },
-      { id: 3, info: "Collagen Booster", category: "Güzellik", popular: true, desc: "Cilt yenileme ve parlaklık" },
-      { id: 4, info: "Magnezyum IV Terapi", category: "Vitamin", desc: "Kas ve sinir sağlığı" },
-      { id: 5, info: "Alfa Lipoik Asit IV Terapi", category: "Detox", desc: "Güçlü antioksidan destek" },
-      { id: 6, info: "Selenyum IV Terapi", category: "Vitamin", desc: "Tiroid ve bağışıklık" },
-      { id: 7, info: "B Vitamin Kompleksi", category: "Vitamin", popular: true, desc: "Enerji ve sinir sistemi" },
-      { id: 8, info: "Hidrasyon IV Terapi", category: "Enerji", desc: "Vücut sıvı dengesi" },
-      { id: 9, info: "Saç ve Tırnak Canlılığı", category: "Güzellik", desc: "Saç dökülmesine karşı" },
-      { id: 10, info: "Beauty Kokteyl IV Terapi", category: "Güzellik", popular: true, desc: "Tam güzellik paketi" },
-      { id: 11, info: "Amino Asit Kokteyl", category: "Enerji", desc: "Kas onarımı ve güç" },
-      { id: 12, info: "Glutatyon IV Serum", category: "Detox", popular: true, desc: "Master antioksidan" },
-      { id: 13, info: "NAD+ Terapi", category: "Enerji", desc: "Hücre yenileme ve yaşlanma" },
-      { id: 14, info: "Myers Kokteyli IV Terapi", category: "Vitamin", popular: true, desc: "Klasik vitamin kokteyli" },
-      { id: 15, info: "Yüksek Doz C Vitamini", category: "Bağışıklık", desc: "Güçlü bağışıklık desteği" },
-      { id: 16, info: "Çinko IV Terapi", category: "Bağışıklık", desc: "Enfeksiyona karşı koruma" },
-      { id: 17, info: "Immun Boost Serum", category: "Bağışıklık", popular: true, desc: "Tam bağışıklık paketi" },
-      { id: 18, info: "Detox Master IV", category: "Detox", desc: "Derin vücut temizliği" },
-      { id: 19, info: "Anti-Aging Premium", category: "Güzellik", desc: "Yaşlanma karşıtı formül" },
-      { id: 20, info: "Sporcu Performans IV", category: "Enerji", desc: "Antrenman sonrası toparlanma" },
-      { id: 21, info: "D Vitamini IV Terapi", category: "Vitamin", desc: "Kemik ve kas sağlığı" },
-      { id: 22, info: "Bağışıklık Kalkan Plus", category: "Bağışıklık", desc: "Mevsimsel koruma" },
-      { id: 23, info: "Kilo Kontrol Serumu", category: "Özel", desc: "Sağlıklı kilo yönetimi" },
-      { id: 24, info: "VIP Wellness Paket", category: "Özel", popular: true, desc: "Premium sağlık deneyimi" },
-    ],
-    []
-  );
+  const photos = serumList;
 
   const filtered = photos.filter((p) => {
-    const matchSearch = p.info.toLowerCase().includes(search.toLowerCase());
+    // Turkish-aware lower-casing so "İ"/"I" searches match.
+    const matchSearch = p.info.toLocaleLowerCase("tr").includes(search.toLocaleLowerCase("tr"));
     const matchCategory = activeCategory === "Tümü" || p.category === activeCategory;
     return matchSearch && matchCategory;
   });
@@ -55,7 +32,8 @@ const Serumlar = () => {
     <>
       <Helmet>
         <title>Serumlar & IV Terapi | Eternal Sağlık Hizmetleri</title>
-        <meta name="description" content="24 farklı IV Terapi ve Serum tedavisi. Vitamin, Detox, Güzellik, Enerji ve daha fazlası." />
+        <meta name="description" content="24 farklı IV Terapi ve Serum tedavisi. Vitamin, Detox, Güzellik, Enerji ve daha fazlası. Evde, ofiste ve otelde uygulama." />
+        <link rel="canonical" href="https://eternalsaglik.com/serumlar" />
       </Helmet>
 
       <section className={styles.page}>
@@ -121,6 +99,17 @@ const Serumlar = () => {
             </div>
           </ScrollReveal>
 
+          <ScrollReveal>
+            <Link to="/serum-testi" className={`${ui.card} ${ui.glowBorder}`} style={{ display: "flex", gap: 16, alignItems: "center", margin: "18px 0", textDecoration: "none", flexWrap: "wrap" }}>
+              <FaMagic style={{ fontSize: 30, color: "var(--primary)" }} />
+              <div style={{ flex: "1 1 240px" }}>
+                <strong style={{ color: "var(--text)" }}>Hangi serum bana uygun?</strong>
+                <p style={{ margin: 0 }}>3 soruluk testi çözün, size uygun serumları önerelim.</p>
+              </div>
+              <span className={`${ui.btn} ${ui.btnPrimary}`}>Teste Başla <FaArrowRight /></span>
+            </Link>
+          </ScrollReveal>
+
           <div className={styles.resultInfo}>
             <p>{filtered.length} serum bulundu</p>
           </div>
@@ -131,6 +120,9 @@ const Serumlar = () => {
                 <motion.div
                   className={styles.card}
                   onClick={() => navigate(`/serumlar/${item.id}`)}
+                  role="link"
+                  tabIndex={0}
+                  onKeyDown={(e) => e.key === "Enter" && navigate(`/serumlar/${item.id}`)}
                   whileHover={{ y: -8 }}
                   transition={{ duration: 0.3 }}
                 >
@@ -146,9 +138,18 @@ const Serumlar = () => {
                     <span className={styles.cardCategory}>{item.category}</span>
                     <h2>{item.info}</h2>
                     <p className={styles.cardDesc}>{item.desc}</p>
-                    <div className={styles.cardAction}>
-                      <span>İncele</span>
-                      <FaArrowRight />
+                    <div className={styles.cardAction} style={{ justifyContent: "space-between" }}>
+                      <span style={{ display: "inline-flex", gap: 6, alignItems: "center" }}>İncele <FaArrowRight /></span>
+                      <a
+                        href={whatsappUrl(`Merhaba, "${item.info}" serumu için randevu almak istiyorum.`)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        style={{ display: "inline-flex", gap: 6, alignItems: "center", color: "#fff", background: "var(--wa)", padding: "6px 12px", borderRadius: 999, fontWeight: 700, fontSize: 13, textDecoration: "none" }}
+                        aria-label={`${item.info} için WhatsApp ile sipariş`}
+                      >
+                        <FaWhatsapp /> Sipariş
+                      </a>
                     </div>
                   </div>
                 </motion.div>

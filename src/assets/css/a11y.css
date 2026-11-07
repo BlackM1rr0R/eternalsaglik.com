@@ -1,0 +1,58 @@
+/* Accessibility modes toggled from the accessibility panel (see context/settings.jsx). */
+
+[data-theme="dark"] img:not([src$=".svg"]) { filter: brightness(0.92); }
+
+/* High contrast: stronger text, visible borders and underlined links */
+.a11y-contrast {
+  --text: #000;
+  --text-secondary: #111;
+  --text-muted: #222;
+  --border: #000;
+  --primary: #0b5f58;
+}
+[data-theme="dark"].a11y-contrast {
+  --text: #fff;
+  --text-secondary: #f1f5f9;
+  --text-muted: #e2e8f0;
+  --border: #fff;
+  --primary: #5eead4;
+}
+.a11y-contrast a:not([class*="Btn"]):not([class*="btn"]) { text-decoration: underline; }
+.a11y-contrast *:focus-visible { outline: 3px solid #f59e0b !important; outline-offset: 2px; }
+
+/* Big mode for elderly visitors: larger tap targets and line height */
+.a11y-big body { line-height: 1.85; letter-spacing: 0.01em; }
+.a11y-big a, .a11y-big button { min-height: 48px; }
+.a11y-big p, .a11y-big li { font-size: 1.12em; }
+
+/* Reduced motion: honour both the panel toggle and the OS setting */
+.a11y-reduce-motion *, .a11y-reduce-motion *::before, .a11y-reduce-motion *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+
+.skip-link {
+  position: absolute; left: 12px; top: -60px; z-index: 10000;
+  background: var(--primary); color: #fff; padding: 10px 16px; border-radius: 8px; font-weight: 700;
+}
+.skip-link:focus { top: 12px; }
+
+[dir="rtl"] { text-align: right; }
+
+/* Print: used by the printable care guides */
+@media print {
+  header, footer, .no-print, [class*="mobileBar"], [class*="fab"] { display: none !important; }
+  body { background: #fff !important; color: #000 !important; }
+}

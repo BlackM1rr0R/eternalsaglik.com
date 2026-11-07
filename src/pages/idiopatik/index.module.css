@@ -70,7 +70,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: white;
+  background: var(--surface);
   color: #115e59;
   padding: 16px 32px;
   border-radius: var(--radius-full);
@@ -200,7 +200,7 @@
   align-items: center;
   gap: 8px;
   padding: 10px 18px;
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-full);
   font-size: 13px;
@@ -266,7 +266,7 @@
     right: 0;
     z-index: 999;
     padding: 12px 16px;
-    background: white;
+    background: var(--surface);
     border-top: 1px solid var(--border);
     box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
   }

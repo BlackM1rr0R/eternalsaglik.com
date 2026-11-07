@@ -84,12 +84,9 @@
   }
 }
 
+/* On phones the bottom action bar already has a WhatsApp button */
 @media (max-width: 768px) {
   .whatsapp {
-    bottom: 20px;
-    right: 20px;
-    width: 54px;
-    height: 54px;
-    font-size: 26px;
+    display: none;
   }
 }

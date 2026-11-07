@@ -97,3 +97,48 @@
     --radius-2xl: 28px;
     --radius-full: 9999px;
   }
+
+:root {
+  --surface: #ffffff;
+  --surface-glass: rgba(255, 255, 255, 0.72);
+  --danger: #e11d48;
+  --wa: #25d366;
+}
+
+/* ── Dark theme: remaps the semantic tokens and the slate scale ── */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --surface: #111c2e;
+  --surface-glass: rgba(17, 28, 46, 0.72);
+  --bg: #0b1422;
+  --bg-soft: #0f1a2b;
+  --bg-muted: #15233a;
+  --bg-warm: #1a1f2b;
+  --text: #e8eef6;
+  --text-secondary: #b4c0d0;
+  --text-muted: #8392a7;
+  --border: #22324a;
+  --border-light: #1a2840;
+
+  --slate-50: #0f1a2b;
+  --slate-100: #15233a;
+  --slate-200: #22324a;
+  --slate-300: #34465f;
+  --slate-400: #64748b;
+  --slate-500: #94a3b8;
+  --slate-600: #b4c0d0;
+  --slate-700: #cbd5e1;
+  --slate-800: #e2e8f0;
+  --slate-900: #f1f5f9;
+
+  --teal-50: #0f2a2a;
+  --teal-100: #134040;
+  --blue-50: #0f1d36;
+  --amber-50: #2a210f;
+  --rose-50: #2a1218;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 10px 24px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 30px rgba(0, 0, 0, 0.45);
+}

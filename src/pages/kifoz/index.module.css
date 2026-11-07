@@ -63,7 +63,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: white;
+  background: var(--surface);
   color: #115e59;
   padding: 16px 32px;
   border-radius: var(--radius-full);
@@ -128,7 +128,7 @@
 }
 
 .whyUsCard {
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 24px 18px;
@@ -194,7 +194,7 @@
 }
 
 .serviceCard {
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   padding: 28px;
@@ -280,7 +280,7 @@
 }
 
 .accordionItem {
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   overflow: hidden;

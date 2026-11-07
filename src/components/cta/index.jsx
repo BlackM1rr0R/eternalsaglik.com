@@ -3,6 +3,7 @@ import styles from "./index.module.css";
 import { Link } from "react-router-dom";
 import { FaPhoneAlt, FaCalendarCheck } from "react-icons/fa";
 import ScrollReveal from "../scrollreveal";
+import { SITE } from "../../config/site";
 
 const CTASection = () => {
   return (
@@ -18,9 +19,9 @@ const CTASection = () => {
               hemen bize ulaşın.
             </p>
             <div className={styles.buttons}>
-              <a href="tel:05525189654" className={styles.btnPrimary}>
+              <a href={`tel:${SITE.phones[0].tel}`} className={styles.btnPrimary}>
                 <FaPhoneAlt />
-                <span>0552 518 96 54</span>
+                <span>{SITE.phones[0].display}</span>
               </a>
               <Link to="/randevu" className={styles.btnSecondary}>
                 <FaCalendarCheck />

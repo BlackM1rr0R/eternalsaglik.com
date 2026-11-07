@@ -10,7 +10,9 @@ const categoryConfig = {
 };
 
 const SerumSVG = ({ name, category }) => {
-  const c = categoryConfig[category] || categoryConfig.Vitamin;
+  // Categories arrive with Turkish letters ("Güzellik"); config keys are ASCII.
+  const key = String(category || "").replace(/ü/g, "u").replace(/ğ/g, "g").replace(/ı/g, "i").replace(/ş/g, "s").replace(/Ö/g, "O").replace(/ö/g, "o");
+  const c = categoryConfig[key] || categoryConfig[category] || categoryConfig.Vitamin;
 
   return (
     <svg viewBox="0 0 400 320" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", display: "block" }}>
@@ -40,14 +42,14 @@ const SerumSVG = ({ name, category }) => {
       )}
       {c.symbol === "circle" && (
         <>
-          <circle cx="200" cy="90" r="16" fill={c.liquidFill} opacity="0.12" stroke={c.stroke} strokeWidth="1.5" opacity="0.22" />
+          <circle cx="200" cy="90" r="16" fill={c.liquidFill} stroke={c.stroke} strokeWidth="1.5" opacity="0.22" />
           <line x1="200" y1="77" x2="200" y2="103" stroke={c.stroke} strokeWidth="1" opacity="0.15" />
           <line x1="187" y1="90" x2="213" y2="90" stroke={c.stroke} strokeWidth="1" opacity="0.15" />
         </>
       )}
       {c.symbol === "shield" && (
         <>
-          <path d="M191,75 L191,98 C191,106 195,111 200,115 C205,111 209,106 209,98 L209,75 L200,70Z" fill={c.stroke} opacity="0.15" stroke={c.stroke} strokeWidth="1.5" opacity="0.22" />
+          <path d="M191,75 L191,98 C191,106 195,111 200,115 C205,111 209,106 209,98 L209,75 L200,70Z" fill={c.stroke} stroke={c.stroke} strokeWidth="1.5" opacity="0.22" />
           <path d="M195,92 L198,95 L206,86" stroke={c.stroke} strokeWidth="1.5" fill="none" strokeLinecap="round" opacity="0.3" />
         </>
       )}

@@ -1,28 +1,35 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import styles from "./index.module.css";
-import ScrollTrigger from "react-scroll-trigger";
 import CountUp from "react-countup";
 import Wrapper from "../UI/wrapper";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import HeroVisual from "./visual";
+import Icon3D from "../icon3d";
+import TiltCard from "../tiltcard";
+import { primaryPhone } from "../../config/site";
 import { FaPhoneAlt, FaArrowRight, FaHeartbeat, FaUserMd, FaClock, FaShieldAlt } from "react-icons/fa";
 
 const Hero = () => {
-  const [counterOn, setCounterOn] = useState(false);
+  const ref = useRef(null);
+  // Parallax: background shapes drift slower than the content while scrolling.
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const shapesY = useTransform(scrollYProgress, [0, 1], ["0%", "35%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
 
   return (
-    <section className={styles.hero}>
+    <section className={styles.hero} ref={ref}>
       <div className={styles.heroBg}>
         <div className={styles.overlay} />
-        <div className={styles.floatingShapes}>
+        <motion.div className={styles.floatingShapes} style={{ y: shapesY }}>
           <div className={styles.shape1} />
           <div className={styles.shape2} />
           <div className={styles.shape3} />
-        </div>
+        </motion.div>
       </div>
 
       <Wrapper>
-        <div className={styles.heroContent}>
+        <motion.div className={styles.heroContent} style={{ y: contentY }}>
           <div className={styles.left}>
             <motion.div
               className={styles.badge}
@@ -61,9 +68,9 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
             >
-              <a href="tel:+905525189654" className={styles.btnPrimary}>
+              <a href={`tel:${primaryPhone.tel}`} className={styles.btnPrimary}>
                 <FaPhoneAlt />
-                <span>0552 518 96 54</span>
+                <span>{primaryPhone.display}</span>
               </a>
               <Link to="/hizmetlerimiz" className={styles.btnOutline}>
                 <span>Hizmetlerimiz</span>
@@ -71,10 +78,6 @@ const Hero = () => {
               </Link>
             </motion.div>
 
-            <ScrollTrigger
-              onEnter={() => setCounterOn(true)}
-              onExit={() => setCounterOn(false)}
-            >
               <motion.div
                 className={styles.stats}
                 initial={{ opacity: 0, y: 30 }}
@@ -83,27 +86,26 @@ const Hero = () => {
               >
                 <div className={styles.stat}>
                   <div className={styles.statNumber}>
-                    <span>{counterOn && <CountUp duration={3} end={24} />}/</span>
-                    <span>{counterOn && <CountUp duration={3} end={7} />}</span>
+                    <span><CountUp duration={3} end={24} />/</span>
+                    <span><CountUp duration={3} end={7} /></span>
                   </div>
                   <p>Acil Bakım</p>
                 </div>
                 <div className={styles.statDivider} />
                 <div className={styles.stat}>
                   <div className={styles.statNumber}>
-                    <span>{counterOn && <CountUp duration={3} end={98} />}%</span>
+                    <span><CountUp duration={3} end={98} />%</span>
                   </div>
                   <p>Memnuniyet</p>
                 </div>
                 <div className={styles.statDivider} />
                 <div className={styles.stat}>
                   <div className={styles.statNumber}>
-                    <span>{counterOn && <CountUp duration={3} end={15} />}+</span>
+                    <span><CountUp duration={3} end={15} />+</span>
                   </div>
                   <p>Yıl Deneyim</p>
                 </div>
               </motion.div>
-            </ScrollTrigger>
           </div>
 
           <motion.div
@@ -112,40 +114,30 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
+            <HeroVisual />
             <div className={styles.featureCards}>
-              <motion.div
+              <TiltCard
                 className={styles.featureCard}
-                whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(0,0,0,0.15)" }}
               >
-                <div className={styles.featureIcon}>
-                  <FaUserMd />
-                </div>
+                <Icon3D icon={<FaUserMd />} tone="teal" size={48} />
                 <h3>Uzman Doktor</h3>
                 <p>Evde muayene ve tedavi</p>
-              </motion.div>
-              <motion.div
-                className={`${styles.featureCard} ${styles.featureCardOffset}`}
-                whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(0,0,0,0.15)" }}
-              >
-                <div className={`${styles.featureIcon} ${styles.iconGreen}`}>
-                  <FaClock />
-                </div>
+              </TiltCard>
+              <TiltCard className={`${styles.featureCard} ${styles.featureCardOffset}`}>
+                <Icon3D icon={<FaClock />} tone="green" size={48} />
                 <h3>7/24 Hizmet</h3>
                 <p>Her an ulaşılabilir</p>
-              </motion.div>
-              <motion.div
+              </TiltCard>
+              <TiltCard
                 className={styles.featureCard}
-                whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(0,0,0,0.15)" }}
               >
-                <div className={`${styles.featureIcon} ${styles.iconDark}`}>
-                  <FaShieldAlt />
-                </div>
+                <Icon3D icon={<FaShieldAlt />} tone="blue" size={48} />
                 <h3>Güvenilir</h3>
                 <p>%98 memnuniyet oranı</p>
-              </motion.div>
+              </TiltCard>
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       </Wrapper>
     </section>
   );

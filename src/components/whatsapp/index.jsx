@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import styles from "./index.module.css";
+import { whatsappUrl } from "../../utils/whatsapp";
 
 const WhatsAppButton = () => {
   const [visible, setVisible] = useState(false);
@@ -22,7 +23,7 @@ const WhatsAppButton = () => {
 
   return (
     <a
-      href="https://wa.me/905525189654?text=Merhaba%2C%20bilgi%20almak%20istiyorum."
+      href={whatsappUrl("Merhaba, bilgi almak istiyorum.")}
       target="_blank"
       rel="noopener noreferrer"
       className={`${styles.whatsapp} ${pulse ? styles.pulse : ""}`}

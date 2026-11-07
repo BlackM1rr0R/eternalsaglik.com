@@ -92,7 +92,7 @@
 /* Filter Bar */
 .filterBar {
   margin-top: -28px;
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   padding: 20px;
@@ -159,7 +159,7 @@
   padding: 8px 18px;
   border: 1px solid var(--border);
   border-radius: var(--radius-full);
-  background: white;
+  background: var(--surface);
   color: var(--text-secondary);
   font-size: 13px;
   font-weight: 500;
@@ -267,7 +267,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  background: white;
+  background: var(--surface);
 }
 
 .cardCategory {

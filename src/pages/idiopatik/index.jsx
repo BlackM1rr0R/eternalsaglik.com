@@ -5,11 +5,12 @@ import DoctorProfile from '../../assets/images/doctor12.jpg';
 import { Helmet } from "react-helmet-async";
 import ScrollReveal from "../../components/scrollreveal";
 import { motion } from "framer-motion";
-import {
-  FaPhoneAlt, FaUserMd, FaStethoscope, FaSyringe, FaBandAid,
-  FaHeartbeat, FaLungs, FaVials, FaEye, FaCut, FaThermometerHalf,
-  FaHandHoldingMedical, FaBriefcaseMedical, FaCalendarCheck,
-} from "react-icons/fa";
+import { useLocation } from "react-router-dom";
+import BookingForm from "../../components/bookingform";
+import CallbackForm from "../../components/callbackform";
+import ui from "../../styles/ui.module.css";
+import { SITE } from "../../config/site";
+import { FaPhoneAlt, FaHeartbeat, FaBriefcaseMedical, FaCalendarCheck } from "react-icons/fa";
 
 const skills = [
   "Evde Doktor Hizmeti", "I.V. Terapi", "Glutatyon Terapisi",
@@ -24,11 +25,13 @@ const skills = [
 ];
 
 const Idiopatik = () => {
+  const { state } = useLocation();
   return (
     <>
       <Helmet>
         <title>Randevu Al | ETERNAL Sağlık Hizmetleri</title>
-        <meta name="description" content="ETERNAL Sağlık Hizmetleri ile randevunuzu ayın." />
+        <meta name="description" content="Evde doktor, hemşire, serum ve tahlil için online randevu alın. Sakarya, Düzce, Kocaeli ve İstanbul." />
+        <link rel="canonical" href="https://eternalsaglik.com/randevu" />
       </Helmet>
 
       <section className={styles.page}>
@@ -41,21 +44,35 @@ const Idiopatik = () => {
                   <FaCalendarCheck />
                 </div>
                 <h1>Randevu Alın</h1>
-                <p>Doktorumuz sizlere hizmet vermektedir. Sadece arayın!</p>
+                <p>Formu doldurun, talebiniz WhatsApp ile bize ulaşsın. Dilerseniz hemen arayın.</p>
                 <div className={styles.ctaButtons}>
-                  <a href="tel:05525189654" className={styles.callBtn}>
+                  <a href={`tel:${SITE.phones[0].tel}`} className={styles.callBtn}>
                     <FaPhoneAlt />
-                    <span>0552 518 96 54</span>
+                    <span>{SITE.phones[0].display}</span>
                   </a>
-                  <a href="tel:05434063544" className={styles.callBtnAlt}>
+                  <a href={`tel:${SITE.phones[1].tel}`} className={styles.callBtnAlt}>
                     <FaPhoneAlt />
-                    <span>0543 406 35 44</span>
+                    <span>{SITE.phones[1].display}</span>
                   </a>
                 </div>
               </div>
             </ScrollReveal>
           </Wrapper>
         </div>
+
+        {/* Booking */}
+        <Wrapper>
+          <div className={ui.grid2} style={{ alignItems: "start", margin: "48px 0" }}>
+            <ScrollReveal>
+              <BookingForm defaultService={state?.service || ""} />
+            </ScrollReveal>
+            <ScrollReveal delay={0.1}>
+              <div id="geri-arama">
+                <CallbackForm compact title="Form doldurmak istemiyor musunuz?" source="Randevu sayfası" />
+              </div>
+            </ScrollReveal>
+          </div>
+        </Wrapper>
 
         {/* Doctor Profile */}
         <div className={styles.doctorSection}>
@@ -105,14 +122,6 @@ const Idiopatik = () => {
             </div>
           </ScrollReveal>
         </Wrapper>
-
-        {/* Fixed Mobile Call Button */}
-        <div className={styles.fixedCall}>
-          <a href="tel:05525189654">
-            <FaPhoneAlt />
-            <span>Hemen Arayın</span>
-          </a>
-        </div>
       </section>
     </>
   );

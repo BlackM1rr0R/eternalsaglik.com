@@ -1,32 +1,26 @@
 {
-  "name": "clean-react",
+  "name": "eternalsaglik",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.9",
     "framer-motion": "^11.15.0",
     "hamburger-react": "^2.5.1",
     "react": "^18.2.0",
     "react-countup": "^6.5.3",
     "react-dom": "^18.2.0",
-    "react-google-reviews": "^1.5.0",
     "react-helmet-async": "^2.0.5",
     "react-icons": "^5.6.0",
-    "react-intersection-observer": "^10.0.3",
     "react-router-dom": "^6.16.0",
     "react-scripts": "^5.0.1",
-    "react-scroll-trigger": "^0.6.14",
-    "swiper": "^11.1.15",
-    "web-vitals": "^2.1.4"
+    "swiper": "^11.1.15"
   },
   "scripts": {
+    "sitemap": "node scripts/sitemap.js",
+    "prebuild": "node scripts/sitemap.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "deploy": "python scripts/deploy.py"
   },
   "eslintConfig": {
     "extends": [

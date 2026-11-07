@@ -106,7 +106,7 @@
 
 .cardBody {
   padding: 20px;
-  background: white;
+  background: var(--surface);
 }
 
 .cardBody h3 {

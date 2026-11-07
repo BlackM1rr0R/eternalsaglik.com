@@ -89,7 +89,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: white;
+  background: var(--surface);
   color: #115e59;
   padding: 16px 28px;
   border-radius: var(--radius-full);

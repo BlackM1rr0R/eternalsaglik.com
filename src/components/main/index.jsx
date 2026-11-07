@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
+import { useInView } from "framer-motion";
+import Icon3D from "../icon3d";
 import styles from "./index.module.css";
-import ScrollTrigger from "react-scroll-trigger";
 import CountUp from "react-countup";
 import ScrollReveal from "../scrollreveal";
 import { FaBriefcaseMedical, FaHome, FaUsers, FaMapMarkerAlt } from "react-icons/fa";
@@ -11,57 +12,51 @@ const stats = [
     end: 15,
     suffix: "",
     label: "Yıllık profesyonellik",
-    color: "#115e59",
-    bg: "linear-gradient(135deg, #f0fdfa, #ccfbf1)",
+    tone: "teal",
   },
   {
     icon: <FaHome />,
     end: 937,
     suffix: "+",
     label: "Ev sağlığı hizmeti",
-    color: "#0f766e",
-    bg: "linear-gradient(135deg, #ccfbf1, #99f6e4)",
+    tone: "green",
   },
   {
     icon: <FaUsers />,
     end: 10348,
     suffix: "+",
     label: "İyileşen hastalarımız",
-    color: "#0d9488",
-    bg: "linear-gradient(135deg, #eff6ff, #dbeafe)",
+    tone: "blue",
   },
   {
     icon: <FaMapMarkerAlt />,
     end: 2,
     suffix: "+",
     label: "Adreslerimiz",
-    color: "#115e59",
-    bg: "linear-gradient(135deg, #fffbeb, #fef3c7)",
+    tone: "amber",
   },
 ];
 
 const Main = () => {
-  const [counterOn, setCounterOn] = useState(false);
+  const ref = useRef(null);
+  const counterOn = useInView(ref, { once: true, margin: "-80px" });
 
   return (
     <section className={styles.section}>
       <ScrollReveal>
         <div className={styles.header}>
           <span className={styles.badge}>Başarılarımız</span>
-          <h2>Uğurlarımız hakkında</h2>
+          <h2>Rakamlarla Eternal Sağlık</h2>
           <p>Yılların deneyimi ve binlerce mutlu hasta ile gurur duyuyoruz</p>
         </div>
       </ScrollReveal>
 
-      <ScrollTrigger onEnter={() => setCounterOn(true)} onExit={() => setCounterOn(false)}>
-        <div className={styles.grid}>
+      <div className={styles.grid} ref={ref}>
           {stats.map((item, i) => (
             <ScrollReveal key={i} delay={i * 0.1}>
-              <div className={styles.card} style={{ background: item.bg }}>
-                <div className={styles.cardIcon} style={{ color: item.color }}>
-                  {item.icon}
-                </div>
-                <h3 className={styles.cardNumber} style={{ color: item.color }}>
+              <div className={styles.card}>
+                <Icon3D icon={item.icon} tone={item.tone} size={60} />
+                <h3 className={styles.cardNumber}>
                   {counterOn && <CountUp duration={3} delay={0} end={item.end} />}
                   {item.suffix}
                 </h3>
@@ -69,8 +64,7 @@ const Main = () => {
               </div>
             </ScrollReveal>
           ))}
-        </div>
-      </ScrollTrigger>
+      </div>
     </section>
   );
 };

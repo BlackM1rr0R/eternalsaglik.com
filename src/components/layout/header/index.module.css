@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--surface-glass);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -10,7 +10,7 @@
 }
 
 .scrolled {
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--surface-glass);
   border-bottom-color: var(--border);
   box-shadow: var(--shadow-sm);
 }

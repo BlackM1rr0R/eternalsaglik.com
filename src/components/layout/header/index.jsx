@@ -3,23 +3,39 @@ import styles from "./index.module.css";
 import Wrapper from "../../UI/wrapper/index";
 import Logo from "../../../assets/images/logo-eternal.svg";
 import { Sling as Hamburger } from "hamburger-react";
-import { FaInstagram, FaPhoneAlt } from "react-icons/fa";
+import { FaInstagram, FaPhoneAlt, FaMoon, FaSun } from "react-icons/fa";
+import { useSettings } from "../../../context/settings";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { SITE } from "../../../config/site";
 
 const navLinks = [
   { path: "/", label: "Ana Sayfa" },
   { path: "/hizmetlerimiz", label: "Hizmetlerimiz" },
+  { path: "/paketler", label: "Paketler" },
   { path: "/serumlar", label: "Serumlar" },
   { path: "/about", label: "Hakkımızda" },
   { path: "/gallery", label: "Blog" },
   { path: "/contact", label: "İletişim" },
 ];
 
+// Extra links shown only in the mobile menu.
+const moreLinks = [
+  { path: "/aileniz-icin", label: "Aileniz İçin" },
+  { path: "/belirti-rehberi", label: "Belirti Rehberi" },
+  { path: "/serum-testi", label: "Serum Testi" },
+  { path: "/bakim-rehberi", label: "Bakım Rehberleri" },
+  { path: "/kurumsal", label: "Kurumsal" },
+  { path: "/sss", label: "SSS" },
+];
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { settings, update } = useSettings();
+  const dark = settings.theme === "dark";
+  const toggleTheme = () => update({ theme: dark ? "light" : "dark" });
 
   useEffect(() => {
     setIsMenuOpen(false);
@@ -60,7 +76,12 @@ const Header = () => {
           </div>
 
           <div className={styles.actions}>
-            <a href="tel:05525189654" className={styles.phoneBtn}>
+            <button type="button" onClick={toggleTheme} className={styles.socialLink} aria-label={dark ? "Açık moda geç" : "Karanlık moda geç"}
+              style={{ border: 0, cursor: "pointer", background: "transparent" }}>
+              {dark ? <FaSun /> : <FaMoon />}
+            </button>
+            <Link to="/en" className={styles.socialLink} style={{ fontWeight: 800, fontSize: 13 }} aria-label="English">EN</Link>
+            <a href={`tel:${SITE.phones[0].tel}`} className={styles.phoneBtn}>
               <FaPhoneAlt />
               <span>Ara</span>
             </a>
@@ -71,7 +92,7 @@ const Header = () => {
               Randevu Al
             </Link>
             <a
-              href="https://www.instagram.com/sakaryaevdesaglik.esh/"
+              href={SITE.instagram}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.socialLink}
@@ -84,7 +105,7 @@ const Header = () => {
             <Hamburger
               size={22}
               distance="lg"
-              color={scrolled ? "#0d9488" : "#0f172a"}
+              color={scrolled ? "#0d9488" : dark ? "#e8eef6" : "#0f172a"}
               toggled={isMenuOpen}
               toggle={setIsMenuOpen}
             />
@@ -119,6 +140,19 @@ const Header = () => {
                     </Link>
                   </motion.div>
                 ))}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8, padding: "6px 0 10px" }}>
+                  {moreLinks.map((l) => (
+                    <Link key={l.path} to={l.path} onClick={() => setIsMenuOpen(false)}
+                      style={{ padding: "8px 12px", borderRadius: 999, border: "1px solid var(--border)", color: "var(--text)", fontSize: 14, fontWeight: 600, textDecoration: "none" }}>
+                      {l.label}
+                    </Link>
+                  ))}
+                  <Link to="/en" onClick={() => setIsMenuOpen(false)} style={{ padding: "8px 12px", borderRadius: 999, border: "1px solid var(--border)", color: "var(--text)", fontSize: 14, fontWeight: 600, textDecoration: "none" }}>English</Link>
+                  <Link to="/ar" onClick={() => setIsMenuOpen(false)} style={{ padding: "8px 12px", borderRadius: 999, border: "1px solid var(--border)", color: "var(--text)", fontSize: 14, fontWeight: 600, textDecoration: "none" }}>العربية</Link>
+                  <button type="button" onClick={toggleTheme} style={{ padding: "8px 12px", borderRadius: 999, border: "1px solid var(--border)", color: "var(--text)", background: "transparent", fontSize: 14, fontWeight: 600, display: "inline-flex", gap: 6, alignItems: "center", font: "inherit" }}>
+                    {dark ? <FaSun /> : <FaMoon />} {dark ? "Açık mod" : "Karanlık mod"}
+                  </button>
+                </div>
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -140,15 +174,15 @@ const Header = () => {
                   transition={{ delay: 0.4 }}
                 >
                   <a
-                    href="https://www.instagram.com/sakaryaevdesaglik.esh/"
+                    href={SITE.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <FaInstagram />
                   </a>
-                  <a href="tel:05525189654">
+                  <a href={`tel:${SITE.phones[0].tel}`}>
                     <FaPhoneAlt />
-                    <span>0552 518 96 54</span>
+                    <span>{SITE.phones[0].display}</span>
                   </a>
                 </motion.div>
               </div>
