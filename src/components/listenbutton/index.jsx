@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { FaVolumeUp, FaStop } from "react-icons/fa";
+import { FaVolumeUp, FaStop } from "../../icons/modern";
 import { canSpeak, speak, stopSpeaking } from "../../utils/speech";
+import { useT, useLang } from "../../i18n";
+import common from "../../i18n/common";
 
 // "Dinle" button: reads the given text aloud with the browser's Turkish voice.
-const ListenButton = ({ text, lang = "tr-TR", label = "Dinle", stopLabel = "Durdur" }) => {
+const ListenButton = ({ text, lang, label, stopLabel }) => {
   const [playing, setPlaying] = useState(false);
+  const t = useT(common);
+  const { meta } = useLang();
+  lang = lang || meta.speech;
+  label = label || t("listen");
+  stopLabel = stopLabel || t("stop");
   useEffect(() => () => stopSpeaking(), []);
   if (!canSpeak() || !text) return null;
 

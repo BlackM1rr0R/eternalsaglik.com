@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { FaAmbulance, FaMapMarkerAlt, FaPhoneAlt, FaTimes, FaExclamationTriangle } from "react-icons/fa";
+import { FaAmbulance, FaMapMarkerAlt, FaPhoneAlt, FaTimes, FaExclamationTriangle } from "../../icons/modern";
 import w from "../../styles/widgets.module.css";
 import ui from "../../styles/ui.module.css";
 import { primaryPhone } from "../../config/site";
 import { openWhatsApp } from "../../utils/whatsapp";
 import { trackEvent } from "../../utils/analytics";
+import { useT } from "../../i18n";
+import common from "../../i18n/common";
 
 export const openEmergency = () => window.dispatchEvent(new Event("eternal:sos"));
 
@@ -13,6 +15,8 @@ export const openEmergency = () => window.dispatchEvent(new Event("eternal:sos")
 const EmergencySheet = () => {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState("");
+  const t = useT(common);
+  const s = t("sos");
 
   useEffect(() => {
     const on = () => setOpen(true);
@@ -28,16 +32,16 @@ const EmergencySheet = () => {
   const sendLocation = () => {
     trackEvent("generate_lead", { form: "emergency" });
     const fallback = () => {
-      setStatus("Konum alınamadı, adresinizi mesaja yazabilirsiniz.");
-      openWhatsApp("ACİL: Şu an doktor / hemşire desteğine ihtiyacım var. Adresim: ");
+      setStatus(s.locFail);
+      openWhatsApp(`${s.msg} ${s.myAddr}: `);
     };
     if (!navigator.geolocation) return fallback();
-    setStatus("Konumunuz alınıyor…");
+    setStatus(s.locating);
     navigator.geolocation.getCurrentPosition(
       ({ coords }) => {
         const maps = `https://maps.google.com/?q=${coords.latitude.toFixed(6)},${coords.longitude.toFixed(6)}`;
         setStatus("");
-        openWhatsApp(`ACİL: Şu an doktor / hemşire desteğine ihtiyacım var.\nKonumum: ${maps}`);
+        openWhatsApp(`${s.msg}\n${s.myLoc}: ${maps}`);
       },
       fallback,
       { enableHighAccuracy: true, timeout: 10000 }
@@ -55,24 +59,24 @@ const EmergencySheet = () => {
             initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.92 }}
           >
             <div className={w.sheetHead}>
-              <h3 id="sos-title"><FaAmbulance style={{ color: "var(--danger)" }} /> Acil Sağlık Desteği</h3>
-              <button className={w.close} onClick={() => setOpen(false)} aria-label="Kapat"><FaTimes /></button>
+              <h3 id="sos-title"><FaAmbulance style={{ color: "var(--danger)" }} /> {s.title}</h3>
+              <button className={w.close} onClick={() => setOpen(false)} aria-label={s.close}><FaTimes /></button>
             </div>
             <div className={w.sheetBody}>
               <div className={`${ui.note} ${ui.noteDanger}`}>
                 <FaExclamationTriangle />
                 <span>
-                  Bilinç kaybı, şiddetli göğüs ağrısı, nefes darlığı veya ağır kanama varsa <strong>hemen 112'yi arayın</strong>.
+                  {s.warn}
                 </span>
               </div>
               <a href="tel:112" className={`${ui.btn} ${ui.btnDanger} ${ui.btnBlock}`}>
-                <FaPhoneAlt /> 112 Acil Çağrı
+                <FaPhoneAlt /> {s.call112}
               </a>
               <a href={`tel:${primaryPhone.tel}`} className={`${ui.btn} ${ui.btnPrimary} ${ui.btnBlock}`}>
                 <FaPhoneAlt /> Eternal Sağlık: {primaryPhone.display}
               </a>
               <button type="button" onClick={sendLocation} className={`${ui.btn} ${ui.btnWa} ${ui.btnBlock}`}>
-                <FaMapMarkerAlt /> Konumumu WhatsApp'tan Gönder
+                <FaMapMarkerAlt /> {s.sendLoc}
               </button>
               {status && <p className={ui.hint} role="status">{status}</p>}
             </div>

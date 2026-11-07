@@ -8,68 +8,196 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  margin-bottom: 40px;
+  margin-bottom: 28px;
 }
 
 .badge {
-  display: inline-block;
-  background: var(--amber-50);
-  color: var(--accent-dark);
-  padding: 6px 16px;
-  border-radius: var(--radius-full);
-  font-size: 13px;
-  font-weight: 600;
-  border: 1px solid var(--amber-100);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface-glass);
+  color: var(--primary);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-xs);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 7px 14px;
+  border-radius: 999px;
+}
+.badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--grad-primary);
 }
 
 .header h2 {
-  font-size: 28px;
+  margin: 0;
+  font-size: clamp(1.9rem, 3.6vw, 2.9rem);
   font-weight: 800;
   color: var(--text);
-  letter-spacing: -0.5px;
+  letter-spacing: -0.03em;
 }
 
 .header p {
+  margin: 0;
   font-size: 15px;
+  line-height: 1.6;
   color: var(--text-secondary);
-  max-width: 450px;
+  max-width: 560px;
 }
 
+/* Rating summary strip */
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px 20px;
+  max-width: 720px;
+  margin: 0 auto 26px;
+  padding: 16px 20px;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(135deg, var(--amber-50), var(--surface) 60%);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.gIcon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--secondary);
+  font-size: 24px;
+  box-shadow: var(--shadow-md);
+  flex-shrink: 0;
+}
+
+.summaryText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: start;
+  min-width: 0;
+}
+.summaryText strong {
+  color: var(--text);
+  font-size: 15px;
+}
+.summaryText small {
+  color: var(--text-muted);
+  font-size: 12.5px;
+}
+
+.stars {
+  display: flex;
+  gap: 3px;
+  color: #f5b43c;
+  font-size: 18px;
+  margin-bottom: 2px;
+}
+.stars span {
+  display: inline-flex;
+  filter: drop-shadow(0 2px 4px rgba(245, 180, 60, 0.4));
+}
+
+.gLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 700;
+  font-size: 13.5px;
+  box-shadow: 0 0 0 1px var(--border), var(--shadow-xs);
+  transition: box-shadow 0.3s, color 0.3s, transform 0.3s var(--ease-out);
+  text-decoration: none;
+}
+.gLink:hover {
+  color: var(--primary);
+  box-shadow: 0 0 0 1px var(--teal-300), var(--shadow-md);
+  transform: translateY(-2px);
+}
+[dir="rtl"] .flip {
+  transform: scaleX(-1);
+}
+
+/* Widget frame */
 .widgetWrap {
+  position: relative;
+  isolation: isolate;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-  padding: 24px;
-  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-2xl);
+  padding: 30px 16px 20px;
+  box-shadow: var(--shadow-lg);
   overflow: hidden;
+}
+.widgetWrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(420px circle at 0% 0%, var(--teal-50), transparent 60%),
+    radial-gradient(420px circle at 100% 100%, var(--lavender-50), transparent 60%);
+  pointer-events: none;
+}
+
+.quote {
+  position: absolute;
+  z-index: -1;
+  color: var(--teal-200);
+  font-size: 84px;
+  line-height: 1;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.quoteA {
+  top: -6px;
+  inset-inline-start: 10px;
+}
+.quoteB {
+  bottom: -10px;
+  inset-inline-end: 14px;
+  color: var(--lavender-300);
+}
+.quoteB svg {
+  transform: rotate(180deg);
+}
+[data-theme="dark"] .quote {
+  opacity: 0.25;
 }
 
 .widget {
   width: 100%;
   min-height: 200px;
+  position: relative;
 }
 
 @media (min-width: 768px) {
   .section {
     padding: var(--section-py) 0;
   }
-
-  .header h2 {
-    font-size: 36px;
+  .header {
+    margin-bottom: 32px;
   }
-
+  .summary {
+    justify-content: space-between;
+    padding: 18px 26px;
+  }
   .widgetWrap {
-    padding: 32px;
+    padding: 44px 36px 32px;
+  }
+  .quote {
+    font-size: 120px;
   }
 }
-
-/* ── Soft Clinical section headers ── */
-.badge {
-  display: inline-flex !important; align-items: center; gap: 8px;
-  background: var(--surface-glass) !important; color: var(--primary) !important;
-  border: 1px solid var(--border) !important; box-shadow: var(--shadow-xs);
-  font-size: 12px !important; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700 !important;
-  padding: 7px 14px !important; border-radius: 999px !important;
-}
-.badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--grad-primary); }
-.header h2, .sectionTitle h2 { font-size: clamp(1.9rem, 3.6vw, 2.9rem) !important; letter-spacing: -0.03em; }

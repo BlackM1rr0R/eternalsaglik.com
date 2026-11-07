@@ -11,6 +11,7 @@ Live: https://eternalsaglik.com
 - CSS Modules + design tokens in `src/assets/css/variables.css` (light and dark theme)
 - framer-motion for animation, Swiper for sliders, react-helmet-async for per-page SEO tags
 - No backend: every form (booking, contact, callback, corporate) opens a pre-filled WhatsApp message
+- Three languages (Turkish, English, Arabic RTL) via `src/i18n`; icons from Phosphor (duotone) via `src/icons/modern.js`
 
 ## Project layout
 
@@ -46,6 +47,13 @@ scripts/deploy.py       uploads build/ to the server with a backup of the previo
 | `/en`, `/ar` | English and Arabic (RTL) pages for international guests |
 | `/degerlendirme` | Post-visit rating; links to Google reviews |
 | `/sss`, `/kvkk` | FAQ (with FAQPage schema) and KVKK privacy notice |
+
+## Languages
+
+- `src/i18n/index.jsx`: `LanguageProvider`, `useT(dict)` for component strings, `useLocalized(list, translations, key)` for data.
+- Each component keeps its own `{ tr, en, ar }` dictionary; shared layout strings are in `src/i18n/common.js`.
+- Data files (`src/data/*.js`) hold Turkish fields plus a `translations` export keyed by id/slug.
+- The chosen language is saved in the browser; `/en` and `/ar` switch the whole site.
 
 ## Development
 

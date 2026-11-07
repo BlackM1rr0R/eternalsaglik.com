@@ -1,27 +1,32 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaPhoneAlt, FaWhatsapp, FaCalendarCheck, FaAmbulance } from "react-icons/fa";
+import { FaPhoneAlt, FaWhatsapp, FaCalendarCheck, FaAmbulance } from "../../icons/modern";
 import w from "../../styles/widgets.module.css";
 import { primaryPhone } from "../../config/site";
 import { whatsappUrl } from "../../utils/whatsapp";
 import { openEmergency } from "./emergency";
+import { useT } from "../../i18n";
+import common from "../../i18n/common";
 
 // Sticky bottom bar on phones: the four actions that bring patients in.
-const MobileBar = () => (
-  <nav className={w.mobileBar} aria-label="Hızlı iletişim">
+const MobileBar = () => {
+  const t = useT(common);
+  return (
+  <nav className={w.mobileBar} aria-label={t("quickContact")}>
     <a href={`tel:${primaryPhone.tel}`} className={`${w.barItem} ${w.barCall}`}>
-      <FaPhoneAlt /> Ara
+      <FaPhoneAlt /> {t("call")}
     </a>
-    <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className={`${w.barItem} ${w.barWa}`}>
-      <FaWhatsapp /> WhatsApp
+    <a href={whatsappUrl(t("waDefault"))} target="_blank" rel="noopener noreferrer" className={`${w.barItem} ${w.barWa}`}>
+      <FaWhatsapp /> {t("whatsapp")}
     </a>
     <Link to="/randevu" className={`${w.barItem} ${w.barBook}`}>
-      <FaCalendarCheck /> Randevu
+      <FaCalendarCheck /> {t("book")}
     </Link>
     <button type="button" onClick={openEmergency} className={`${w.barItem} ${w.barSos}`}>
-      <FaAmbulance /> Acil
+      <FaAmbulance /> {t("emergency")}
     </button>
   </nav>
-);
+  );
+};
 
 export default MobileBar;

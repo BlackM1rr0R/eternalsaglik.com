@@ -1,0 +1,45 @@
+/* Corporate page */
+.segTabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 28px; }
+.segTab {
+  display: inline-flex; gap: 10px; align-items: center; cursor: pointer; font: inherit; font-weight: 700;
+  border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary);
+  padding: 10px 18px 10px 10px; border-radius: var(--radius-full); position: relative; transition: color 0.25s, border-color 0.25s;
+  padding-inline: 10px 18px;
+}
+.segTab:hover { border-color: var(--teal-300); color: var(--primary); }
+.segTabActive { color: #fff; border-color: transparent; }
+.segTabActive:hover { color: #fff; }
+.segPill { position: absolute; inset: -1px; border-radius: inherit; background: var(--grad-primary); box-shadow: var(--shadow-primary); z-index: 0; }
+.segTab > * { position: relative; z-index: 1; }
+.segIcon { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--teal-50); color: var(--primary); font-size: 18px; }
+.segTabActive .segIcon { background: rgba(255, 255, 255, 0.2); color: #fff; }
+
+.panel { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.panelHead { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; margin-bottom: 22px; }
+.panelHead h2 { margin: 0; font-size: clamp(1.5rem, 3vw, 2rem); }
+.panelHead p { margin: 4px 0 0; color: var(--text-secondary); max-width: 640px; }
+.col h3 { display: flex; gap: 10px; align-items: center; margin-top: 0; }
+.col h3 svg { color: var(--primary); }
+
+.onboard { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); counter-reset: ob; position: relative; }
+.obStep { position: relative; padding-top: 6px; }
+.obNum {
+  width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; font-weight: 800; color: #fff;
+  background: var(--grad-primary); box-shadow: var(--shadow-primary); margin-bottom: 12px;
+}
+.obStep h3 { margin: 0 0 6px; font-size: 1.05rem; }
+.obStep p { margin: 0; color: var(--text-secondary); font-size: 0.94rem; line-height: 1.6; }
+
+.why { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.whyItem { display: flex; gap: 12px; align-items: flex-start; }
+.whyItem svg { flex-shrink: 0; font-size: 24px; color: var(--primary); margin-top: 2px; }
+.whyItem strong { display: block; color: var(--text); }
+.whyItem span { color: var(--text-secondary); font-size: 0.93rem; }
+
+.formWrap { max-width: 860px; margin: 0 auto 80px; }
+.sent { color: var(--primary); font-weight: 700; display: flex; gap: 8px; align-items: center; margin: 0; }
+
+@media (max-width: 560px) {
+  .segTab { padding-inline: 8px 14px; font-size: 0.9rem; }
+  .segIcon { width: 30px; height: 30px; }
+}

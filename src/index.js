@@ -6,6 +6,10 @@ import "./assets/css/variables.css";
 import "./index.css";
 import "./assets/css/a11y.css";
 import App from "./App";
+import { loadHome } from "./routes";
+
+// Start downloading the home page chunk in parallel with the app shell.
+if (window.location.pathname === "/") loadHome();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

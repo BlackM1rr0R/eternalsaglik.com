@@ -1,0 +1,40 @@
+.wrap { position: relative; }
+.trigger {
+  display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px; border-radius: 999px; border: 0;
+  background: transparent; color: var(--text-secondary); font: inherit; font-weight: 800; font-size: 12.5px; letter-spacing: 0.04em;
+  transition: background var(--duration), color var(--duration);
+}
+.trigger svg:first-child { font-size: 18px; color: var(--primary); }
+.trigger:hover { background: var(--bg-muted); color: var(--text); }
+.caret { font-size: 10px; transition: transform 0.3s var(--ease-out); }
+.caretOpen { transform: rotate(180deg); }
+
+.menu {
+  position: absolute; top: calc(100% + 10px); inset-inline-end: 0; z-index: 20; list-style: none;
+  min-width: 190px; padding: 6px; border-radius: 18px;
+  background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-xl);
+  transform-origin: top right;
+}
+.item {
+  width: 100%; display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 12px; border: 0;
+  background: transparent; color: var(--text); font: inherit; font-weight: 600; font-size: 14px; text-align: start;
+}
+.item:hover { background: var(--bg-muted); }
+.itemOn { background: var(--teal-50); color: var(--teal-800); }
+[data-theme="dark"] .itemOn { color: var(--teal-200); }
+.code {
+  width: 30px; height: 24px; border-radius: 8px; display: grid; place-items: center; flex-shrink: 0;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.04em; background: var(--bg-muted); color: var(--text-secondary);
+}
+.itemOn .code { background: var(--grad-primary); color: #fff; }
+.label { flex: 1; }
+.check { color: var(--primary); }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px 9px 9px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--surface); color: var(--text); font: inherit; font-weight: 600; font-size: 14px;
+}
+.chip span { padding: 3px 7px; border-radius: 999px; font-size: 11px; font-weight: 800; background: var(--bg-muted); }
+.chipOn { border-color: var(--teal-300); box-shadow: 0 0 0 3px var(--teal-50); }
+.chipOn span { background: var(--grad-primary); color: #fff; }

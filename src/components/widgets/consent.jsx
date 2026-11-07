@@ -3,10 +3,14 @@ import { Link } from "react-router-dom";
 import w from "../../styles/widgets.module.css";
 import ui from "../../styles/ui.module.css";
 import { getConsent, initAnalytics, setConsent } from "../../utils/analytics";
+import { useT } from "../../i18n";
+import common from "../../i18n/common";
 
 // KVKK cookie consent. Analytics scripts load only after "Kabul Et".
 const ConsentBanner = () => {
   const [show, setShow] = useState(false);
+  const t = useT(common);
+  const c = t("consent");
 
   useEffect(() => {
     const c = getConsent();
@@ -21,14 +25,13 @@ const ConsentBanner = () => {
   };
 
   return (
-    <div className={w.consent} role="region" aria-label="Çerez bildirimi">
+    <div className={w.consent} role="region" aria-label={c.region}>
       <p>
-        Sitemizi geliştirmek için, izniniz olursa analiz çerezleri kullanıyoruz. Zorunlu çerezler dışında
-        hiçbir veri izniniz olmadan işlenmez. Ayrıntılar: <Link to="/kvkk">KVKK ve Gizlilik Politikası</Link>.
+        {c.text} <Link to="/kvkk">{c.link}</Link>.
       </p>
       <div className={w.consentBtns}>
-        <button type="button" className={`${ui.btn} ${ui.btnGhost}`} onClick={() => choose("denied")}>Reddet</button>
-        <button type="button" className={`${ui.btn} ${ui.btnPrimary}`} onClick={() => choose("granted")}>Kabul Et</button>
+        <button type="button" className={`${ui.btn} ${ui.btnGhost}`} onClick={() => choose("denied")}>{c.reject}</button>
+        <button type="button" className={`${ui.btn} ${ui.btnPrimary}`} onClick={() => choose("granted")}>{c.accept}</button>
       </div>
     </div>
   );

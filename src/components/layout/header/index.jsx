@@ -1,32 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaPhoneAlt, FaMoon, FaSun, FaInstagram, FaArrowRight, FaCalendarCheck, FaTimes } from "react-icons/fa";
+import { FaPhoneAlt, FaMoon, FaSun, FaInstagram, FaArrowRight, FaCalendarCheck, FaTimes } from "../../../icons/modern";
 import styles from "./index.module.css";
 import Logo from "../../../assets/images/logo-eternal.svg";
 import { useSettings } from "../../../context/settings";
 import { SITE, primaryPhone } from "../../../config/site";
 
-const navLinks = [
-  { path: "/", label: "Ana Sayfa" },
-  { path: "/hizmetlerimiz", label: "Hizmetler" },
-  { path: "/paketler", label: "Paketler" },
-  { path: "/serumlar", label: "Serumlar" },
-  { path: "/about", label: "Hakkımızda" },
-  { path: "/gallery", label: "Blog" },
-  { path: "/contact", label: "İletişim" },
+import LangSwitch from "../../langswitch";
+import { useT } from "../../../i18n";
+import common from "../../../i18n/common";
+
+const NAV = [
+  ["/", "home"], ["/hizmetlerimiz", "services"], ["/paketler", "packages"], ["/serumlar", "serums"],
+  ["/about", "about"], ["/gallery", "blog"], ["/contact", "contact"],
 ];
 
 // Extra destinations, shown in the mobile menu.
-const moreLinks = [
-  { path: "/aileniz-icin", label: "Aileniz İçin" },
-  { path: "/belirti-rehberi", label: "Belirti Rehberi" },
-  { path: "/serum-testi", label: "Serum Testi" },
-  { path: "/bakim-rehberi", label: "Bakım Rehberleri" },
-  { path: "/kurumsal", label: "Kurumsal" },
-  { path: "/sss", label: "SSS" },
-  { path: "/en", label: "English" },
-  { path: "/ar", label: "العربية" },
+const MORE = [
+  ["/aileniz-icin", "family"], ["/belirti-rehberi", "symptoms"], ["/serum-testi", "quiz"],
+  ["/bakim-rehberi", "guides"], ["/kurumsal", "corporate"], ["/sss", "faq"],
 ];
 
 const isActive = (pathname, path) => (path === "/" ? pathname === "/" : pathname.startsWith(path));
@@ -38,6 +31,9 @@ const Header = () => {
   const { settings, update } = useSettings();
   const dark = settings.theme === "dark";
   const toggleTheme = () => update({ theme: dark ? "light" : "dark" });
+  const t = useT(common);
+  const navLinks = NAV.map(([path, k]) => ({ path, label: t("nav")[k] }));
+  const moreLinks = MORE.map(([path, k]) => ({ path, label: t("more")[k] }));
 
   useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
@@ -65,7 +61,7 @@ const Header = () => {
             <span className={styles.logoMark}><img src={Logo} alt="" /></span>
             <span className={styles.logoText}>
               <strong>ETERNAL</strong>
-              <small>Sağlık Hizmetleri</small>
+              <small>{t("brandSub")}</small>
             </span>
           </Link>
 
@@ -86,22 +82,22 @@ const Header = () => {
           </ul>
 
           <div className={styles.actions}>
-            <button type="button" className={styles.iconBtn} onClick={toggleTheme} aria-label={dark ? "Açık moda geç" : "Karanlık moda geç"}>
+            <button type="button" className={styles.iconBtn} onClick={toggleTheme} aria-label={dark ? t("themeLight") : t("themeDark")}>
               <AnimatePresence mode="wait" initial={false}>
                 <motion.span key={dark ? "sun" : "moon"} initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.25 }} style={{ display: "grid" }}>
                   {dark ? <FaSun /> : <FaMoon />}
                 </motion.span>
               </AnimatePresence>
             </button>
-            <Link to="/en" className={`${styles.iconBtn} ${styles.lang}`} aria-label="English">EN</Link>
+            <span className={styles.lang}><LangSwitch /></span>
             <a href={`tel:${primaryPhone.tel}`} className={styles.phone}>
               <span className={styles.phoneIcon}><FaPhoneAlt /></span>
               <span>{primaryPhone.display}</span>
             </a>
             <Link to="/randevu" className={styles.cta}>
-              Randevu Al <FaArrowRight />
+              {t("book")} <FaArrowRight />
             </Link>
-            <button type="button" className={styles.burger} onClick={() => setOpen(true)} aria-label="Menüyü aç" aria-expanded={open}>
+            <button type="button" className={styles.burger} onClick={() => setOpen(true)} aria-label={t("menuOpen")} aria-expanded={open}>
               <span /><span /><span />
             </button>
           </div>
@@ -123,9 +119,9 @@ const Header = () => {
             <div className={styles.sheetTop}>
               <Link to="/" className={styles.logo}>
                 <span className={styles.logoMark}><img src={Logo} alt="" /></span>
-                <span className={styles.logoText}><strong>ETERNAL</strong><small>Sağlık Hizmetleri</small></span>
+                <span className={styles.logoText}><strong>ETERNAL</strong><small>{t("brandSub")}</small></span>
               </Link>
-              <button type="button" className={styles.iconBtn} onClick={() => setOpen(false)} aria-label="Menüyü kapat"><FaTimes /></button>
+              <button type="button" className={styles.iconBtn} onClick={() => setOpen(false)} aria-label={t("menuClose")}><FaTimes /></button>
             </div>
 
             <nav className={styles.sheetLinks} aria-label="Mobil menü">
@@ -142,12 +138,16 @@ const Header = () => {
               {moreLinks.map((l) => <Link key={l.path} to={l.path}>{l.label}</Link>)}
             </motion.div>
 
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}>
+              <LangSwitch variant="chips" />
+            </motion.div>
+
             <motion.div className={styles.sheetActions} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
-              <Link to="/randevu" className={styles.cta}><FaCalendarCheck /> Randevu Al</Link>
+              <Link to="/randevu" className={styles.cta}><FaCalendarCheck /> {t("book")}</Link>
               <a href={`tel:${primaryPhone.tel}`} className={styles.phone}><span className={styles.phoneIcon}><FaPhoneAlt /></span>{primaryPhone.display}</a>
               <div style={{ display: "flex", gap: 10 }}>
                 <a href={SITE.instagram} target="_blank" rel="noopener noreferrer" className={styles.iconBtn} aria-label="Instagram"><FaInstagram /></a>
-                <button type="button" className={styles.iconBtn} onClick={toggleTheme} aria-label={dark ? "Açık mod" : "Karanlık mod"}>{dark ? <FaSun /> : <FaMoon />}</button>
+                <button type="button" className={styles.iconBtn} onClick={toggleTheme} aria-label={dark ? t("themeLight") : t("themeDark")}>{dark ? <FaSun /> : <FaMoon />}</button>
               </div>
             </motion.div>
           </motion.div>

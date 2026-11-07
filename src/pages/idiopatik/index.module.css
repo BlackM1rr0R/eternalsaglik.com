@@ -1,378 +1,112 @@
-.page {
-  padding-bottom: 60px;
+/* Booking page (/randevu) */
+.page { padding-bottom: 80px; }
+
+.heroBtns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 28px; }
+.trust { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 22px; }
+.trustPill {
+  display: inline-flex; gap: 8px; align-items: center; padding: 7px 14px; border-radius: var(--radius-full);
+  background: var(--surface-glass); border: 1px solid var(--border); font-size: 0.85rem; font-weight: 600; color: var(--text);
+}
+.trustPill svg { color: var(--primary); font-size: 1.05rem; }
+
+.bookingGrid {
+  display: grid; gap: 24px; align-items: start; margin: 30px 0 20px;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+}
+@media (max-width: 960px) { .bookingGrid { grid-template-columns: 1fr; } }
+.formAnchor { position: relative; top: -110px; }
+.side { display: grid; gap: 20px; }
+.sos { color: var(--danger); font-weight: 800; }
+
+.cardTitle { display: flex; gap: 10px; align-items: center; font-size: 1.15rem; margin: 0 0 6px; }
+.cardTitle svg { color: var(--primary); font-size: 1.4rem; flex-shrink: 0; }
+.readyList { list-style: none; padding: 0; margin: 12px 0 0 !important; display: grid; gap: 10px; }
+.readyList li { display: flex !important; gap: 10px; align-items: flex-start; color: var(--text-secondary); font-size: 0.93rem; }
+
+/* After you send: timeline */
+.afterSection { padding: 80px 0; margin-top: 50px; background: var(--wash-hero, var(--bg-soft)); }
+.timeline { display: grid; gap: 22px; grid-template-columns: repeat(4, minmax(0, 1fr)); position: relative; }
+.timeline::before {
+  content: ""; position: absolute; top: 34px; inset-inline: 12% 12%; height: 2px;
+  background: linear-gradient(90deg, var(--teal-200), var(--lavender-300), var(--teal-200)); opacity: 0.8;
+}
+@media (max-width: 900px) {
+  .timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .timeline::before { display: none; }
+}
+@media (max-width: 520px) { .timeline { grid-template-columns: 1fr; } }
+.tlItem { position: relative; text-align: center; padding: 0 6px; }
+.tlItem h3 { font-size: 1.08rem; margin: 16px 0 8px; }
+.tlItem p { color: var(--text-secondary); font-size: 0.93rem; line-height: 1.65; margin: 0; }
+.tlIconWrap { position: relative; display: inline-block; }
+.tlIcon {
+  width: 68px; height: 68px; border-radius: 22px; display: grid; place-items: center; font-size: 2rem;
+  background: var(--surface); color: var(--primary); border: 1px solid var(--border); box-shadow: var(--shadow-lg);
+}
+.tlNum {
+  position: absolute; top: -8px; inset-inline-end: -8px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--grad-primary); color: #fff; font-size: 0.78rem; font-weight: 800;
+  box-shadow: var(--shadow-primary);
 }
 
-/* CTA Hero */
-.ctaHero {
-  background: linear-gradient(135deg, #115e59 0%, #0d9488 50%, #14b8a6 100%);
-  padding: 60px 0;
-  position: relative;
-  overflow: hidden;
+/* Reassurance */
+.reassure { padding: 80px 0 40px; }
+.stats {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: 28px;
+}
+@media (max-width: 720px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.stat {
+  text-align: center; padding: 22px 12px; border-radius: var(--radius-xl); background: var(--surface);
+  border: 1px solid var(--border); box-shadow: var(--shadow-xs);
+}
+.stat strong {
+  display: block; font-size: clamp(1.7rem, 4vw, 2.4rem); line-height: 1.1;
+  background: var(--grad-primary); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.stat span { color: var(--text-secondary); font-size: 0.9rem; font-weight: 600; }
+.reassureGrid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.reassureCard { height: 100%; }
+.reassureIcon {
+  width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; font-size: 1.6rem;
+  background: var(--teal-50); color: var(--primary);
 }
 
-.ctaHero::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -20%;
-  width: 400px;
-  height: 400px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 50%;
-}
-
-.ctaContent {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  position: relative;
-  z-index: 2;
-}
-
-.ctaIcon {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.15);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-  border: 2px solid rgba(255,255,255,0.2);
-}
-
-.ctaContent h1 {
-  font-size: 32px;
-  font-weight: 800;
-  color: white;
-}
-
-.ctaContent p {
-  color: rgba(255,255,255,0.85);
-  font-size: 16px;
-  max-width: 400px;
-}
-
-.ctaButtons {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 8px;
-  width: 100%;
-  max-width: 350px;
-}
-
-.callBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background: var(--surface);
-  color: #115e59;
-  padding: 16px 32px;
-  border-radius: var(--radius-full);
-  font-weight: 700;
-  font-size: 16px;
-  text-decoration: none;
-  transition: all 0.3s var(--ease);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.callBtn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-}
-
-.callBtnAlt {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background: transparent;
-  color: white;
-  padding: 14px 32px;
-  border-radius: var(--radius-full);
-  font-weight: 600;
-  font-size: 15px;
-  text-decoration: none;
-  border: 2px solid rgba(255,255,255,0.4);
-  transition: all 0.3s var(--ease);
-}
-
-.callBtnAlt:hover {
-  background: rgba(255,255,255,0.1);
-  border-color: rgba(255,255,255,0.7);
-}
-
-/* Doctor Section */
-.doctorSection {
-  padding: 40px 0;
-}
-
+/* Doctor */
 .doctorCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  text-align: center;
+  display: flex; align-items: center; gap: 28px; margin: 40px auto; max-width: 820px; padding: 26px;
+  border-radius: var(--radius-2xl, 28px); background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-lg);
 }
-
-.doctorImg {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid var(--teal-100);
-  box-shadow: var(--shadow-lg);
-}
-
-.doctorInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.doctorInfo h2 {
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--text);
-}
-
+.doctorImg { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 4px solid var(--teal-100); }
+.doctorInfo h2 { margin: 0 0 8px; font-size: 1.5rem; }
 .doctorBadge {
-  display: inline-block;
-  background: var(--teal-50);
-  color: var(--primary);
-  padding: 6px 16px;
-  border-radius: var(--radius-full);
-  font-size: 13px;
-  font-weight: 600;
-  border: 1px solid var(--teal-200);
+  display: inline-block; padding: 5px 12px; border-radius: var(--radius-full); background: var(--teal-50);
+  color: var(--primary); font-weight: 700; font-size: 0.82rem;
 }
-
-.doctorInfo p {
-  color: var(--text-secondary);
-  font-size: 15px;
+.doctorInfo p { color: var(--text-secondary); margin: 10px 0 0; }
+@media (max-width: 600px) {
+  .doctorCard { flex-direction: column; text-align: center; }
+  .doctorImg { width: 120px; height: 120px; }
 }
 
 /* Skills */
-.skillsSection {
-  margin-top: 20px;
-}
-
-.sectionHeader {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 32px;
-}
-
-.badge {
-  display: inline-block;
-  background: var(--teal-50);
-  color: var(--primary);
-  padding: 6px 16px;
-  border-radius: var(--radius-full);
-  font-size: 13px;
-  font-weight: 600;
-  border: 1px solid var(--teal-200);
-}
-
-.sectionHeader h2 {
-  font-size: 28px;
-  font-weight: 800;
-  color: var(--text);
-}
-
-.skillsGrid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-}
-
+.skillsSection { padding: 40px 0; }
+.skillsGrid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
 .skillTag {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-full);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text);
-  transition: all 0.25s ease;
-  cursor: default;
+  display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: var(--radius-full);
+  background: var(--surface); border: 1px solid var(--border); color: var(--text); font-weight: 600; font-size: 0.9rem;
+  box-shadow: var(--shadow-xs); cursor: default;
 }
+.skillTag svg { color: var(--primary); font-size: 1.1rem; flex-shrink: 0; }
+.skillTag:hover { border-color: var(--teal-300); }
 
-.skillTag svg {
-  color: var(--primary);
-  font-size: 12px;
-}
-
-.skillTag:hover {
-  border-color: var(--teal-200);
-  background: var(--teal-50);
-  box-shadow: var(--shadow-sm);
-}
-
-/* Clinic Box */
+/* Closing box */
 .clinicBox {
-  margin-top: 48px;
-  background: linear-gradient(135deg, var(--teal-50), var(--teal-100));
-  border-radius: var(--radius-xl);
-  padding: 40px 28px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  border: 1px solid var(--teal-200);
+  text-align: center; margin: 30px auto 0; max-width: 820px; padding: 44px 24px; border-radius: var(--radius-2xl, 28px);
+  background: var(--grad-primary); color: #fff; box-shadow: var(--shadow-primary-lg);
 }
-
-.clinicIcon {
-  font-size: 36px;
-  color: var(--primary);
-}
-
-.clinicBox h2 {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--teal-800);
-}
-
-.clinicBox p {
-  color: var(--text-secondary);
-  font-size: 15px;
-  font-style: italic;
-}
-
-/* Fixed Call (mobile only) */
-.fixedCall {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .fixedCall {
-    display: block;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 999;
-    padding: 12px 16px;
-    background: var(--surface);
-    border-top: 1px solid var(--border);
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
-  }
-
-  .fixedCall a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: var(--primary);
-    color: white;
-    padding: 14px;
-    border-radius: var(--radius-lg);
-    font-weight: 600;
-    font-size: 15px;
-    text-decoration: none;
-    box-shadow: var(--shadow-primary);
-  }
-}
-
-@media (min-width: 768px) {
-  .ctaHero {
-    padding: 80px 0;
-  }
-
-  .ctaContent h1 {
-    font-size: 42px;
-  }
-
-  .ctaButtons {
-    flex-direction: row;
-    max-width: none;
-    width: auto;
-  }
-
-  .doctorCard {
-    flex-direction: row;
-    text-align: left;
-    gap: 30px;
-  }
-
-  .doctorImg {
-    width: 160px;
-    height: 160px;
-  }
-
-  .sectionHeader h2 {
-    font-size: 34px;
-  }
-
-  .clinicBox {
-    padding: 60px 40px;
-  }
-
-  .clinicBox h2 {
-    font-size: 28px;
-  }
-}
-
-/* ── Soft Clinical hero (redesign) ── */
-.ctaHero {
-  margin-top: calc(-1 * var(--nav-space));
-  padding: calc(var(--nav-space) + 70px) 0 96px !important;
-  background: var(--wash-hero) !important;
-  isolation: isolate;
-}
-.ctaHero::before {
-  top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
-  width: auto !important; height: auto !important; border-radius: 0 !important; z-index: -1;
-  background-image: radial-gradient(rgba(18, 39, 43, 0.1) 1px, transparent 1px) !important;
-  background-size: 24px 24px !important;
-  mask-image: radial-gradient(60% 70% at 50% 30%, #000 10%, transparent 75%);
-  -webkit-mask-image: radial-gradient(60% 70% at 50% 30%, #000 10%, transparent 75%);
-}
-.ctaHero::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 90px; z-index: -1;
-  background: linear-gradient(180deg, transparent, var(--bg));
-}
-.ctaContent h1 {
-  color: var(--text) !important;
-  font-size: clamp(2.3rem, 5.4vw, 4rem) !important;
-  line-height: 1.05 !important;
-  letter-spacing: -0.04em;
-  margin: 6px 0 4px;
-}
-.ctaContent h1 span {
-  font-family: var(--font-display); font-style: italic; font-weight: 500;
-  background: var(--grad-accent-text); -webkit-background-clip: text; background-clip: text;
-  color: transparent !important; -webkit-text-fill-color: transparent;
-}
-.ctaContent p { color: var(--text-secondary) !important; font-size: 1.08rem !important; max-width: 620px; }
-
-.callBtn {
-  background: var(--slate-900) !important; color: var(--bg) !important;
-  box-shadow: 0 16px 34px -16px rgba(18, 39, 43, 0.6) !important; border: 0 !important;
-}
-.callBtn:hover { transform: translateY(-2px); }
-.callBtnAlt {
-  background: var(--surface-glass) !important; color: var(--text) !important;
-  border: 1px solid var(--border) !important; box-shadow: var(--shadow-sm);
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-}
-.callBtnAlt:hover { border-color: var(--teal-300) !important; color: var(--primary) !important; }
-
-.ctaIcon {
-  background: var(--grad-primary) !important; color: #fff !important; border: 0 !important;
-  box-shadow: var(--shadow-primary); animation: floatIcon 4s ease-in-out infinite;
-}
-@keyframes floatIcon { 50% { transform: translateY(-6px) rotate(-6deg); } }
+.clinicIcon { font-size: 44px; }
+.clinicBox h2 { color: #fff; margin: 10px 0 8px; font-size: clamp(1.4rem, 3vw, 2rem); }
+.clinicBox p { color: rgba(255, 255, 255, 0.9); margin: 0 0 20px; font-family: var(--font-display, Georgia, serif); font-style: italic; font-size: 1.1rem; }
+.clinicBox a { background: #fff; color: var(--teal-800); box-shadow: none; }
+.arrow { transition: transform 0.3s; }
+[dir="rtl"] .arrow { transform: scaleX(-1); }

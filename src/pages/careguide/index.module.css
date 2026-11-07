@@ -1,0 +1,79 @@
+/* List */
+.howTitle { text-align: center; font-size: clamp(1.4rem, 3vw, 1.9rem); margin: 0 0 22px; }
+.how { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.howItem {
+  position: relative; display: flex; gap: 14px; align-items: flex-start; padding: 20px;
+  border-radius: var(--radius-xl); background: var(--surface-glass); border: 1px solid var(--border);
+  box-shadow: var(--shadow-xs);
+}
+.howItem strong { color: var(--text); }
+.howItem p { margin: 4px 0 0; color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; }
+.howIcon { font-size: 1.9rem; color: var(--primary); flex-shrink: 0; }
+.howNum {
+  position: absolute; top: 12px; inset-inline-end: 14px; font-weight: 800; font-size: 0.8rem; color: var(--text-muted);
+}
+.listSection { padding: 10px 0 90px; }
+
+.card { display: flex; flex-direction: column; height: 100%; text-decoration: none; }
+.card h3 { color: var(--text); }
+.toc { margin-top: 6px !important; }
+.toc li { font-size: 0.88rem !important; }
+.cardDanger {
+  display: flex; gap: 8px; align-items: center; margin: 14px 0 0; font-size: 0.85rem !important; font-weight: 700;
+  color: var(--danger) !important;
+}
+.cardFoot { margin-top: auto; padding-top: 16px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.meta { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
+.open { color: var(--primary); font-weight: 700; display: inline-flex; gap: 6px; align-items: center; }
+.arrow { transition: transform 0.3s; }
+.card:hover .arrow { transform: translateX(4px); }
+[dir="rtl"] .arrow, [dir="rtl"] .backIcon { transform: scaleX(-1); }
+[dir="rtl"] .card:hover .arrow { transform: scaleX(-1) translateX(4px); }
+
+/* Detail */
+.article { padding-bottom: 20px; }
+.back { color: var(--primary); font-weight: 700; display: inline-flex; gap: 6px; align-items: center; text-decoration: none; }
+.head { margin-top: 22px; }
+.h1 { color: var(--text); margin: 6px 0 10px; font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.15; }
+.summary { font-size: 1.08rem; }
+.actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+.block {
+  margin-top: 26px; padding: 22px 24px; border-radius: var(--radius-xl);
+  background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-xs);
+}
+.blockDanger { background: var(--rose-50); border-color: rgba(225, 77, 106, 0.3); }
+.blockTitle { display: flex; gap: 10px; align-items: center; margin: 0 0 12px !important; font-size: 1.25rem !important; }
+.blockTitle svg { color: var(--primary); flex-shrink: 0; }
+.blockDanger .blockTitle { color: var(--danger) !important; }
+.blockDanger .blockTitle svg { color: var(--danger); }
+.items { list-style: none; padding: 0 !important; margin: 0; display: grid; gap: 10px; }
+.items li { display: flex; gap: 10px; align-items: flex-start; }
+.iOk { color: var(--primary); margin-top: 6px; flex-shrink: 0; }
+.iDanger { color: var(--danger); margin-top: 6px; flex-shrink: 0; }
+.sosBtn { margin-top: 14px; padding: 9px 18px; }
+
+.related {
+  margin-top: 34px; display: flex; gap: 20px; justify-content: space-between; align-items: center; flex-wrap: wrap;
+}
+.related h2 { margin: 0 0 6px !important; font-size: 1.2rem !important; }
+.related p { margin: 0 0 8px; }
+.relatedLink { color: var(--primary); font-weight: 700; display: inline-flex; gap: 6px; align-items: center; text-decoration: none; }
+.relatedLink:hover .arrow { transform: translateX(4px); }
+.relatedBtns { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.others { padding: 50px 0 20px; }
+.others h2 { text-align: center; margin-bottom: 24px; font-size: clamp(1.4rem, 3vw, 1.9rem); }
+
+.printOnly { display: none; }
+
+@media print {
+  .printOnly { display: block; font-size: 0.85rem; }
+  .block, .head { opacity: 1 !important; transform: none !important; filter: none !important; box-shadow: none !important; break-inside: avoid; }
+  .block { border: 1px solid #ccc; background: #fff; }
+  .blockDanger { border-color: #c33; }
+}
+@media (max-width: 520px) {
+  .block { padding: 18px; }
+  .related { flex-direction: column; align-items: flex-start; }
+}

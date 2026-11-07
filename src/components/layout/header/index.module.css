@@ -69,7 +69,7 @@
   transition: background var(--duration), color var(--duration), transform var(--duration);
 }
 .iconBtn:hover { background: var(--bg-muted); color: var(--text); }
-.lang { font-size: 12px; font-weight: 800; letter-spacing: 0.04em; }
+.lang { display: inline-flex; }
 
 .phone {
   display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 6px;
@@ -118,7 +118,7 @@
   .phone { padding: 6px; }
 }
 @media (max-width: 1024px) {
-  .links, .lang, .phone { display: none; }
+  .links, .phone { display: none; }
   .burger { display: flex; }
 }
 @media (max-width: 560px) {

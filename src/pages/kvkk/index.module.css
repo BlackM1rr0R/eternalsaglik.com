@@ -1,0 +1,30 @@
+/* KVKK page */
+.layout { display: grid; gap: 36px; grid-template-columns: 260px minmax(0, 1fr); align-items: start; }
+.toc { position: sticky; top: calc(var(--nav-space, 90px) + 16px); }
+.tocCard { padding: 20px; }
+.tocTitle { display: block; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+.tocList { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.tocList a {
+  display: flex; gap: 10px; align-items: center; padding: 8px 10px; border-radius: var(--radius-md);
+  color: var(--text-secondary); font-size: 0.92rem; font-weight: 600; text-decoration: none; transition: background 0.25s, color 0.25s;
+}
+.tocList a:hover { background: var(--teal-50); color: var(--primary); }
+.tocList a svg { flex-shrink: 0; color: var(--primary); }
+
+.body { max-width: none; margin: 0; }
+.body ul { padding-left: 0; padding-inline-start: 22px; }
+.block { scroll-margin-top: calc(var(--nav-space, 90px) + 20px); }
+.block h2 { display: flex; gap: 12px; align-items: center; }
+.icon {
+  flex-shrink: 0; width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center;
+  background: var(--teal-50); color: var(--primary); font-size: 20px;
+}
+.contact { margin: 36px 0 18px; }
+.contact p { display: flex; gap: 10px; align-items: center; margin: 6px 0; }
+.contact svg { color: var(--primary); flex-shrink: 0; }
+.contact a { color: var(--primary); font-weight: 700; }
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .toc { position: static; }
+}

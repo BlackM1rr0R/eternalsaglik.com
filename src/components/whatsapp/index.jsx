@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp } from "../../icons/modern";
 import styles from "./index.module.css";
 import { whatsappUrl } from "../../utils/whatsapp";
+import { useT } from "../../i18n";
+import common from "../../i18n/common";
 
 const WhatsAppButton = () => {
   const [visible, setVisible] = useState(false);
   const [pulse, setPulse] = useState(false);
+  const t = useT(common);
 
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 2000);
@@ -23,14 +26,14 @@ const WhatsAppButton = () => {
 
   return (
     <a
-      href={whatsappUrl("Merhaba, bilgi almak istiyorum.")}
+      href={whatsappUrl(t("waDefault"))}
       target="_blank"
       rel="noopener noreferrer"
       className={`${styles.whatsapp} ${pulse ? styles.pulse : ""}`}
-      aria-label="WhatsApp ile iletişime geç"
+      aria-label={t("whatsapp")}
     >
       <FaWhatsapp />
-      <span className={styles.tooltip}>Bize yazın!</span>
+      <span className={styles.tooltip}>{t("writeUs")}</span>
     </a>
   );
 };

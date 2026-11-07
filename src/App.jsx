@@ -14,9 +14,14 @@ import MobileBar from "./components/widgets/mobilebar";
 import EmergencySheet from "./components/widgets/emergency";
 import A11yPanel from "./components/widgets/a11ypanel";
 import ConsentBanner from "./components/widgets/consent";
-import Assistant from "./components/widgets/assistant";
+import Assistant from "./components/widgets/assistantlauncher";
 import PageLoader from "./components/widgets/pageloader";
 import { trackPageView } from "./utils/analytics";
+import { IconContext } from "@phosphor-icons/react";
+import { LanguageProvider, useT } from "./i18n";
+import common from "./i18n/common";
+
+const ICONS = { weight: "duotone", size: "1em", mirrored: false };
 
 // Soft page transition: content rises and un-blurs in, fades and blurs out.
 const pageVariants = {
@@ -29,11 +34,15 @@ function App() {
   return (
     <HelmetProvider>
       <SettingsProvider>
-        <BrowserRouter>
-          <ScrollToTop>
-            <AnimatedRoutes />
-          </ScrollToTop>
-        </BrowserRouter>
+        <LanguageProvider>
+          <IconContext.Provider value={ICONS}>
+            <BrowserRouter>
+              <ScrollToTop>
+                <AnimatedRoutes />
+              </ScrollToTop>
+            </BrowserRouter>
+          </IconContext.Provider>
+        </LanguageProvider>
       </SettingsProvider>
     </HelmetProvider>
   );
@@ -41,6 +50,7 @@ function App() {
 
 function AnimatedRoutes() {
   const location = useLocation();
+  const t = useT(common);
 
   useEffect(() => {
     trackPageView(location.pathname);
@@ -48,7 +58,7 @@ function AnimatedRoutes() {
 
   return (
     <>
-      <a href="#main" className="skip-link">İçeriğe geç</a>
+      <a href="#main" className="skip-link">{t("skip")}</a>
       <Header />
       <Suspense fallback={<PageLoader />}>
         <AnimatePresence mode="wait">

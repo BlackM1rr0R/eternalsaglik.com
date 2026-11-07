@@ -12,49 +12,68 @@
 }
 
 .badge {
-  display: inline-block;
-  background: var(--teal-50);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface-glass);
   color: var(--primary);
-  padding: 6px 16px;
-  border-radius: var(--radius-full);
-  font-size: 13px;
-  font-weight: 600;
-  border: 1px solid var(--teal-200);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-xs);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 7px 14px;
+  border-radius: 999px;
+}
+.badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--grad-primary);
 }
 
 .header h2 {
-  font-size: 30px;
+  font-size: clamp(1.9rem, 3.6vw, 2.9rem);
   font-weight: 800;
   color: var(--text);
-  letter-spacing: -0.5px;
+  letter-spacing: -0.03em;
+  margin: 0;
 }
 
 .header p {
   font-size: 15px;
   color: var(--text-secondary);
-  max-width: 450px;
+  max-width: 520px;
+  margin: 0;
 }
 
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 14px;
 }
 
 .card {
-  padding: 28px 20px;
+  position: relative;
+  height: 100%;
+  padding: 26px 16px 30px;
   border-radius: var(--radius-xl);
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  transition: all 0.4s var(--ease);
+  gap: 8px;
   border: 1px solid var(--border);
   background: var(--surface);
   box-shadow: var(--shadow-sm);
-  cursor: default;
+  transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out), border-color 0.3s;
+  --tone: var(--teal-500);
 }
+.card.green { --tone: #3fb07e; }
+.card.blue { --tone: var(--blue-500); }
+.card.amber { --tone: var(--amber-500); }
 
 .card:hover {
   transform: translateY(-6px);
@@ -62,69 +81,79 @@
   border-color: var(--teal-200);
 }
 
-.cardIcon {
-  font-size: 28px;
-  margin-bottom: 4px;
+.glow {
+  position: absolute;
+  inset-inline-end: -40px;
+  top: -40px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--tone) 28%, transparent), transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+  transition: transform 0.6s var(--ease-out);
 }
+.card:hover .glow { transform: scale(1.35); }
 
 .cardNumber {
-  font-size: 32px;
+  margin-top: 8px;
+  font-size: clamp(1.8rem, 6vw, 2.6rem);
   font-weight: 800;
   line-height: 1;
-  background: linear-gradient(135deg, var(--teal-600), var(--blue-500));
+  letter-spacing: -0.03em;
+  background: var(--grad-accent-text);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  font-variant-numeric: tabular-nums;
 }
 
 .cardLabel {
-  font-size: 13px;
-  color: var(--text-secondary);
-  font-weight: 500;
+  font-size: 14px;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.cardNote {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.bar {
+  position: absolute;
+  inset-inline: 22%;
+  bottom: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--tone);
+  transform: scaleX(0.3);
+  opacity: 0.6;
+  transition: transform 0.5s var(--ease-out), opacity 0.4s;
+}
+.card:hover .bar {
+  transform: scaleX(1);
+  opacity: 1;
 }
 
 @media (min-width: 768px) {
   .section {
     padding: var(--section-py) 0;
   }
-
-  .header h2 {
-    font-size: 36px;
-  }
-
   .header {
     margin-bottom: 50px;
   }
-
+  .header p {
+    font-size: 16px;
+  }
   .grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
   }
-
   .card {
-    padding: 40px 24px;
+    padding: 38px 22px 40px;
   }
-
-  .cardIcon {
-    font-size: 32px;
-  }
-
-  .cardNumber {
-    font-size: 40px;
-  }
-
   .cardLabel {
-    font-size: 14px;
+    font-size: 15px;
   }
 }
-
-/* ── Soft Clinical section headers ── */
-.badge {
-  display: inline-flex !important; align-items: center; gap: 8px;
-  background: var(--surface-glass) !important; color: var(--primary) !important;
-  border: 1px solid var(--border) !important; box-shadow: var(--shadow-xs);
-  font-size: 12px !important; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700 !important;
-  padding: 7px 14px !important; border-radius: 999px !important;
-}
-.badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--grad-primary); }
-.header h2, .sectionTitle h2 { font-size: clamp(1.9rem, 3.6vw, 2.9rem) !important; letter-spacing: -0.03em; }

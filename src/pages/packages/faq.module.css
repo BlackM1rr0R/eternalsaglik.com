@@ -1,0 +1,12 @@
+/* FAQ accordion */
+.faq { max-width: 820px; margin: 0 auto; display: grid; gap: 12px; }
+.faqItem { border-radius: var(--radius-lg); background: var(--surface); box-shadow: 0 0 0 1px var(--border); overflow: hidden; transition: box-shadow 0.3s; }
+.faqItemOpen { box-shadow: 0 0 0 1px var(--teal-300), var(--shadow-md); }
+.faqQ {
+  width: 100%; border: 0; background: none; cursor: pointer; font: inherit; font-weight: 700; color: var(--text);
+  display: flex; gap: 14px; align-items: center; justify-content: space-between; padding: 18px 20px; text-align: start;
+}
+.faqQ svg { flex-shrink: 0; color: var(--primary); transition: transform 0.3s var(--ease-out); }
+.faqItemOpen .faqQ svg { transform: rotate(45deg); }
+.faqA { padding: 0 20px 18px; margin: 0; color: var(--text-secondary); line-height: 1.7; }
+

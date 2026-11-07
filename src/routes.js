@@ -1,7 +1,8 @@
 import { lazy } from "react";
-import Home from "./pages/home";
 
-// Home is bundled eagerly (first paint); every other page is its own chunk.
+// Every page is its own chunk; the home chunk is preloaded from index.js so first paint stays fast.
+export const loadHome = () => import("./pages/home");
+const Home = lazy(loadHome);
 const About = lazy(() => import("./pages/about"));
 const Contact = lazy(() => import("./pages/contact"));
 const Details = lazy(() => import("./pages/detailsblog"));

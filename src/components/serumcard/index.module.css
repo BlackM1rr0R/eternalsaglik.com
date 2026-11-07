@@ -1,0 +1,27 @@
+.svg { width: 100%; display: block; }
+
+.bagGroup { transform-box: fill-box; transform-origin: 50% 0; animation: sway 6s ease-in-out infinite; }
+.drop { animation: drip 2.4s cubic-bezier(0.55, 0, 0.8, 0.4) infinite; }
+.blob { animation: pulse 7s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.blob2 { animation: pulse 9s ease-in-out infinite reverse; transform-box: fill-box; transform-origin: center; }
+
+@keyframes sway { 0%, 100% { transform: rotate(-1.2deg); } 50% { transform: rotate(1.2deg); } }
+@keyframes drip {
+  0% { transform: translateY(0); opacity: 0; }
+  15% { opacity: 0.9; }
+  80% { transform: translateY(34px); opacity: 0.9; }
+  100% { transform: translateY(36px); opacity: 0; }
+}
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .bagGroup, .drop, .blob, .blob2 { animation: none; }
+}
+
+/* Dark mode: tint the background instead of a bright pastel block, lighten text. */
+:global([data-theme="dark"]) .bg { opacity: 0.12; }
+:global([data-theme="dark"]) .bag { fill: #1b3036; }
+:global([data-theme="dark"]) .bagInner { opacity: 0.35; }
+:global([data-theme="dark"]) .name { fill: var(--text); }
+:global([data-theme="dark"]) .cat { fill: var(--text-secondary); }
+:global([data-theme="dark"]) .pill { opacity: 0.3; }
