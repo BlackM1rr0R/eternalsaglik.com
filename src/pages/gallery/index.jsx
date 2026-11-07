@@ -14,6 +14,7 @@ import { articleImage, CATEGORY_ICONS } from "../../components/latestarticles/im
 import { useLang, useLocalized, useT } from "../../i18n";
 import { whatsappUrl } from "../../utils/whatsapp";
 import { primaryPhone } from "../../config/site";
+import MorphLink from "../../components/morphlink";
 
 const FEATURED_ID = 20;
 
@@ -247,8 +248,8 @@ const Gallery = () => {
 
           {browsing && featured && (
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
-              <SpotlightCard as={Link} to={`/details/${featured.id}`} className={styles.featured}>
-                <div className={styles.featuredImg}>
+              <SpotlightCard as={MorphLink} to={`/details/${featured.id}`} morph={`art-${featured.id}`} className={styles.featured}>
+                <div className={styles.featuredImg} data-morph-source="">
                   <img src={articleImage(featured.id)} alt="" loading="lazy" />
                   <span className={styles.ribbon}><Sparkle weight="fill" /> {t("featured")}</span>
                 </div>
@@ -267,8 +268,8 @@ const Gallery = () => {
           <Stagger key={`${cat}|${query}|${lang}`} className={styles.grid} gap={0.06}>
             {gridItems.map((item) => (
               <StaggerItem key={item.id}>
-                <SpotlightCard as={Link} to={`/details/${item.id}`} className={styles.card}>
-                  <div className={styles.cardImg}>
+                <SpotlightCard as={MorphLink} to={`/details/${item.id}`} morph={`art-${item.id}`} className={styles.card}>
+                  <div className={styles.cardImg} data-morph-source="">
                     <img src={articleImage(item.id)} alt="" loading="lazy" />
                   </div>
                   <div className={styles.cardBody}>

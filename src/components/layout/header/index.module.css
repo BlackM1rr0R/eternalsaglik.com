@@ -118,7 +118,7 @@
 .links { flex-shrink: 1; min-width: 0; }
 .actions { flex-shrink: 0; }
 
-@media (max-width: 1360px) {
+@media (max-width: 1500px) {
   .phone span:last-child { display: none; }
   .phone { padding: 6px; }
   .link { padding: 9px 11px; font-size: 13.5px; }
@@ -165,3 +165,20 @@
 .sheetActions .cta { display: inline-flex; padding: 14px 22px; font-size: 15px; }
 .sheetActions .phone { display: inline-flex; background: var(--surface); box-shadow: var(--shadow-xs); }
 .sheetActions .iconBtn { background: var(--surface); box-shadow: var(--shadow-xs); }
+
+/* Mega menu + search */
+.caret { position: relative; z-index: 1; font-size: 10px; margin-inline-start: 4px; vertical-align: middle; transition: transform 0.3s var(--ease-out); }
+.caretOpen { transform: rotate(180deg); }
+.megaWrap { pointer-events: auto; max-width: 1240px; margin: 0 auto; position: relative; }
+.mega { position: absolute; top: 10px; inset-inline: 0; transform-origin: top center; }
+.searchBtn { width: auto; padding: 0 12px; gap: 8px; display: inline-flex; border-radius: 999px; font-size: 16px; }
+.searchBtn kbd {
+  font: inherit; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 6px;
+  border: 1px solid var(--border); background: var(--bg-soft); color: var(--text-muted);
+}
+/* The bar is capped at 1240px, so search and phone are icon-only at every width */
+.searchBtn kbd, .phone span:last-child { display: none; }
+.searchBtn { width: 40px; padding: 0; justify-content: center; }
+.phone { padding: 6px; }
+@media (max-width: 1120px) { .megaWrap { display: none; } }
+@media (max-width: 560px) { .searchBtn { display: none; } }

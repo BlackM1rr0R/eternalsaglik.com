@@ -6,6 +6,7 @@ import {
   Question, CursorClick,
 } from "@phosphor-icons/react";
 import Icon3D from "../../components/icon3d";
+import { ServiceAnimIcon, ANIM_HOST } from "../../components/animicons";
 import TiltCard from "../../components/tiltcard";
 import PageHero from "../../components/pagehero";
 import ScrollReveal from "../../components/scrollreveal";
@@ -292,10 +293,10 @@ const Kifoz = () => {
                 return (
                   <motion.div key={s.slug} layout initial={{ opacity: 0, y: 24, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.94 }} transition={{ duration: 0.45, delay: i * 0.04, ease: [0.16, 1, 0.3, 1] }}>
-                    <TiltCard className={`${ui.card} ${ui.glowBorder} ${styles.serviceCard}`}>
+                    <TiltCard className={`${ui.card} ${ui.glowBorder} ${styles.serviceCard} ${ANIM_HOST}`}>
                       <Link to={`/hizmet/${s.slug}`} className={styles.cardLink}>
                         <div className={styles.cardHead}>
-                          <Icon3D icon={<Icon />} tone={s.tone} size={58} />
+                          <Icon3D icon={<ServiceAnimIcon slug={s.slug} fallback={Icon} />} tone={s.tone} size={58} />
                           <span className={styles.cardNum}>{String(services.findIndex((x) => x.slug === s.slug) + 1).padStart(2, "0")}</span>
                         </div>
                         <span className={styles.cardCat}>{cats[CAT_OF[s.slug]]}</span>
@@ -335,7 +336,7 @@ const Kifoz = () => {
                   initial={{ opacity: 0, y: 18, filter: "blur(6px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   exit={{ opacity: 0, y: -12, filter: "blur(6px)" }} transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}>
                   <div className={styles.pickTop}>
-                    <Icon3D icon={<PickedIcon />} tone={picked.tone} size={72} float />
+                    <Icon3D icon={<ServiceAnimIcon slug={picked.slug} fallback={PickedIcon} active gentle />} tone={picked.tone} size={72} float />
                     <div>
                       <span className={styles.cardCat}>{cats[CAT_OF[picked.slug]]}</span>
                       <h3>{picked.title}</h3>

@@ -20,6 +20,7 @@
 }
 .cardInner { display: flex; flex-direction: column; height: 100%; }
 .cardInner > p { margin: 0 0 4px; }
+.metaRow { display: flex; justify-content: space-between; align-items: center; gap: 8px 10px; flex-wrap: wrap; margin-top: 4px; }
 .period { display: inline-flex; gap: 6px; align-items: center; color: var(--text-muted); font-size: 0.86rem; font-weight: 600; }
 .more {
   margin-top: 16px; border: 0; background: none; cursor: pointer; font: inherit; font-weight: 700; font-size: 0.9rem;

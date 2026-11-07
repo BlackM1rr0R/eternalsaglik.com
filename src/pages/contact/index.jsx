@@ -16,6 +16,7 @@ import { trackEvent } from "../../utils/analytics";
 import { useT } from "../../i18n";
 import ui from "../../styles/ui.module.css";
 import styles from "./index.module.css";
+import { toast } from "../../components/toast";
 
 const dict = {
   tr: {
@@ -327,6 +328,7 @@ const Contact = () => {
     );
     trackEvent("generate_lead", { form: "contact", subject });
     setSuccessMessage(t("success"));
+    toast({ title: "✓", text: t("success"), type: "success" });
     setFirstName(""); setLastName(""); setGmail("");
     setMessage(""); setPhone(""); setSubject(""); setKvkk(false);
     setLoading(false);

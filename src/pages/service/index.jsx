@@ -9,6 +9,7 @@ import Wrapper from "../../components/UI/wrapper";
 import PageHero from "../../components/pagehero";
 import ScrollReveal from "../../components/scrollreveal";
 import Icon3D from "../../components/icon3d";
+import { ServiceAnimIcon, ANIM_HOST } from "../../components/animicons";
 import ListenButton from "../../components/listenbutton";
 import CallbackForm from "../../components/callbackform";
 import { Stagger, StaggerItem, SpotlightCard, ScrollLine, Magnetic } from "../../components/motion";
@@ -320,7 +321,7 @@ const ServicePage = () => {
       >
         <motion.div className={styles.heroIcon} initial={{ opacity: 0, scale: 0.6, rotate: -8 }} animate={{ opacity: 1, scale: 1, rotate: 0 }}
           transition={{ type: "spring", stiffness: 160, damping: 14, delay: 0.25 }}>
-          <Icon3D icon={<Icon />} tone={s.tone} size={96} float />
+          <Icon3D icon={<ServiceAnimIcon slug={s.slug} fallback={Icon} active gentle />} tone={s.tone} size={96} float />
         </motion.div>
         <div className={ui.btnRow}>
           <Magnetic>
@@ -503,8 +504,8 @@ const ServicePage = () => {
               const XIcon = x.icon;
               return (
                 <StaggerItem key={x.slug}>
-                  <Link to={`/hizmet/${x.slug}`} className={`${ui.card} ${styles.other}`}>
-                    <Icon3D icon={<XIcon />} tone={x.tone} size={44} />
+                  <Link to={`/hizmet/${x.slug}`} className={`${ui.card} ${styles.other} ${ANIM_HOST}`}>
+                    <Icon3D icon={<ServiceAnimIcon slug={x.slug} fallback={XIcon} />} tone={x.tone} size={44} />
                     <span>{x.title}</span>
                     <ArrowRight className={styles.otherArrow} />
                   </Link>

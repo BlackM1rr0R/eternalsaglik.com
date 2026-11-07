@@ -7,6 +7,7 @@ import { useSettings } from "../../context/settings";
 import { useT } from "../../i18n";
 import common from "../../i18n/common";
 import LangSwitch from "../langswitch";
+import { revealThemeChange } from "../../utils/viewtransition";
 
 const Switch = ({ on, onClick, label }) => (
   <button type="button" role="switch" aria-checked={on} aria-label={label} onClick={onClick}
@@ -56,7 +57,11 @@ const A11yPanel = () => {
               <div className={w.optRow}>
                 <span><FaMoon /> {a.dark}</span>
                 <Switch label={a.dark} on={settings.theme === "dark"}
-                  onClick={() => update({ theme: settings.theme === "dark" ? "light" : "dark" })} />
+                  onClick={(e) => revealThemeChange(e, () => {
+                    const next = settings.theme === "dark" ? "light" : "dark";
+                    document.documentElement.dataset.theme = next;
+                    update({ theme: next });
+                  })} />
               </div>
               <div className={w.optRow}>
                 <span><FaPause /> {a.motion}</span>

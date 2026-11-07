@@ -16,6 +16,7 @@ import { SITE } from "../../config/site";
 import { buildMessage, isValidPhone, openWhatsApp, whatsappUrl } from "../../utils/whatsapp";
 import { trackEvent } from "../../utils/analytics";
 import { useT } from "../../i18n";
+import { toast } from "../../components/toast";
 
 const SEG_META = [
   { id: "otel", icon: BuildingApartment, tone: "teal" },
@@ -336,6 +337,7 @@ const Corporate = () => {
     if (!valid()) return;
     openWhatsApp(message());
     trackEvent("generate_lead", { form: "corporate" });
+    toast({ title: "✓", text: t("sent"), type: "success" });
     setSent(true);
   };
   const mailHref = `mailto:${SITE.email}?subject=${encodeURIComponent(t("mailSubject", { company: f.company }))}&body=${encodeURIComponent(message().replace(/\*/g, ""))}`;

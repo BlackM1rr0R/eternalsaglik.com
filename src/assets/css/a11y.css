@@ -56,3 +56,9 @@
   header, footer, .no-print, [class*="mobileBar"], [class*="fab"] { display: none !important; }
   body { background: #fff !important; color: #000 !important; }
 }
+
+/* ── View transitions ── */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+.vt-theme::view-transition-old(root) { z-index: 1; }
+.vt-theme::view-transition-new(root) { z-index: 2; }
+

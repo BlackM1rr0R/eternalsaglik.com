@@ -13,6 +13,7 @@ import TiltCard from "../../components/tiltcard";
 import { Stagger, StaggerItem, SpotlightCard, Magnetic } from "../../components/motion";
 import ui from "../../styles/ui.module.css";
 import Faq from "./faq";
+import { CompareBar, CompareToggle, useCompare } from "../../components/compare";
 import s from "./index.module.css";
 import { packageGroups, giftPackage, translations } from "../../data/packages";
 import { FEATURES } from "../../config/site";
@@ -86,6 +87,8 @@ const dict = {
     quiz: "Serum Testi",
     symptoms: "Belirti Rehberi",
     book: "Randevu Al",
+    cmpHeading: "Paket karşılaştırması",
+    cmpTable: { group: "Grup", period: "Süre / sıklık", idealFor: "Kimler için uygun?", features: "Neler dahil?", howItWorks: "Nasıl işler?" },
   },
   en: {
     badge: "Packages",
@@ -153,6 +156,8 @@ const dict = {
     quiz: "Drip Quiz",
     symptoms: "Symptom Guide",
     book: "Book Now",
+    cmpHeading: "Package comparison",
+    cmpTable: { group: "Group", period: "Period / frequency", idealFor: "Who is it for?", features: "What's included", howItWorks: "How it works" },
   },
   ar: {
     badge: "الباقات",
@@ -220,13 +225,17 @@ const dict = {
     quiz: "اختبار المحاليل",
     symptoms: "دليل الأعراض",
     book: "احجز موعداً",
+    cmpHeading: "مقارنة الباقات",
+    cmpTable: { group: "المجموعة", period: "المدة / التكرار", idealFor: "لمن تناسب؟", features: "ماذا تشمل؟", howItWorks: "كيف تعمل؟" },
   },
 };
 
 const HOW_ICONS = [ChatCircleDots, ClipboardText, HouseLine, ArrowsClockwise];
 const HOW_TONES = ["teal", "blue", "amber", "green"];
+const PACKAGE_IDS = packageGroups.flatMap((g) => g.items.map((it) => it.id));
+const CMP_ROWS = ["group", "period", "idealFor", "features", "howItWorks"];
 
-const PackageCard = ({ p, groupTitle, t }) => {
+const PackageCard = ({ p, groupTitle, t, cmp }) => {
   const [open, setOpen] = useState(false);
   const Icon = p.icon;
   const id = `pk-${p.id}`;
@@ -237,7 +246,10 @@ const PackageCard = ({ p, groupTitle, t }) => {
         <div><Icon3D icon={<Icon />} tone={p.tone} size={58} /></div>
         <span className={s.groupTag}>{groupTitle}</span>
         <h3>{p.name}</h3>
-        <span className={s.period}><Clock /> {p.period}</span>
+        <div className={s.metaRow}>
+          <span className={s.period}><Clock /> {p.period}</span>
+          <CompareToggle checked={cmp.has(p.id)} onToggle={() => cmp.toggle(p.id)} name={p.name} full={cmp.full} />
+        </div>
         <p style={{ marginTop: 12 }}>{p.desc}</p>
         <ul aria-label={t("included")}>
           {p.features.map((f) => <li key={f}><Check weight="bold" /> {f}</li>)}
@@ -297,6 +309,25 @@ const Packages = () => {
     .flatMap((g) => g.items.map((p) => ({ p, groupTitle: g.title })));
   const tabs = [{ id: "all", title: t("all") }, ...groups.map((g) => ({ id: g.id, title: g.title }))];
   const GiftIcon = gift.icon;
+
+  const cmp = useCompare("package", PACKAGE_IDS);
+  const cmpRowLabels = t("cmpTable");
+  const cmpRows = CMP_ROWS.map((key) => ({ key, label: cmpRowLabels[key] }));
+  const cmpColumns = useMemo(
+    () => cmp.ids.map((id) => {
+      const g = groups.find((x) => x.items.some((it) => it.id === id));
+      const p = g?.items.find((it) => it.id === id);
+      if (!p) return null;
+      return {
+        id,
+        title: p.name,
+        subtitle: g.title,
+        waText: t("askText", { name: p.name }),
+        cells: { group: g.title, period: p.period, idealFor: p.idealFor, features: p.features, howItWorks: p.howItWorks },
+      };
+    }).filter(Boolean),
+    [cmp.ids, groups, t]
+  );
 
   return (
     <>
@@ -365,7 +396,7 @@ const Packages = () => {
                   <motion.div key={p.id} id={p.id} layout
                     initial={{ opacity: 0, y: 24, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.45, delay: Math.min(i, 6) * 0.04, ease: [0.16, 1, 0.3, 1] }}>
-                    <PackageCard p={p} groupTitle={groupTitle} t={t} />
+                    <PackageCard p={p} groupTitle={groupTitle} t={t} cmp={cmp} />
                   </motion.div>
                 ))}
               </AnimatePresence>
@@ -455,6 +486,8 @@ const Packages = () => {
           </div>
         </section>
       </Wrapper>
+
+      <CompareBar columns={cmpColumns} rows={cmpRows} onRemove={cmp.remove} onClear={cmp.clear} heading={t("cmpHeading")} />
     </>
   );
 };

@@ -9,7 +9,8 @@ import Logo from "../../components/logo";
 import LatestArticles from "../../components/latestarticles";
 import CallbackForm from "../../components/callbackform";
 import ScrollReveal from "../../components/scrollreveal";
-import { AudienceShortcuts, HowItWorks, ServiceAreas, ServicesShowcase } from "../../components/homesections";
+import { AudienceShortcuts, ServiceAreas, ServicesShowcase } from "../../components/homesections";
+import VisitStory from "../../components/visitstory";
 import { FaqList, faqJsonLd } from "../faq";
 import { faqs } from "../../data/faq";
 import { useT, useLang } from "../../i18n";
@@ -72,7 +73,7 @@ const Home = () => {
         <WhyEternal />
         <ServicesShowcase />
         <HomeCareExplainer />
-        <HowItWorks />
+        <VisitStory />
         <TrustSafety />
         <LatestArticles />
         <Logo />

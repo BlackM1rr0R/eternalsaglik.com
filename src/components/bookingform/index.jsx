@@ -1,8 +1,9 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
   ArrowLeft, ArrowRight, WhatsappLogo, CheckCircle, FileText, MapPin, Info, Stethoscope, CalendarDots, UserCircle, Check,
+  CaretLeft, CaretRight, Keyboard,
 } from "@phosphor-icons/react";
 import ui from "../../styles/ui.module.css";
 import styles from "./index.module.css";
@@ -11,6 +12,7 @@ import { SITE } from "../../config/site";
 import { buildMessage, isValidPhone, openWhatsApp } from "../../utils/whatsapp";
 import { trackEvent } from "../../utils/analytics";
 import { localize, useLang, useT } from "../../i18n";
+import { toast } from "../toast";
 
 const serviceTr = S.translations || {};
 const serviceList = S.services || [];
@@ -56,6 +58,14 @@ const dict = {
     doneC: " Ekibimiz randevunuzu onaylamak için size dönecek.",
     newReq: "Yeni talep",
     home: "Ana sayfa",
+    calGroup: "Tarih seçin",
+    prevWeek: "Önceki hafta",
+    nextWeek: "Sonraki hafta",
+    today: "Bugün",
+    typeDate: "veya tarihi yazın",
+    swipe: "Haftalar arasında geçmek için kaydırın veya okları kullanın.",
+    toastTitle: "WhatsApp mesajı hazırlandı",
+    toastText: "Mesajı göndermeyi unutmayın; ekibimiz randevunuzu onaylamak için size dönecek.",
   },
   en: {
     steps: ["Service", "Time & address", "Contact"],
@@ -97,6 +107,14 @@ const dict = {
     doneC: " Our team will get back to you to confirm your appointment.",
     newReq: "New request",
     home: "Home page",
+    calGroup: "Choose a date",
+    prevWeek: "Previous week",
+    nextWeek: "Next week",
+    today: "Today",
+    typeDate: "or type a date",
+    swipe: "Swipe or use the arrows to move between weeks.",
+    toastTitle: "WhatsApp message prepared",
+    toastText: "Remember to send the message; our team will get back to you to confirm.",
   },
   ar: {
     steps: ["الخدمة", "الوقت والعنوان", "التواصل"],
@@ -138,6 +156,14 @@ const dict = {
     doneC: " سيتواصل معك فريقنا لتأكيد موعدك.",
     newReq: "طلب جديد",
     home: "الصفحة الرئيسية",
+    calGroup: "اختر التاريخ",
+    prevWeek: "الأسبوع السابق",
+    nextWeek: "الأسبوع التالي",
+    today: "اليوم",
+    typeDate: "أو اكتب التاريخ",
+    swipe: "اسحب أو استخدم الأسهم للتنقل بين الأسابيع.",
+    toastTitle: "تم تجهيز رسالة واتساب",
+    toastText: "لا تنسَ إرسال الرسالة، وسيتواصل معك فريقنا لتأكيد الموعد.",
   },
 };
 
@@ -180,6 +206,136 @@ const fmtDate = (iso, locale) => {
   return Number.isNaN(d.getTime()) ? iso : d.toLocaleDateString(locale, { weekday: "long", day: "numeric", month: "long" });
 };
 const pick = (o, lang) => o[lang] || o.tr;
+
+/* ---------------------------------------------------------------- week-strip calendar */
+
+const MAX_WEEKS = 26;
+const pad = (n) => String(n).padStart(2, "0");
+const toIso = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const parseIso = (iso) => {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
+  return m ? new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]), 12) : null;
+};
+const addDays = (d, n) => {
+  const x = new Date(d);
+  x.setDate(x.getDate() + n);
+  return x;
+};
+// Weeks start on Monday (Turkish convention).
+const startOfWeek = (d) => addDays(new Date(d.getFullYear(), d.getMonth(), d.getDate(), 12), -((d.getDay() + 6) % 7));
+const weekOffsetOf = (iso) => {
+  const d = parseIso(iso);
+  if (!d) return 0;
+  const diff = Math.round((startOfWeek(d) - startOfWeek(new Date())) / (7 * 864e5));
+  return Math.min(Math.max(diff, 0), MAX_WEEKS);
+};
+
+// Animated week strip; the real <input id="bk-date"> below it stays the source of truth for typing / assistive tech.
+const DateStrip = ({ value, onChange, locale, rtl, t }) => {
+  const [offset, setOffset] = useState(() => weekOffsetOf(value));
+  const [dir, setDir] = useState(1);
+  // Typing a date in the fallback field moves the strip to that week.
+  useEffect(() => {
+    const o = weekOffsetOf(value);
+    setOffset((prev) => (prev === o ? prev : o));
+  }, [value]);
+
+  const go = (delta) => {
+    const n = Math.min(Math.max(offset + delta, 0), MAX_WEEKS);
+    if (n === offset) return;
+    setDir(delta > 0 ? 1 : -1);
+    setOffset(n);
+  };
+
+  const todayIso = today();
+  const first = addDays(startOfWeek(new Date()), offset * 7);
+  const days = Array.from({ length: 7 }, (_, i) => addDays(first, i));
+  const last = days[6];
+  const monthFmt = { month: "long", year: "numeric" };
+  const monthLabel = first.getMonth() === last.getMonth()
+    ? first.toLocaleDateString(locale, monthFmt)
+    : `${first.toLocaleDateString(locale, { month: "short" })} – ${last.toLocaleDateString(locale, monthFmt)}`;
+  const sign = rtl ? -1 : 1;
+  const flip = rtl ? { transform: "scaleX(-1)" } : undefined;
+
+  return (
+    <div className={styles.cal}>
+      <div className={styles.calHead}>
+        <button type="button" className={styles.calNav} onClick={() => go(-1)} disabled={offset === 0} aria-label={t("prevWeek")}>
+          <CaretLeft weight="bold" style={flip} aria-hidden="true" />
+        </button>
+        <div className={styles.calTitle} aria-live="polite">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.strong key={monthLabel} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.2 }}>
+              {monthLabel}
+            </motion.strong>
+          </AnimatePresence>
+          {offset > 0 && (
+            <button type="button" className={styles.calToday} onClick={() => { setDir(-1); setOffset(0); }}>{t("today")}</button>
+          )}
+        </div>
+        <button type="button" className={styles.calNav} onClick={() => go(1)} disabled={offset === MAX_WEEKS} aria-label={t("nextWeek")}>
+          <CaretRight weight="bold" style={flip} aria-hidden="true" />
+        </button>
+      </div>
+      <div className={styles.calViewport}>
+        <AnimatePresence initial={false} custom={dir} mode="popLayout">
+          <motion.div
+            key={offset}
+            className={styles.week}
+            role="radiogroup"
+            aria-label={t("calGroup")}
+            custom={dir}
+            variants={{
+              enter: (d) => ({ x: 70 * d * sign, opacity: 0 }),
+              center: { x: 0, opacity: 1 },
+              exit: (d) => ({ x: -70 * d * sign, opacity: 0 }),
+            }}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ type: "spring", stiffness: 320, damping: 32 }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.25}
+            dragSnapToOrigin
+            onDragEnd={(e, info) => {
+              const dx = info.offset.x;
+              if (Math.abs(dx) < 50) return;
+              go((rtl ? dx > 0 : dx < 0) ? 1 : -1);
+            }}
+          >
+            {days.map((d) => {
+              const iso = toIso(d);
+              const past = iso < todayIso;
+              const sel = iso === value;
+              const isToday = iso === todayIso;
+              return (
+                <button
+                  type="button"
+                  key={iso}
+                  role="radio"
+                  aria-checked={sel}
+                  aria-current={isToday ? "date" : undefined}
+                  aria-label={d.toLocaleDateString(locale, { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
+                  disabled={past}
+                  className={`${styles.day} ${sel ? styles.daySelected : ""} ${isToday ? styles.dayToday : ""}`}
+                  onClick={() => onChange(iso)}
+                >
+                  {sel && <motion.span layoutId="bkDaySel" className={styles.daySel} transition={{ type: "spring", stiffness: 420, damping: 34 }} />}
+                  <span className={styles.dayName}>{d.toLocaleDateString(locale, { weekday: "short" })}</span>
+                  <span className={styles.dayNum}>{d.toLocaleDateString(locale, { day: "numeric" })}</span>
+                  {isToday && <span className={styles.todayDot} aria-hidden="true" />}
+                </button>
+              );
+            })}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+      <p className={styles.calHint}>{t("swipe")}</p>
+    </div>
+  );
+};
 
 // Three-step booking wizard. There is no booking backend, so the result is a
 // pre-filled WhatsApp message to the clinic (works on every phone, no server needed).
@@ -262,6 +418,7 @@ const BookingForm = ({ defaultService = "" }) => {
       : fields;
     openWhatsApp(buildMessage(lang === "tr" ? "Online Randevu Talebi" : "Online Randevu Talebi / Online booking request", msgFields));
     trackEvent("generate_lead", { form: "booking", service: svc?.tr });
+    toast({ title: t("toastTitle"), text: t("toastText"), type: "success" });
     setDone(true);
   };
 
@@ -342,28 +499,41 @@ const BookingForm = ({ defaultService = "" }) => {
           {step === 1 && (
             <>
               <h3 style={{ margin: 0 }}>{t("q1")}</h3>
-              <div className={ui.row}>
-                <div className={ui.field}>
-                  <label htmlFor="bk-date">{t("date")}</label>
+              <div className={ui.field}>
+                <span className={ui.label}><CalendarDots aria-hidden="true" /> {t("date")}</span>
+                <DateStrip value={data.date} onChange={(v) => set("date", v)} locale={meta.locale} rtl={rtl} t={t} />
+                <div className={styles.dateFallback}>
+                  <label htmlFor="bk-date"><Keyboard aria-hidden="true" /> <span className={styles.srOnly}>{t("date")}: </span>{t("typeDate")}</label>
                   <input id="bk-date" type="date" min={today()} value={data.date} onChange={(e) => set("date", e.target.value)} />
-                  {data.date && <span className={styles.datePreview}><CalendarDots aria-hidden="true" /> {fmtDate(data.date, meta.locale)}</span>}
-                  <Err k="date" />
                 </div>
-                <div className={ui.field}>
-                  <label htmlFor="bk-district">{t("district")}</label>
-                  <select id="bk-district" value={data.district} onChange={(e) => set("district", e.target.value)}>
-                    {DISTRICTS.map((r) => <option key={r} value={r}>{districtLabel(r)}</option>)}
-                  </select>
-                </div>
+                <AnimatePresence mode="wait" initial={false}>
+                  {data.date && (
+                    <motion.span key={data.date} className={styles.datePreview}
+                      initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.2 }}>
+                      <CheckCircle weight="fill" aria-hidden="true" /> {fmtDate(data.date, meta.locale)}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+                <Err k="date" />
               </div>
               <span className={ui.label}>{t("slot")}</span>
-              <div className={ui.chips} role="radiogroup" aria-label={t("slotAria")}>
-                {SLOTS.map((s, i) => (
-                  <button type="button" key={s.tr} role="radio" aria-checked={data.slot === i} dir="ltr"
-                    className={`${ui.chip} ${data.slot === i ? ui.chipActive : ""}`} onClick={() => set("slot", i)}>
-                    {pick(s, lang)}
-                  </button>
-                ))}
+              <div className={styles.slots} role="radiogroup" aria-label={t("slotAria")}>
+                {SLOTS.map((s, i) => {
+                  const on = data.slot === i;
+                  return (
+                    <motion.button type="button" key={s.tr} role="radio" aria-checked={on} dir="ltr" whileTap={{ scale: 0.95 }}
+                      className={`${styles.slot} ${on ? styles.slotOn : ""}`} onClick={() => set("slot", i)}>
+                      {on && <motion.span layoutId="bkSlotSel" className={styles.slotSel} transition={{ type: "spring", stiffness: 420, damping: 34 }} />}
+                      <span className={styles.slotText}>{pick(s, lang)}</span>
+                    </motion.button>
+                  );
+                })}
+              </div>
+              <div className={ui.field}>
+                <label htmlFor="bk-district">{t("district")}</label>
+                <select id="bk-district" value={data.district} onChange={(e) => set("district", e.target.value)}>
+                  {DISTRICTS.map((r) => <option key={r} value={r}>{districtLabel(r)}</option>)}
+                </select>
               </div>
               <div className={ui.field}>
                 <label htmlFor="bk-address"><MapPin aria-hidden="true" /> {t("address")}</label>

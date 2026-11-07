@@ -74,6 +74,11 @@ const Hero = () => {
   const mxRaw = useMotionValue(0);
   const myRaw = useMotionValue(0);
   const mx = useSpring(mxRaw, { stiffness: 60, damping: 18 });
+  // Soft colour field that trails the pointer (pixels inside the hero)
+  const pxRaw = useMotionValue(-400);
+  const pyRaw = useMotionValue(-400);
+  const fx = useSpring(pxRaw, { stiffness: 40, damping: 20, mass: 0.8 });
+  const fy = useSpring(pyRaw, { stiffness: 40, damping: 20, mass: 0.8 });
   const my = useSpring(myRaw, { stiffness: 60, damping: 18 });
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const visualY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
@@ -83,6 +88,8 @@ const Hero = () => {
     if (reduce || e.pointerType !== "mouse") return;
     const r = ref.current.getBoundingClientRect();
     mxRaw.set(((e.clientX - r.left) / r.width - 0.5) * 2);
+    pxRaw.set(e.clientX - r.left);
+    pyRaw.set(e.clientY - r.top);
     myRaw.set(((e.clientY - r.top) / r.height - 0.5) * 2);
   };
 
@@ -93,6 +100,10 @@ const Hero = () => {
         <span className={`${styles.orb} ${styles.orbB}`} />
         <span className={`${styles.orb} ${styles.orbC}`} />
         <span className={styles.grid} />
+        {!reduce && <motion.span className={styles.follow} style={{ x: fx, y: fy }} />}
+        <svg className={styles.ecgTop} viewBox="0 0 1200 60" preserveAspectRatio="none">
+          <path d="M0 30 H260 L280 30 L292 12 L306 50 L318 4 L332 42 L342 30 H700 L716 30 L728 16 L742 46 L754 8 L766 38 L776 30 H1200" />
+        </svg>
       </div>
 
       <Wrapper>

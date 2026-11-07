@@ -19,6 +19,7 @@ import { articleImage, CATEGORY_ICONS } from "../../components/latestarticles/im
 import { localize, useLang, useT } from "../../i18n";
 import { whatsappUrl } from "../../utils/whatsapp";
 import { primaryPhone } from "../../config/site";
+import MorphTarget from "../../components/morphlink/target";
 
 const dict = {
   tr: {
@@ -317,7 +318,9 @@ const Details = () => {
               </div>
             </motion.div>
             <Float className={styles.heroImage} amplitude={6} duration={7}>
-              <motion.img src={articleImage(art.id)} alt="" initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.1 }} />
+              <MorphTarget name={`art-${art.id}`}>
+                <motion.img src={articleImage(art.id)} alt="" initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.1 }} />
+              </MorphTarget>
             </Float>
           </div>
         </Wrapper>

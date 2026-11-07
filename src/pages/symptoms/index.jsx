@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { Component, Suspense, lazy, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
@@ -17,6 +17,10 @@ import * as SR from "../../data/serums";
 import { getCareGuide, localizeGuide } from "../../data/careguides";
 import { whatsappUrl } from "../../utils/whatsapp";
 import { localize, useLang, useT } from "../../i18n";
+import { useSettings } from "../../context/settings";
+
+// three.js is only downloaded on this page, and only when the 3D map is actually used.
+const Body3D = lazy(() => import("./Body3D"));
 
 const serviceTr = S.translations || {};
 const articleTr = A.translations || {};
@@ -35,6 +39,8 @@ const dict = {
     steps: ["Bölgeyi seçin", "Şikayetinizi bulun", "Hizmete veya rehbere geçin"],
     mapLabel: "Vücut haritası",
     skinHint: "Cilt ve yaralar için figürün dış hattına dokunun.",
+    hint3d: "Döndürmek için yana sürükleyin, bir bölgeye dokunun. Cilt ve yaralar için figürün parlayan dış hattına dokunun.",
+    map3dLabel: "Döndürülebilir 3D vücut haritası. Bölgeleri aşağıdaki düğmelerle de seçebilirsiniz.",
     regionsLabel: "Bölgeler",
     count: "{n} konu",
     read: "Yazıyı oku",
@@ -60,6 +66,8 @@ const dict = {
     steps: ["Choose an area", "Find your complaint", "Go to the service or guide"],
     mapLabel: "Body map",
     skinHint: "Tap the outline of the figure for skin and wounds.",
+    hint3d: "Drag sideways to rotate and tap an area. For skin and wounds, tap the glowing outline of the figure.",
+    map3dLabel: "Rotatable 3D body map. You can also choose an area with the buttons below.",
     regionsLabel: "Areas",
     count: "{n} topics",
     read: "Read article",
@@ -85,6 +93,8 @@ const dict = {
     steps: ["اختر المنطقة", "ابحث عن شكواك", "انتقل إلى الخدمة أو الدليل"],
     mapLabel: "خريطة الجسم",
     skinHint: "المس الحدود الخارجية للشكل لاختيار الجلد والجروح.",
+    hint3d: "اسحب جانباً لتدوير الشكل ثم المس إحدى المناطق. للجلد والجروح المس الحدود المضيئة للشكل.",
+    map3dLabel: "خريطة جسم ثلاثية الأبعاد قابلة للتدوير. يمكنك أيضاً اختيار المنطقة بالأزرار أدناه.",
     regionsLabel: "المناطق",
     count: "{n} مواضيع",
     read: "اقرأ المقال",
@@ -122,6 +132,46 @@ const SKIN = (
     <rect x="62" y="192" width="76" height="146" rx="22" />
   </g>
 );
+
+// Decide once per visit whether the 3D map is worth loading on this device.
+const supports3D = () => {
+  if (typeof window === "undefined") return false;
+  try {
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return false;
+    if (window.innerWidth < 340) return false;
+    const nav = window.navigator || {};
+    if (nav.connection?.saveData) return false;
+    if (nav.deviceMemory && nav.deviceMemory < 2) return false;
+    if (nav.hardwareConcurrency && nav.hardwareConcurrency < 3) return false;
+    const canvas = document.createElement("canvas");
+    const gl = canvas.getContext("webgl2") || canvas.getContext("webgl");
+    if (!gl) return false;
+    gl.getExtension("WEBGL_lose_context")?.loseContext();
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+// Falls back to the SVG map if the 3D chunk fails to load or three.js throws.
+class Fallback3D extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { failed: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  componentDidCatch() {
+    this.props.onFail?.();
+  }
+
+  render() {
+    return this.state.failed ? this.props.fallback : this.props.children;
+  }
+}
 
 const getLinks = (item, t, lang) => {
   const links = [];
@@ -187,6 +237,15 @@ const Symptoms = () => {
   const flags = localizedRedFlags(lang);
   const region = regions.find((r) => r.id === active);
   const RegionIcon = REGION_ICONS[region.id] || Info;
+  const { settings } = useSettings() || { settings: {} };
+  const dark = settings.theme === "dark";
+  const [use3D, setUse3D] = useState(false);
+  const [hovered, setHovered] = useState(null);
+  const hoveredLabel = hovered && regions.find((r) => r.id === hovered)?.label;
+
+  useEffect(() => {
+    setUse3D(!reduce && !settings.reduceMotion && supports3D());
+  }, [reduce, settings.reduceMotion]);
 
   const zoneProps = (id) => {
     const r = regions.find((x) => x.id === id);
@@ -204,6 +263,17 @@ const Symptoms = () => {
       },
     };
   };
+
+  const svgMap = (
+    <svg viewBox="0 0 200 340" className={styles.figure} role="group" aria-label={t("mapLabel")}>
+      <g {...zoneProps("skin")} className={`${styles.skin} ${active === "skin" ? styles.skinActive : ""}`}>{SKIN}</g>
+      {ZONES.map((z) => (
+        <g key={z.id} {...zoneProps(z.id)} className={`${styles.zone} ${active === z.id ? styles.zoneActive : ""}`}>
+          {z.el}
+        </g>
+      ))}
+    </svg>
+  );
 
   return (
     <>
@@ -244,15 +314,28 @@ const Symptoms = () => {
 
         <section className={styles.layout}>
           <div className={styles.figureWrap}>
-            <svg viewBox="0 0 200 340" className={styles.figure} role="group" aria-label={t("mapLabel")}>
-              <g {...zoneProps("skin")} className={`${styles.skin} ${active === "skin" ? styles.skinActive : ""}`}>{SKIN}</g>
-              {ZONES.map((z) => (
-                <g key={z.id} {...zoneProps(z.id)} className={`${styles.zone} ${active === z.id ? styles.zoneActive : ""}`}>
-                  {z.el}
-                </g>
-              ))}
-            </svg>
-            <p className={styles.hint}>{t("skinHint")}</p>
+            <div className={`${styles.stage} ${use3D ? styles.stage3d : ""}`}>
+              {use3D ? (
+                <Fallback3D fallback={svgMap} onFail={() => setUse3D(false)}>
+                  <Suspense fallback={svgMap}>
+                    <div className={styles.canvas} role="img" aria-label={t("map3dLabel")}>
+                      <Body3D active={active} onSelect={setActive} onHover={setHovered} dark={dark} onFail={() => setUse3D(false)} />
+                    </div>
+                  </Suspense>
+                </Fallback3D>
+              ) : svgMap}
+              {use3D && (
+                <AnimatePresence>
+                  {hoveredLabel && (
+                    <motion.span key={hovered} className={styles.hoverTag} aria-hidden="true"
+                      initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }} transition={{ duration: 0.18 }}>
+                      {hoveredLabel}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              )}
+            </div>
+            <p className={styles.hint}>{use3D ? t("hint3d") : t("skinHint")}</p>
             <div className={ui.chips} style={{ justifyContent: "center", marginTop: 12 }} role="group" aria-label={t("regionsLabel")}>
               {regions.map((r) => {
                 const Ico = REGION_ICONS[r.id] || Info;

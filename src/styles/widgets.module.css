@@ -112,3 +112,65 @@
 .loaderPulse { width: 220px; height: 60px; }
 .loaderPulse path { stroke: var(--primary); stroke-width: 3; fill: none; stroke-dasharray: 300; animation: draw 1.4s ease-in-out infinite; }
 @keyframes draw { from { stroke-dashoffset: 300; } to { stroke-dashoffset: -300; } }
+
+/* ── Custom cursor ── */
+.cursor {
+  position: fixed; top: 0; left: 0; z-index: 10020; pointer-events: none;
+  border-radius: 50%; translate: -50% -50%;
+  border: 1.5px solid rgba(31, 138, 123, 0.55);
+  background: radial-gradient(circle, rgba(143, 213, 199, 0.18), transparent 70%);
+  mix-blend-mode: multiply;
+}
+[data-theme="dark"] .cursor { mix-blend-mode: screen; border-color: rgba(143, 213, 199, 0.5); }
+.cursor_link { background: rgba(143, 213, 199, 0.22); border-color: rgba(31, 138, 123, 0.35); }
+.cursor_card { background: radial-gradient(circle, rgba(195, 181, 251, 0.2), transparent 70%); border-color: rgba(147, 129, 238, 0.35); }
+.cursor_text { border-radius: 2px; background: var(--primary); border: 0; }
+
+/* ── Skeleton page loader ── */
+.skel { padding: 40px 20px 80px; max-width: 1240px; margin: 0 auto; }
+.skelHero { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 40px 0 60px; }
+.skGrid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.skCard { display: grid; gap: 12px; padding: 26px; border-radius: var(--radius-xl); background: var(--surface); border: 1px solid var(--border); }
+.sk {
+  display: block; border-radius: 10px;
+  background: linear-gradient(100deg, var(--bg-muted) 20%, var(--surface) 40%, var(--bg-muted) 60%) var(--bg-muted);
+  background-size: 220% 100%; animation: shimmer 1.4s ease-in-out infinite;
+}
+@keyframes shimmer { from { background-position: 120% 0; } to { background-position: -120% 0; } }
+.skPill { width: 120px; height: 28px; border-radius: 999px; }
+.skTitle { width: min(620px, 90%); height: 52px; border-radius: 14px; }
+.skTitle2 { width: min(420px, 70%); height: 52px; border-radius: 14px; }
+.skLine { width: min(560px, 100%); height: 14px; }
+.skShort { width: min(420px, 75%); }
+.skShorter { width: 45%; }
+.skBtns { display: flex; gap: 12px; margin-top: 10px; }
+.skBtn { width: 150px; height: 48px; border-radius: 999px; }
+.skIcon { width: 56px; height: 56px; border-radius: 18px; }
+
+/* ── Sticky contextual booking bar ── */
+.sticky {
+  position: fixed; z-index: 990; bottom: 22px; left: 50%; translate: -50% 0;
+  display: flex; align-items: center; gap: 12px; padding: 8px 8px 8px 10px; max-width: min(640px, calc(100vw - 180px));
+  border-radius: 999px; background: var(--surface-glass); color: var(--text);
+  backdrop-filter: blur(18px) saturate(170%); -webkit-backdrop-filter: blur(18px) saturate(170%);
+  border: 1px solid var(--border); box-shadow: var(--shadow-xl);
+}
+.stickyIcon { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; font-size: 20px; background: var(--grad-primary); color: #fff; }
+.stickyText { display: flex; flex-direction: column; min-width: 0; line-height: 1.2; }
+.stickyText small { font-size: 12px; color: var(--text-muted); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.stickyText strong { font-size: 14.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.stickyWa { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; color: var(--wa); background: rgba(37, 211, 102, 0.12); font-size: 20px; margin-inline-start: auto; }
+.stickyBtn {
+  display: inline-flex; gap: 8px; align-items: center; flex-shrink: 0; padding: 11px 18px; border-radius: 999px;
+  background: var(--slate-900); color: var(--bg); font-weight: 700; font-size: 14px; white-space: nowrap;
+}
+.stickyBtn svg { transition: transform 0.25s; }
+.stickyBtn:hover svg { transform: translateX(3px); }
+[dir="rtl"] .stickyBtn svg { transform: scaleX(-1); }
+.stickyClose { width: 30px; height: 30px; border-radius: 50%; border: 0; background: transparent; color: var(--text-muted); display: grid; place-items: center; flex-shrink: 0; }
+.stickyClose:hover { background: var(--bg-muted); color: var(--text); }
+@media (max-width: 768px) {
+  .sticky { bottom: 80px; max-width: calc(100vw - 24px); width: calc(100vw - 24px); border-radius: 22px; }
+  .stickyWa { display: none; }
+  .stickyText small { white-space: normal; }
+}

@@ -1,12 +1,31 @@
 import React from "react";
 import w from "../../styles/widgets.module.css";
 
-// Suspense fallback while a lazy page chunk downloads: a drawing heartbeat line.
+// Suspense fallback while a lazy page chunk downloads: a shimmering page skeleton
+// (hero, then a grid of cards) instead of an empty screen.
 const PageLoader = () => (
-  <div className={w.loader} role="status" aria-label="Yükleniyor">
-    <svg className={w.loaderPulse} viewBox="0 0 220 60" aria-hidden="true">
-      <path d="M0 30 H70 L82 10 L96 52 L110 4 L124 44 L134 30 H220" />
-    </svg>
+  <div className={w.skel} role="status" aria-busy="true" aria-label="…">
+    <div className={w.skelHero}>
+      <span className={`${w.sk} ${w.skPill}`} />
+      <span className={`${w.sk} ${w.skTitle}`} />
+      <span className={`${w.sk} ${w.skTitle2}`} />
+      <span className={`${w.sk} ${w.skLine}`} />
+      <span className={`${w.sk} ${w.skLine} ${w.skShort}`} />
+      <div className={w.skBtns}>
+        <span className={`${w.sk} ${w.skBtn}`} />
+        <span className={`${w.sk} ${w.skBtn}`} />
+      </div>
+    </div>
+    <div className={w.skGrid}>
+      {[0, 1, 2].map((i) => (
+        <div key={i} className={w.skCard} style={{ animationDelay: `${i * 0.12}s` }}>
+          <span className={`${w.sk} ${w.skIcon}`} />
+          <span className={`${w.sk} ${w.skLine}`} />
+          <span className={`${w.sk} ${w.skLine} ${w.skShort}`} />
+          <span className={`${w.sk} ${w.skLine} ${w.skShorter}`} />
+        </div>
+      ))}
+    </div>
   </div>
 );
 

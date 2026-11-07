@@ -11,12 +11,14 @@ import SerumSVG from "../../components/serumcard";
 import TiltCard from "../../components/tiltcard";
 import Icon3D from "../../components/icon3d";
 import { Stagger, StaggerItem, SpotlightCard, CountUp, ScrollLine, Magnetic } from "../../components/motion";
-import { serumList, serumCategories, listTranslations, categoryLabel } from "../../data/serums";
+import { CompareBar, CompareToggle, useCompare } from "../../components/compare";
+import { serumList, serumCategories, listTranslations, categoryLabel, serumDetails, detailTranslations } from "../../data/serums";
 import { whatsappUrl } from "../../utils/whatsapp";
 import { primaryPhone, SITE } from "../../config/site";
-import { useT, useLang, useLocalized } from "../../i18n";
+import { useT, useLang, useLocalized, localize } from "../../i18n";
 import ui from "../../styles/ui.module.css";
 import styles from "./index.module.css";
+import MorphLink from "../../components/morphlink";
 
 const dict = {
   tr: {
@@ -119,6 +121,9 @@ const dict = {
     ctaWa: "WhatsApp'tan Yazın",
     ctaCall: "Hemen Ara",
     disclaimer: "Bu sayfadaki bilgiler genel bilgilendirme amaçlıdır; tanı veya tedavi önerisi yerine geçmez.",
+    cmpHeading: "Serum karşılaştırması",
+    cmpRows: { category: "Kategori", desc: "Kısa açıklama", types: "Destek alanları", duration: "Uygulama süresi", forWho: "Kimler için?", consult: "Önce doktora danışılması gerekenler" },
+    cmpWa: "Merhaba, \"{name}\" serumu hakkında bilgi almak istiyorum.",
   },
   en: {
     badge: "IV Therapy & Drips",
@@ -220,6 +225,9 @@ const dict = {
     ctaWa: "Message on WhatsApp",
     ctaCall: "Call now",
     disclaimer: "The information on this page is general and does not replace a diagnosis or treatment advice.",
+    cmpHeading: "Drip comparison",
+    cmpRows: { category: "Category", desc: "In short", types: "Areas of support", duration: "Drip time", forWho: "Who is it for?", consult: "Check with a doctor first if" },
+    cmpWa: "Hello, I would like information about the \"{name}\" drip.",
   },
   ar: {
     badge: "العلاج الوريدي والمحاليل",
@@ -321,6 +329,9 @@ const dict = {
     ctaWa: "راسلنا عبر واتساب",
     ctaCall: "اتصل الآن",
     disclaimer: "المعلومات في هذه الصفحة عامة ولا تحلّ محل التشخيص أو المشورة العلاجية.",
+    cmpHeading: "مقارنة المحاليل",
+    cmpRows: { category: "الفئة", desc: "باختصار", types: "مجالات الدعم", duration: "مدة الجلسة", forWho: "لمن يناسب؟", consult: "استشر الطبيب أولًا في الحالات التالية" },
+    cmpWa: "مرحبًا، أودّ الاستفسار عن محلول \"{name}\".",
   },
 };
 
@@ -331,6 +342,8 @@ const WHAT_ICONS = [
   { icon: HouseLine, tone: "amber" },
 ];
 const STEP_ICONS = [ChatCircleDots, ClipboardText, FirstAidKit, Syringe, CheckCircle];
+const SERUM_IDS = serumList.map((s) => s.id);
+const CMP_ROWS = ["category", "desc", "types", "duration", "forWho", "consult"];
 
 const fold = (s, locale) => String(s || "").toLocaleLowerCase(locale).normalize("NFD").replace(/[̀-ًͯ-ٟ]/g, "");
 
@@ -368,6 +381,33 @@ const Serumlar = () => {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("Tümü");
   const [openFaq, setOpenFaq] = useState(0);
+  const cmp = useCompare("serum", SERUM_IDS);
+
+  const cmpRowLabels = t("cmpRows");
+  const cmpRows = CMP_ROWS.map((key) => ({ key, label: cmpRowLabels[key] }));
+  const cmpColumns = useMemo(
+    () => cmp.ids.map((id) => {
+      const base = serumList.find((x) => String(x.id) === id);
+      if (!base) return null;
+      const item = localize(base, listTranslations, lang, "id");
+      const d = localize(serumDetails.find((x) => String(x.id) === id), detailTranslations, lang, "id") || {};
+      return {
+        id,
+        title: item.info,
+        subtitle: categoryLabel(item.category, lang),
+        waText: t("cmpWa", { name: item.info }),
+        cells: {
+          category: categoryLabel(item.category, lang),
+          desc: item.desc,
+          types: (d.types || []).map((x) => x.t),
+          duration: d.duration,
+          forWho: [d.forKind, d.aboutKind].filter(Boolean).join(" — "),
+          consult: d.notFor,
+        },
+      };
+    }).filter(Boolean),
+    [cmp.ids, lang, t]
+  );
 
   const counts = useMemo(() => {
     const c = { Tümü: serumList.length };
@@ -480,17 +520,20 @@ const Serumlar = () => {
             {filtered.map((item) => (
               <StaggerItem key={item.id} className={styles.cell}>
                 <TiltCard className={styles.tilt} max={6}>
-                  <SpotlightCard className={styles.card}>
+                  <SpotlightCard className={styles.card} data-morph-scope="">
                     {item.popular && (
                       <span className={styles.popularBadge}><Star weight="fill" /> {t("popular")}</span>
                     )}
-                    <div className={styles.cardImage}>
+                    <div className={styles.cardImage} data-morph-source="">
                       <SerumSVG name={item.info} category={item.category} label={categoryLabel(item.category, lang)} />
                     </div>
                     <div className={styles.cardBody}>
-                      <span className={styles.cardCategory}>{categoryLabel(item.category, lang)}</span>
+                      <div className={styles.cardMeta}>
+                        <span className={styles.cardCategory}>{categoryLabel(item.category, lang)}</span>
+                        <CompareToggle checked={cmp.has(item.id)} onToggle={() => cmp.toggle(item.id)} name={item.info} full={cmp.full} />
+                      </div>
                       <h2 className={styles.cardTitle}>
-                        <Link to={`/serumlar/${item.id}`} className={styles.stretched}>{item.info}</Link>
+                        <MorphLink to={`/serumlar/${item.id}`} morph={`serum-${item.id}`} className={styles.stretched}>{item.info}</MorphLink>
                       </h2>
                       <p className={styles.cardDesc}>{item.desc}</p>
                       <div className={styles.cardAction}>
@@ -664,6 +707,8 @@ const Serumlar = () => {
           </Wrapper>
         </section>
       </section>
+
+      <CompareBar columns={cmpColumns} rows={cmpRows} onRemove={cmp.remove} onClear={cmp.clear} heading={t("cmpHeading")} />
     </>
   );
 };

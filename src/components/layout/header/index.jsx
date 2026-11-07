@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, Suspense, lazy } from "react";
+import { MagnifyingGlass, CaretDown } from "@phosphor-icons/react";
+import { revealThemeChange } from "../../../utils/viewtransition";
+import { openPalette, prefetchPalette } from "../../cmdk";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaPhoneAlt, FaMoon, FaSun, FaInstagram, FaArrowRight, FaCalendarCheck, FaTimes } from "../../../icons/modern";
@@ -22,6 +25,9 @@ const MORE = [
   ["/bakim-rehberi", "guides"], ["/kurumsal", "corporate"], ["/sss", "faq"],
 ];
 
+const loadMega = () => import("./megamenu");
+const MegaMenu = lazy(loadMega);
+
 const isActive = (pathname, path) => (path === "/" ? pathname === "/" : pathname.startsWith(path));
 
 const Header = () => {
@@ -30,12 +36,30 @@ const Header = () => {
   const { pathname } = useLocation();
   const { settings, update } = useSettings();
   const dark = settings.theme === "dark";
-  const toggleTheme = () => update({ theme: dark ? "light" : "dark" });
+  // Circular reveal from the button (View Transitions); the attribute is set directly so the
+  // new snapshot already has the new theme.
+  const toggleTheme = (e) =>
+    revealThemeChange(e, () => {
+      const next = dark ? "light" : "dark";
+      document.documentElement.dataset.theme = next;
+      update({ theme: next });
+    });
+  const [mega, setMega] = useState(false);
+  const [megaLoaded, setMegaLoaded] = useState(false);
+  const megaTimer = useRef(null);
+  const openMega = () => { clearTimeout(megaTimer.current); loadMega(); setMegaLoaded(true); megaTimer.current = setTimeout(() => setMega(true), 90); };
+  const closeMega = () => { clearTimeout(megaTimer.current); megaTimer.current = setTimeout(() => setMega(false), 160); };
   const t = useT(common);
   const navLinks = NAV.map(([path, k]) => ({ path, label: t("nav")[k] }));
   const moreLinks = MORE.map(([path, k]) => ({ path, label: t("more")[k] }));
 
-  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => { setOpen(false); setMega(false); }, [pathname]);
+  useEffect(() => {
+    if (!mega) return undefined;
+    const esc = (e) => e.key === "Escape" && setMega(false);
+    window.addEventListener("keydown", esc);
+    return () => window.removeEventListener("keydown", esc);
+  }, [mega]);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
@@ -69,12 +93,14 @@ const Header = () => {
             {navLinks.map((l) => {
               const active = isActive(pathname, l.path);
               return (
-                <li key={l.path}>
-                  <Link to={l.path} className={`${styles.link} ${active ? styles.linkActive : ""}`} aria-current={active ? "page" : undefined}>
+                <li key={l.path} {...(l.path === "/hizmetlerimiz" ? { onMouseEnter: openMega, onMouseLeave: closeMega, onFocus: openMega } : {})}>
+                  <Link to={l.path} className={`${styles.link} ${active ? styles.linkActive : ""}`} aria-current={active ? "page" : undefined}
+                    {...(l.path === "/hizmetlerimiz" ? { "aria-haspopup": "true", "aria-expanded": mega } : {})}>
                     {active && (
                       <motion.span layoutId="nav-pill" className={styles.pill} transition={{ type: "spring", stiffness: 380, damping: 32 }} />
                     )}
                     <span className={styles.linkLabel}>{l.label}</span>
+                    {l.path === "/hizmetlerimiz" && <CaretDown className={`${styles.caret} ${mega ? styles.caretOpen : ""}`} weight="bold" />}
                   </Link>
                 </li>
               );
@@ -82,6 +108,9 @@ const Header = () => {
           </ul>
 
           <div className={styles.actions}>
+            <button type="button" className={`${styles.iconBtn} ${styles.searchBtn}`} onClick={openPalette} onPointerEnter={prefetchPalette} aria-label="Ctrl K" title="Ctrl + K">
+              <MagnifyingGlass /> <kbd>Ctrl K</kbd>
+            </button>
             <button type="button" className={styles.iconBtn} onClick={toggleTheme} aria-label={dark ? t("themeLight") : t("themeDark")}>
               <AnimatePresence mode="wait" initial={false}>
                 <motion.span key={dark ? "sun" : "moon"} initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.25 }} style={{ display: "grid" }}>
@@ -90,7 +119,7 @@ const Header = () => {
               </AnimatePresence>
             </button>
             <span className={styles.lang}><LangSwitch /></span>
-            <a href={`tel:${primaryPhone.tel}`} className={styles.phone}>
+            <a href={`tel:${primaryPhone.tel}`} className={styles.phone} title={primaryPhone.display} aria-label={`${t("call")} ${primaryPhone.display}`}>
               <span className={styles.phoneIcon}><FaPhoneAlt /></span>
               <span>{primaryPhone.display}</span>
             </a>
@@ -102,6 +131,19 @@ const Header = () => {
             </button>
           </div>
         </motion.nav>
+        {megaLoaded && (
+          <div className={styles.megaWrap} onMouseEnter={openMega} onMouseLeave={closeMega}>
+            <AnimatePresence>
+              {mega && (
+                <motion.div className={styles.mega}
+                  initial={{ opacity: 0, y: -10, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -8, scale: 0.98 }}
+                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}>
+                  <Suspense fallback={null}><MegaMenu onNavigate={() => setMega(false)} /></Suspense>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
       </header>
 
       <AnimatePresence>

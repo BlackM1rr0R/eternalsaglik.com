@@ -5,6 +5,7 @@ import { buildMessage, isValidPhone, openWhatsApp } from "../../utils/whatsapp";
 import { trackEvent } from "../../utils/analytics";
 import { useT } from "../../i18n";
 import common from "../../i18n/common";
+import { toast } from "../toast";
 
 // "Sizi arayalım": only name + phone, for visitors who don't want to fill a long form.
 const CallbackForm = ({ title, source = "Web sitesi", compact = false }) => {
@@ -27,6 +28,7 @@ const CallbackForm = ({ title, source = "Web sitesi", compact = false }) => {
       buildMessage(c.msgTitle, { [c.name]: name, [c.phone]: phone, [c.when]: time, [c.page]: source })
     );
     trackEvent("generate_lead", { form: "callback", source });
+    toast({ title: c.title, text: c.sent, type: "success" });
     setSent(true);
   };
 

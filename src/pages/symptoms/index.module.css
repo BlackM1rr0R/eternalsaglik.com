@@ -32,6 +32,35 @@
 @media (max-width: 860px) { .figureWrap { position: static; } }
 .figure { width: 100%; max-width: 270px; display: block; margin: 0 auto; filter: drop-shadow(0 18px 30px rgba(13, 148, 136, 0.18)); overflow: visible; }
 @media (max-width: 520px) { .figure { max-width: 210px; } }
+/* Fixed-size stage shared by the SVG map and the 3D canvas, so swapping them causes no layout shift */
+.stage {
+  position: relative; width: 100%; max-width: 280px; aspect-ratio: 200 / 340; margin: 0 auto;
+  display: grid; place-items: center;
+}
+@media (max-width: 520px) { .stage { max-width: 230px; } }
+.stage .figure { max-width: none; width: 100%; height: 100%; }
+.stage3d::before {
+  content: ""; position: absolute; inset: 6% -8% 4%; border-radius: 50%; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(closest-side, rgba(51, 165, 147, 0.16), transparent 72%),
+    radial-gradient(closest-side at 50% 30%, rgba(147, 129, 238, 0.12), transparent 70%);
+}
+.canvas { position: absolute; inset: 0; z-index: 1; }
+.canvas canvas { outline: none; }
+.hoverTag {
+  position: absolute; z-index: 2; top: 0; inset-inline-start: 50%; transform: translateX(-50%);
+  padding: 5px 12px; border-radius: var(--radius-full); white-space: nowrap; pointer-events: none;
+  background: var(--surface-glass); border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  font-size: 0.8rem; font-weight: 700; color: var(--primary);
+}
+[dir="rtl"] .hoverTag { transform: translateX(50%); }
+[data-theme="dark"] .stage3d::before {
+  background:
+    radial-gradient(closest-side, rgba(93, 191, 174, 0.14), transparent 72%),
+    radial-gradient(closest-side at 50% 30%, rgba(147, 129, 238, 0.16), transparent 70%);
+}
+
 .hint { text-align: center; color: var(--text-muted); font-size: 0.82rem; margin: 10px 0 0; }
 .chip { display: inline-flex; gap: 6px; align-items: center; }
 

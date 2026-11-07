@@ -7,6 +7,7 @@ import {
 } from "@phosphor-icons/react";
 import ScrollReveal from "../scrollreveal";
 import Icon3D from "../icon3d";
+import { AnimIcon, ServiceAnimIcon, ANIM_HOST } from "../animicons";
 import TiltCard from "../tiltcard";
 import { Stagger, StaggerItem, SpotlightCard, CountUp, Magnetic } from "../motion";
 import ui from "../../styles/ui.module.css";
@@ -173,9 +174,9 @@ export const ServicesShowcase = () => {
           const Icon = s.icon;
           return (
             <StaggerItem key={s.slug} style={{ height: "100%" }}>
-              <TiltCard className={`${ui.card} ${ui.glowBorder}`} style={{ height: "100%" }}>
+              <TiltCard className={`${ui.card} ${ui.glowBorder} ${ANIM_HOST}`} style={{ height: "100%" }}>
                 <Link to={`/hizmet/${s.slug}`} className={styles.cardLink}>
-                  <Icon3D icon={<Icon />} tone={s.tone} size={62} />
+                  <Icon3D icon={<ServiceAnimIcon slug={s.slug} fallback={Icon} />} tone={s.tone} size={62} />
                   <h3>{s.title}</h3>
                   <p>{s.desc}</p>
                   <div className={styles.tags}>
@@ -199,9 +200,9 @@ export const ServicesShowcase = () => {
 
 const AUDIENCES = [
   { icon: UsersThree, tone: "teal", to: "/aileniz-icin" },
-  { icon: Bandaids, tone: "amber", to: "/paketler#ameliyat" },
-  { icon: Heartbeat, tone: "rose", to: "/paketler#duzenli" },
-  { icon: FlowerLotus, tone: "violet", to: "/serum-testi" },
+  { icon: Bandaids, anim: "bandage", tone: "amber", to: "/paketler#ameliyat" },
+  { icon: Heartbeat, anim: "heart", tone: "rose", to: "/paketler#duzenli" },
+  { icon: FlowerLotus, anim: "iv", tone: "violet", to: "/serum-testi" },
   { icon: GlobeHemisphereWest, tone: "blue", to: "/en" },
   { icon: Buildings, tone: "green", to: "/kurumsal" },
 ];
@@ -224,8 +225,8 @@ export const AudienceShortcuts = () => {
           const to = a.to === "/en" && lang === "ar" ? "/ar" : a.to;
           return (
             <StaggerItem key={a.to} style={{ height: "100%" }}>
-              <SpotlightCard as={Link} to={to} className={`${ui.card} ${ui.glass} ${styles.aud}`}>
-                <Icon3D icon={<Icon />} tone={a.tone} size={48} />
+              <SpotlightCard as={Link} to={to} className={`${ui.card} ${ui.glass} ${styles.aud} ${ANIM_HOST}`}>
+                <Icon3D icon={a.anim ? <AnimIcon name={a.anim} /> : <Icon />} tone={a.tone} size={48} />
                 <div>
                   <strong>{labels[i].t}</strong>
                   <span>{labels[i].d}</span>

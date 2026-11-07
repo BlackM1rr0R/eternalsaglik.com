@@ -19,6 +19,7 @@ import { whatsappUrl } from "../../utils/whatsapp";
 import { useT, useLang, localize } from "../../i18n";
 import ui from "../../styles/ui.module.css";
 import styles from "./index.module.css";
+import MorphTarget from "../../components/morphlink/target";
 
 const dict = {
   tr: {
@@ -191,7 +192,9 @@ const SerumlarDetails = () => {
             <motion.div className={styles.heroVisual} initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7 }}>
               <Float amplitude={6} duration={7}>
                 <TiltCard className={styles.heroSvg} max={7}>
-                  <SerumSVG name={serum.text} category={serum.category} label={catLabel} />
+                  <MorphTarget name={`serum-${serum.id}`} style={{ borderRadius: "inherit", overflow: "hidden" }}>
+                    <SerumSVG name={serum.text} category={serum.category} label={catLabel} />
+                  </MorphTarget>
                 </TiltCard>
               </Float>
             </motion.div>
